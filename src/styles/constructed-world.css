@@ -1,0 +1,38 @@
+body{background:#d2b087 url('/textures/dirt-bricks.svg') repeat;background-size:240px 136px}
+body .workshop-intro{position:relative;isolation:isolate}
+body .workshop-intro:before{content:'';position:absolute;inset:10px -20px -10px;background:#d6b98dc9;z-index:-1;border-radius:8px}
+body .about-strip{position:relative;isolation:isolate}body .about-strip:before{content:'';position:absolute;inset:30px -20px;background:#d4b589d9;z-index:-1;border-radius:8px}
+body .descent .hero{background:linear-gradient(180deg,#77bce8 0%,#a9d5ed 45%,#c3dfdb 90%)}
+body .site-header{background:#77bce8}body .descent{background:#77bce8}
+.brick-transition{position:absolute;left:0;top:-15px;width:100%;height:95px;z-index:0;pointer-events:none}
+body .project-section{padding-top:125px;border-top:0}body .project-section .section-rule{position:relative;z-index:1}
+body .project-section.ants:before{background:linear-gradient(#60422ac4,#705032ba),url('/textures/dirt-bricks.svg');background-size:auto,240px 136px}
+body .project-section.anipal:before{background:linear-gradient(#145b77a6,#15596da1),url('/textures/water-plates.svg');background-size:auto,260px 156px}
+body .project-section.anipal{--muted:#d1e5df;--ink:#ecf0dc;--accent:#e0e9b1}
+body .project-section.time:before{background:linear-gradient(145deg,#302d47f2,#283d51f2),url('/textures/dirt-bricks.svg');background-size:auto,240px 136px}
+body .project-section.time .time-flow{stroke-dasharray:220 550;opacity:.55;stroke-width:3;filter:drop-shadow(0 0 5px #aaa6ee40)}
+body .project-section.time .flow-two{stroke-dasharray:none;opacity:.35;stroke-width:1.5}
+body .capabilities-section{background:linear-gradient(#a5b07ac9,#a5b07ad9),url('/textures/dirt-bricks.svg');background-size:auto,240px 136px}
+body .site-footer{background:linear-gradient(#b79a70cf,#b79a70df),url('/textures/dirt-bricks.svg');background-size:auto,240px 136px}
+body .contact-cta{background:linear-gradient(#4b684ee8,#4b684ee8),url('/textures/dirt-bricks.svg');background-size:auto,240px 136px}
+body .editorial-page{background:#d3b38be8;padding-inline:30px;border-radius:8px}
+body .inner-hero{background:linear-gradient(#9fcce1,#d3b38be6)}
+body .technical-cases{background:#d4b790e8;padding-inline:24px;border-radius:8px}
+body .project-heading>div{min-width:0}.editorial-grid>*{min-width:0}body .editorial-page h1{overflow-wrap:anywhere}
+body .button{max-width:100%}.editorial-grid .button{white-space:normal;gap:15px}
+body .evidence-notes p,body .authority-diagram>figcaption,body .contact-panel p{color:#3e4838}
+.world-transition{height:272px;background:linear-gradient(var(--world-from),var(--world-to));overflow:hidden;position:relative;margin-top:-1px;margin-bottom:-1px}
+.world-transition svg{width:100%;height:272px;position:absolute;inset:0}
+body .project-section{padding-top:28px}
+body .media-placeholder{width:100%;max-width:100%;grid-template-columns:minmax(0,1fr)}
+html{scrollbar-gutter:stable}
+html.intro-playing{overflow:hidden;overscroll-behavior:none;scroll-behavior:auto}
+body .descent.motion-enabled{height:calc(100svh - var(--header-height,98px));overflow-anchor:none}
+body .descent.motion-enabled .hero{height:100%;min-height:0;position:relative}
+html.intro-boot body .descent{height:calc(100svh - 98px);overflow-anchor:none}
+html.intro-boot body .descent .hero{height:100%;min-height:0;position:relative}
+html.intro-boot body .descent .hero-copy{opacity:0;transform:translate(-50%,65px)}
+@media(max-width:760px){html.intro-boot body .descent{height:calc(100svh - 86px)}}
+@media(prefers-reduced-motion:reduce){html.intro-boot body .descent .hero-copy{opacity:1;transform:translateX(-50%)}}
+@media(max-width:760px){body .descent.motion-enabled{height:calc(100svh - var(--header-height,83px))}body .project-section{padding-top:26px}.world-transition{height:272px}body .project-section:nth-child(even) .media-frame{transform:none}}
+@media(max-width:760px){body .workshop-intro:before{inset:10px -10px -8px}body .about-strip:before{inset:24px -10px}body .editorial-page{padding-inline:0;background:transparent}body .editorial-page h1{font-size:clamp(40px,11vw,52px)}body .editorial-grid{grid-template-columns:minmax(0,1fr)}body .technical-cases{padding-inline:0;background:transparent}.project-environment svg{opacity:.8}}

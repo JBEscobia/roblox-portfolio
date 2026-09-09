@@ -1,0 +1,38 @@
+body .project-section .section-rule,body .project-section .project-heading,body .project-section .project-grid{position:relative;z-index:2}
+body .project-section{--reading-plane:#253f53}
+body .project-section.time{--reading-plane:#37334c}
+body .project-section.ants{--reading-plane:#6b4b33}
+body .project-section.anipal{--reading-plane:#216278}
+body .project-section .project-evidence-footer>.mono,body .project-section .project-evidence-footer>.text-link{background:var(--reading-plane);padding:7px 10px;border-radius:3px}
+body .project-section .play-copy,body .project-section .explode-copy{background:var(--reading-plane);padding:18px 20px;border-radius:6px}
+body .project-section .project-premise{background:var(--reading-plane);padding:14px 16px;border-radius:5px}
+body .project-section .project-evidence .tags{position:relative;z-index:3;isolation:isolate;margin:0 0 24px;gap:9px}
+body .project-section .tags li{background:#293e4f;border-color:#8a9d9d;color:#f2f0dd;font-size:12px;line-height:1.45;padding:8px 12px;white-space:normal;max-width:100%}
+body .project-section.time .tags li{background:#40374f}
+body .project-section.ants .tags li{background:#503b2c}
+body .project-section.anipal .tags li{background:#214e5c}
+body .project-section .media-frame{margin-top:0}
+body .project-section .project-premise{font-size:15px;line-height:1.75}
+body .project-section .play-copy p,body .project-section .explode-copy>p{font-size:15px;line-height:1.75}
+body .project-section .text-link{font-size:15px;min-height:36px}
+body .project-evidence-footer .mono{font-size:10px}
+body .project-section .assembly-top{flex-wrap:wrap;row-gap:12px}
+body .project-section .mode-controls button,body .mode-controls button{font-size:12px;letter-spacing:0;padding:10px 14px;min-height:42px}
+body .project-section .model-label,body .model-label{font-size:9px;letter-spacing:.04em}
+body .project-section .mechanic-button,body .mechanic-button{font-size:12px;padding:9px 12px;min-height:42px}
+body .project-section .media-top .mono,body .media-top .mono{font-size:10px;letter-spacing:.06em}
+body .project-section .media-frame figcaption,body .media-frame figcaption{font-size:12px;line-height:1.6}
+body .project-section .media-placeholder p:not(.mono){font-size:13px}
+body .system-layers strong,body .system-layers span{font-size:12px;line-height:1.6}
+body .case-study .technical-case .case-player{font-size:15px;line-height:1.75}
+body .case-study .technical-case summary{font-size:14px;min-height:42px;line-height:1.5;padding-block:7px}
+body .case-study .technical-case details p{font-size:14px;line-height:1.8}
+body .case-study .technical-case .implementation-detail{margin-top:0;border-top:0;padding-top:0}
+body .case-study .case-jump-nav{font-size:12px;line-height:1.6;gap:16px 24px}
+body .case-study .inner-hero .tags li{font-size:12px;padding:7px 11px;background:#203941;color:#f1f0dc;position:relative;z-index:2}
+body .case-study.time .inner-hero .tags li{background:#3f344e}
+body .case-study.ants .inner-hero .tags li{background:#513b2b}
+body .case-study.anipal .inner-hero .tags li{background:#204d59}
+body .case-study .evidence-notes p{font-size:14px;line-height:1.8}
+body .project-evidence-footer{flex-wrap:wrap;row-gap:12px}
+@media(max-width:760px){body .project-section .tags li{font-size:11px;padding:8px 10px}body .project-section .project-premise,body .project-section .play-copy p,body .project-section .explode-copy>p{font-size:14px}body .project-section .mode-controls button{font-size:12px}body .project-section .assembly-top>.mono{font-size:9px}body .case-study .technical-case .case-player{font-size:14px}body .project-section .model-label{font-size:8px}body .case-study .case-jump-nav{font-size:11px}body .project-section .media-top .mono{font-size:9px}body .project-section .text-link{font-size:14px}}

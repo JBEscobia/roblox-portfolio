@@ -1,0 +1,47 @@
+---
+import '@fontsource-variable/bricolage-grotesque';
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+import {site} from '../data/site';
+interface Props { title?: string; description?: string; }
+const {title='Roblox gameplay and systems development',description='Four independently developed Roblox projects featuring custom movement, multiplayer physics, currencies, shops, inventories, weather, and saved progress.'}=Astro.props;
+const canonical=Astro.site?new URL(Astro.url.pathname,Astro.site):undefined;
+const path=Astro.url.pathname;
+const links=[['Systems','/#systems'],['Projects','/#projects'],['About','/about/'],['Services','/services/']];
+---
+<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="theme-color" content="#e4f2f8"/><meta name="description" content={description}/><meta name="generator" content={Astro.generator}/><title>{title} — {site.name}</title>{canonical&&<link rel="canonical" href={canonical}/>}<meta property="og:title" content={`${title} — ${site.name}`}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/>{canonical&&<meta property="og:url" content={canonical}/>}<meta name="twitter:card" content="summary"/><link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+ <script is:inline>
+  document.documentElement.classList.add('nav-enhanced','intro-boot');
+  if(location.pathname==='/'){
+   history.scrollRestoration='manual';
+   const navigation=performance.getEntriesByType('navigation')[0];
+   if(navigation?.type==='reload'&&location.hash){
+    history.replaceState(history.state,'',location.pathname+location.search);
+   }
+  }
+  if(location.pathname==='/'&&!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+   let touchY=0,requestTimeout=0;
+   const early={requested:false,cancelled:false,release:()=>{clearTimeout(timeout);clearTimeout(requestTimeout);removeEventListener('wheel',wheel);removeEventListener('touchstart',touchStart);removeEventListener('touchmove',touchMove);removeEventListener('keydown',key);removeEventListener('click',navigation);}};
+   const cancel=()=>{early.cancelled=true;early.release();document.documentElement.classList.remove('intro-boot');};
+   const request=()=>{if(!early.requested)requestTimeout=setTimeout(cancel,1200);early.requested=true;};
+   const wheel=e=>{if(!e.ctrlKey&&(early.requested||e.deltaY>0)){e.preventDefault();request();}};
+   const touchStart=e=>{touchY=e.touches[0]?.clientY||0;};
+   const touchMove=e=>{if(e.touches.length===1&&(early.requested||touchY-e.touches[0].clientY>3)){e.preventDefault();request();}};
+   const key=e=>{if(e.key==='Escape'){cancel();return;}if(['ArrowDown','PageDown',' ','End'].includes(e.key)&&!e.target.closest('a,button,input,textarea,select')){e.preventDefault();request();}};
+   const navigation=e=>{if(e.target.closest('a[href]'))cancel();};
+   const timeout=setTimeout(()=>{cancel();document.documentElement.classList.remove('nav-enhanced');},3000);
+   window.__introEarly=early;
+   addEventListener('wheel',wheel,{passive:false});addEventListener('touchstart',touchStart,{passive:true});addEventListener('touchmove',touchMove,{passive:false});addEventListener('keydown',key);addEventListener('click',navigation);
+  }
+ </script>
+ </head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+ <header class="site-header"><a href="/" class="brand" aria-label={`${site.name} home`}><span class="brand-brick" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>ROBLOX<br/>SYSTEMS DEVELOPER<span class="brand-period">.</span></span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" hidden>Menu <span aria-hidden="true">+</span></button><nav id="site-nav" aria-label="Main navigation">{links.map(([name,url])=><a href={url} aria-current={path===url?'page':undefined}>{name}</a>)}<a class="contact-link" href="/contact/" aria-current={path==='/contact/'?'page':undefined}>Contact <span aria-hidden="true">↗</span></a></nav></header>
+ <main id="main"><slot/></main>
+ <footer class="site-footer"><a class="footer-wordmark" href="/">Roblox systems<br/>development<span>.</span></a><div><p>{site.role}</p><p class="footer-fine">Independent projects. Explicit boundaries.<br/>Gameplay, physics, networking, and simulation.</p></div><div class="footer-links"><a href="/about/">About</a><a href="/services/">Services</a><a href="/contact/">Contact ↗</a><a href="#main">Back to top ↑</a></div><div class="footer-bottom mono"><span>ROBLOX SYSTEMS DEVELOPER</span><span>INDEPENDENT PROJECT PORTFOLIO</span></div></footer>
+ <script>
+ const toggle=document.querySelector<HTMLButtonElement>('.menu-toggle');
+ const nav=document.querySelector<HTMLElement>('#site-nav');
+ if(toggle&&nav){toggle.hidden=false;document.documentElement.classList.add('nav-enhanced');const close=()=>{toggle.setAttribute('aria-expanded','false');nav.classList.remove('is-open');};toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));nav.classList.toggle('is-open',open);});nav.addEventListener('click',e=>{if((e.target as HTMLElement).closest('a'))close();});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true'){close();toggle.focus();}});matchMedia('(min-width: 761px)').addEventListener('change',close);}
+ </script>
+</body></html>

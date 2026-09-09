@@ -1,0 +1,132 @@
+{
+  "title": "Time Tag",
+  "shortTitle": "Time Tag",
+  "order": 2,
+  "zone": "Time",
+  "accent": "time",
+  "status": {
+    "label": "Prototype",
+    "evidence": "user-supplied"
+  },
+  "headline": "Dashing around obstacles and rewinding movement.",
+  "premise": "A tag game with obstacle-aware dashes, movement rewind, round rewards, and saved cosmetic collections.",
+  "proof": "Movement abilities backed by rewards, shops, and saved progress.",
+  "capabilities": [
+    "Dash & rewind",
+    "Currencies & rewards",
+    "Leaderboards",
+    "Shops & monetization",
+    "Saved inventory"
+  ],
+  "hero": "TT-01",
+  "supporting": [
+    "TT-02",
+    "TT-05",
+    "TT-06",
+    "TT-07"
+  ],
+  "play": {
+    "title": "Dash to a target or rewind your movement",
+    "description": "The game plans a route for the seeker’s dash. Rewind follows a recorded movement sequence, with a ghost and connecting line showing the previous positions. Gameplay videos will be added here."
+  },
+  "explode": {
+    "title": "How a dash route is planned and checked",
+    "description": "The solver checks the level for places the character can stand, then searches walk and jump connections. The movement plays on the player’s computer, with a final position check on the server.",
+    "layers": [
+      {
+        "title": "01 / Find possible standing positions",
+        "detail": "Sample the level and check space above the character."
+      },
+      {
+        "title": "02 / Choose a route",
+        "detail": "Search walk, jump, and higher-cost super-jump connections."
+      },
+      {
+        "title": "03 / Play and check the movement",
+        "detail": "Run the movement locally, then check its endpoint on the server."
+      }
+    ]
+  },
+  "cases": [
+    {
+      "id": "parkour-solver",
+      "title": "Finding a route through the level",
+      "player": "The game checks obstacles and landing space when planning a dash.",
+      "technical": "ParkourSolver samples downward hits along a corridor and filters for walkable normals. A five-point upward ray fan checks headroom without treating the empty space above a wedge as an obstruction. Walk edges use passage sweeps. Natural jumps solve vertical projectile motion and test the required horizontal speed, then sweep along the arc. The A* search yields when its configured time budget is used.",
+      "tradeoff": "Super-jump edges carry an inflated search cost to favor natural routes, so this is not a claim of minimum real travel time. The search uses a linear open list. The arena itself is authored, not procedurally generated.",
+      "evidence": "verified-source",
+      "claims": [
+        "TT-C01",
+        "TT-C02",
+        "TT-C03",
+        "TT-C04",
+        "TT-C05"
+      ]
+    },
+    {
+      "id": "ability-authority",
+      "title": "Checking where a dash or rewind ends",
+      "player": "The player’s computer plays the movement, then the server checks the final position.",
+      "technical": "Both abilities follow request → server approval → local playback → completion-position report → endpoint validation/reconciliation. Rewind is checked against independent server history; dash uses geometric bounds and landing-clearance checks. Observers receive server-derived replica state with frame-rate-independent smoothing.",
+      "tradeoff": "The server checks the endpoint, not every movement step. This is neither rollback netcode nor conventional input-replay prediction. Current rewind and solver behavior still need recorded runtime evidence.",
+      "evidence": "verified-source",
+      "claims": [
+        "TT-C06",
+        "TT-C07"
+      ]
+    },
+    {
+      "id": "session-ownership",
+      "title": "Saved profiles and prototype trade handling",
+      "player": "Currency and inventory use a shared saved profile; the prototype also contains trade coordination.",
+      "technical": "SessionLock stores ownership in the protected DataStore record and uses UpdateAsync to reject an active competing owner, with stale takeover rules. A trade takes two profile/resource types for each of two players in deterministic order, revalidates and snapshots state, then applies the swap with failure and rollback branches.",
+      "tradeoff": "This is source-inspected prototype architecture, not evidence of a released trading feature or universal fault tolerance. The companion-profile dependency should be rechecked before promoting trading as product scope.",
+      "evidence": "verified-source",
+      "claims": [
+        "TT-C10",
+        "TT-C11"
+      ]
+    }
+  ],
+  "notes": [
+    "The source audit verifies movement abilities, profile persistence, currency-spend trail crates, and reward/purchase handling. Current gameplay recordings are pending.",
+    "No claim of fully server-driven movement, rollback netcode, or a frame-time guarantee is made."
+  ],
+  "next": "ants",
+  "features": [
+    {
+      "title": "Dash and rewind",
+      "description": "Dash around obstacles to a target, or retrace earlier movement with a visible ghost and trail.",
+      "sources": [
+        "02-deep-pass.md §3 ParkourSolver / echo abilities",
+        "Final: TT-C01–TT-C07"
+      ]
+    },
+    {
+      "title": "Round rewards and leaderboards",
+      "description": "Round results rank players and award coins, keys, and XP.",
+      "sources": [
+        "01-mechanics.md §2 round resolution",
+        "02-deep-pass.md opening source list; §1 round/payout verification"
+      ]
+    },
+    {
+      "title": "Shops and monetization",
+      "description": "The prototype includes currency purchases, purchase-receipt handling, and a rotating trail-crate shop.",
+      "sources": [
+        "01-mechanics.md §3 Economy / Subscriptions",
+        "02-deep-pass.md §3 PlayerProfileService / crate rotation"
+      ],
+      "note": "Purchase handling is reviewed in source; current checkout and grants need testing. Subscription IDs still reference the previous game in the audit."
+    },
+    {
+      "title": "Cosmetic inventory and saved progress",
+      "description": "Collect and equip trails, with currency, inventory, and progress stored in a player profile.",
+      "sources": [
+        "01-mechanics.md §3 Persistence",
+        "02-deep-pass.md §3 PlayerProfileService + SessionLock"
+      ],
+      "note": "The save-and-return clip will show a specific confirmed result, not a guarantee against every save failure."
+    }
+  ]
+}

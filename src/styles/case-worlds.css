@@ -1,0 +1,30 @@
+body .case-study{padding-bottom:1px;--line:#a3b8b54a;--ink:#edf0df;--muted:#cbdcd5;--accent:#d5e3bb;color:var(--ink);background-color:#29455a}
+body .case-study.gravity{--muted:#c4d4e1;--accent:#c0d5f3;--case-accent:#35548c;--case-panel:#d4d3bf;background:radial-gradient(#b0cde37a .7px,transparent .7px) 0 0/83px 71px,linear-gradient(150deg,#20374e,#29485e)}
+body .case-study.time{--muted:#d4cddd;--accent:#d3c3ed;--case-accent:#624886;--case-panel:#d0c6d2;background:linear-gradient(130deg,#332d49f2,#294451f2),url('/textures/dirt-bricks.svg')}
+body .case-study.ants{--muted:#e8d2b7;--accent:#f0d5a8;--case-accent:#76482b;--case-panel:#d7bc94;background:linear-gradient(#60422acc,#705032cc),url('/textures/dirt-bricks.svg')}
+body .case-study.anipal{--muted:#d1e5df;--accent:#e0e9b1;--case-accent:#2a604c;--case-panel:#c4cfac;background:linear-gradient(#145b77aa,#15596da8),url('/textures/water-plates.svg');background-size:auto,260px 156px}
+body .case-study .inner-hero{position:relative;isolation:isolate;overflow:hidden;background:none;padding-top:38px;padding-bottom:45px}
+body .case-study .inner-hero .project-environment{height:780px;opacity:.55;mask-image:linear-gradient(#000 50%,transparent)}
+body .case-study .inner-hero h1{font-size:clamp(54px,7vw,98px)}
+body .case-study .inner-hero .lede{max-width:780px}
+body .case-study .inner-hero .tags li{background:#d6e0cb0d;border-color:#d5ddc955;color:var(--muted)}
+body .case-study .case-jump-nav{border-color:#d0dfc344}
+body .case-study .media-frame,body .case-study .system-assembly,body .case-study .technical-cases,body .case-study .evidence-notes{--ink:#29382f;--muted:#3c4d40;--accent:var(--case-accent);color:var(--ink);background:var(--case-panel);border-color:#b7ba9c;box-shadow:0 5px 0 #101e3020}
+body .case-study .technical-cases{padding-inline:30px;background:linear-gradient(color-mix(in srgb,var(--case-panel),transparent 4%),color-mix(in srgb,var(--case-panel),transparent 4%)),url('/textures/dirt-bricks.svg');border:1px solid #bdc1a680}
+body .case-study .technical-case{border-color:#7c8b7160;gap:55px}
+body .case-study .technical-case:last-child{border-bottom:0}
+body .case-study .technical-body>p{font-size:14px;color:#314237}
+body .case-study .technical-case details{border-color:#81917688}
+body .case-study .evidence-notes{padding:29px 32px}
+body .case-study .authority-diagram{--muted:#3c4d40;background:#b9b2c4;color:#29382f;border-color:#87859a}
+body .case-study .authority-diagram>div{background:#d8d0dd;border-color:#aaa2b4}
+body .case-study .media-placeholder{background-color:var(--case-panel)}
+body .case-study .media-top,body .case-study .media-frame figcaption{background:#eee3c438}
+body .case-study .media-frame figcaption{color:#344536}
+body .case-study .mode-controls{background:#e0d7bd}
+body .case-study .mode-controls button[aria-pressed=true]{background:var(--case-accent);color:#fff7e8}
+body .case-study .system-layers li{background:color-mix(in srgb,var(--case-panel),#f8ecc9 25%)}
+body .case-study .case-proof{max-width:900px;font-size:36px;line-height:1.12}
+body .case-study .next-project{border-top:1px solid #d0dfc34d;margin-bottom:0;padding-bottom:55px}
+body .case-study a:focus-visible{outline-color:#f1d89a}
+@media(max-width:760px){body .case-study .inner-hero{padding-block:25px 30px}body .case-study .inner-hero h1{font-size:clamp(44px,11.4vw,64px)}body .case-study .inner-hero .project-environment{opacity:.3}body .case-study .technical-cases{padding-inline:20px}body .case-study .technical-case{gap:20px}body .case-study .technical-body>p{font-size:13px}body .case-study .evidence-notes{padding:23px 20px}body .case-study .case-proof{font-size:30px}body .case-study .next-project{padding-bottom:40px}}

@@ -1,0 +1,149 @@
+{
+  "title": "AniPal Archipelago",
+  "shortTitle": "AniPal",
+  "order": 4,
+  "zone": "Living world",
+  "accent": "anipal",
+  "status": {
+    "label": "In development · Not currently published",
+    "evidence": "user-supplied"
+  },
+  "headline": "A village where companions work and interact.",
+  "premise": "An island village with working companions, job changes, resource storage, weather events, and saved world state.",
+  "proof": "Companion jobs, usable storage, and a changing island environment.",
+  "capabilities": [
+    "Companion jobs",
+    "Job changes",
+    "Inventories & chests",
+    "Weather events",
+    "Saved world state"
+  ],
+  "hero": "AP-01",
+  "supporting": [
+    "AP-06",
+    "AP-07"
+  ],
+  "play": {
+    "title": "Give companions work and manage the island",
+    "description": "Companions produce resources and carry them to storage. Change a companion’s job, manage chest contents, and see weather change the island. Gameplay recordings are still to be added."
+  },
+  "explode": {
+    "title": "How the village’s work and saved state connect",
+    "description": "A scheduler organizes companion work. Lifetime checks prevent old tasks from affecting a newly deployed companion. Resource records, relationships, and ordered offline events keep the different parts of the village connected.",
+    "layers": [
+      {
+        "title": "01 / Run jobs and interactions",
+        "detail": "Coordinate companion work, movement, and relationships."
+      },
+      {
+        "title": "02 / Check task lifetimes",
+        "detail": "Stop outdated tasks after job changes, pickup, or redeployment."
+      },
+      {
+        "title": "03 / Track resource ownership",
+        "detail": "Record transfers between piles, carried resources, and chests."
+      },
+      {
+        "title": "04 / Calculate offline progress",
+        "detail": "Process ordered events and publish the resulting saved state."
+      }
+    ]
+  },
+  "cases": [
+    {
+      "id": "scheduler-lifetimes",
+      "title": "Scheduling jobs and stopping outdated tasks",
+      "player": "Changing a job or picking up a companion must stop its previous tasks.",
+      "technical": "SimulationManager centralizes managed NPC records in indexed priority buckets with staggered update cadences. Yielding jobs capture model and job generations; IsManagedJobAlive checks both before continuing. Bucket reassignment is queued until after iteration. Bounded social processing and an XZ spatial grid reduce the set of nearby candidates before exact filtering.",
+      "tradeoff": "This is cooperative scheduling, not parallel Actor workers. Generations and cadences are source-verified; supported population and timing improvements have not been benchmarked.",
+      "evidence": "verified-source",
+      "claims": [
+        "AP-C02",
+        "AP-C04",
+        "AP-C05",
+        "AP-C06"
+      ]
+    },
+    {
+      "id": "offline-simulation",
+      "title": "Calculating progress between visits",
+      "player": "Offline work depends on available supplies, free storage, and whether companions can work.",
+      "technical": "Offline rules propose events over plain-table snapshots. The kernel selects by event time, rule priority, and UUID, then executes and wakes parked rules whose constraints changed. A transporter can free a full pile and wake a fisher. Persisted counters and residual state support repeatable behavior for fixed inputs. Publication saves a prepared generation, applies and verifies live state, then saves a final generation with rollback branches around live adapters.",
+      "tradeoff": "The local staged publication protocol does not establish a cross-server profile lease or arbitrary-failure durability. The source audit found a PosterHandler Script/Module mismatch in the leave checkpoint. That path must be verified or fixed before reconnect footage is treated as coherent checkpoint proof. Arbitrary login-partition invariance is not established.",
+      "evidence": "verified-source",
+      "claims": [
+        "AP-C07",
+        "AP-C08",
+        "AP-C09",
+        "AP-C10",
+        "AP-C11"
+      ]
+    },
+    {
+      "id": "resource-ownership",
+      "title": "Tracking resources and relationships",
+      "player": "The game tracks who holds a resource while it moves from a pile to a companion to storage.",
+      "technical": "ResourceLedger represents piles, carries, and chests as authoritative containers. Visible objects project that state. TransporterJob rechecks destination state and distance before delivery, removes the accepted quantity, and resolves leftovers. Directional social records separately retain bounded relationship and conflict history; two companions need not feel the same way about each other.",
+      "tradeoff": "Deposit and carry removal involve separate calls, so this is not universal losslessness under adapter failures. A social cause → state change → later consequence capture is still needed before promoting emergent behavior as runtime evidence.",
+      "evidence": "verified-source",
+      "claims": [
+        "AP-C12",
+        "AP-C13",
+        "AP-C14"
+      ]
+    },
+    {
+      "id": "engine-lifecycle",
+      "title": "Picking up and redeploying a clothed companion",
+      "player": "A held companion preview preserves its identity and clothing during pickup and redeployment.",
+      "technical": "Layered-clothing cage assemblies are mapped onto R6 companion rigs. The held Tool retains a structurally rich but behaviorally inert preview; redeployment restores the world assembly and behavior. This is a secondary integration case within the larger living simulation.",
+      "tradeoff": "One selected outfit, species, and age combination still needs runtime verification. This does not establish universal exact-transform restoration.",
+      "evidence": "verified-source",
+      "claims": [
+        "AP-C16",
+        "AP-C17"
+      ]
+    }
+  ],
+  "notes": [
+    "Companion scheduling, resource storage, environmental event handling, and persistence are reviewed in the supplied source audit. Current gameplay captures are pending.",
+    "The leave checkpoint has an unresolved PosterHandler Script/Module mismatch in the audit. Offline-return footage is deferred. No crash durability, cross-server profile locking, numeric NPC capacity, or guaranteed data preservation is claimed."
+  ],
+  "next": "gravity-dash",
+  "features": [
+    {
+      "title": "Companion jobs and job changes",
+      "description": "Assign work around the island, then change a companion’s job while other companions keep working.",
+      "sources": [
+        "02-deep-pass.md §3.4 scheduler/lifetimes; §3.5 logistics",
+        "Final: AP-C02 / AP-C05 / AP-C12"
+      ]
+    },
+    {
+      "title": "Inventories and storage chests",
+      "description": "Move fish and supplies between inventory and chests. Chest filters and available space guide resource deliveries.",
+      "sources": [
+        "01-mechanics.md §3 Resource logistics / Placeable chests; §8 Storage UI",
+        "02-deep-pass.md §3.5 logistics; §6 ChestUI"
+      ]
+    },
+    {
+      "title": "Weather and environmental events",
+      "description": "Weather, ocean, and sky events change the island’s appearance.",
+      "sources": [
+        "01-mechanics.md §3 Global environmental events",
+        "02-deep-pass.md §3.3 event coordination"
+      ],
+      "note": "The planned clip shows one server. Synchronization between servers has not been demonstrated."
+    },
+    {
+      "title": "Saved world state",
+      "description": "Profiles store companion identity, work state, resources, and placed storage.",
+      "sources": [
+        "02-deep-pass.md §3.2 persistence; §5 authority map",
+        "Final: AP-C09 / AP-C11 / AP-C17"
+      ],
+      "note": "The audit found a leave-checkpoint issue. AniPal’s save-and-return and offline-work demonstrations are deferred while that path is verified."
+    }
+  ]
+}

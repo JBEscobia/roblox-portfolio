@@ -1,0 +1,6 @@
+import {brick} from './illustrations';
+export function planet(){let out='';for(let row=-5;row<=5;row++){const span=Math.floor(Math.sqrt(28-row*row));for(let col=-span;col<=span;col++){const color=['#7193b1','#6b89a4','#adab8c','#486b8e'][(col*col+row*row+row+20)%4];out+=brick(col*22,row*22,26,16,19,color);}}return out;}
+export function ship(){return brick(-30,27,52,104,16,'#8bacc0')+brick(30,25,52,104,16,'#8bacc0')+brick(0,0,52,156,29,'#d2d8c6')+brick(0,-24,52,52,31,'#648fb2')+brick(0,120,26,26,20,'#e2ae4c')+brick(36,104,26,26,20,'#d5884f');}
+export function island(){return brick(0,0,208,156,31,'#347c93')+brick(0,-24,182,130,32,'#c3a86c')+brick(0,-55,156,104,23,'#739c5e')+brick(18,-75,52,52,50,'#e0d4ae')+brick(18,-126,78,78,18,'#c5774c')+brick(98,-68,26,26,58,'#94714c')+brick(98,-123,78,78,24,'#41785a')+brick(-53,-36,26,26,24,'#d6b541');}
+export function dirtEdge(){let out='';for(let row=0;row<3;row++)for(let col=0;col<18;col++){if(row===0&&(col%4===0||col%5===0))continue;out+=brick(col*100-20+(row%2)*-45,25+row*27,116,26,24,['#a6875d','#a58b66','#8e795e','#b4996c'][(col+row)%4]);}return out;}
+export function tunnel(){let out='';for(let row=0;row<10;row++)for(let col=0;col<5;col++){if(col===2&&row>1&&row<8)continue;if(col===1&&row>3&&row<7)continue;out+=brick(col*51+(row%2)*-25,row*29,60,26,27,['#a17850','#8f684a','#b18657'][(row+col)%3]);}return out;}

@@ -1,0 +1,108 @@
+{
+  "title": "Gravity Dash",
+  "shortTitle": "Gravity Dash",
+  "order": 1,
+  "zone": "Space",
+  "accent": "gravity",
+  "status": {
+    "label": "Released",
+    "evidence": "user-supplied"
+  },
+  "headline": "Movement built for floors, walls, and ceilings.",
+  "premise": "A gravity-changing runner with connected race courses, a currency shop, and collectible cosmetics.",
+  "proof": "Custom movement, generated courses, and the features around the race.",
+  "capabilities": [
+    "Wall & ceiling movement",
+    "Generated courses",
+    "Currencies & shops",
+    "Cosmetic inventory",
+    "Saved profiles"
+  ],
+  "hero": "GD-01",
+  "supporting": [
+    "GD-04"
+  ],
+  "play": {
+    "title": "Run across walls, then make the character your own",
+    "description": "Race through connected rooms as gravity changes. Away from the course, spend in-game currency on rotating crates and manage collected cosmetics. Gameplay recordings are still to be added."
+  },
+  "explode": {
+    "title": "How changing gravity affects the game",
+    "description": "The game checks nearby surfaces, decides which way is down, and updates movement and animation. Connected course rooms share a common way to measure progress.",
+    "layers": [
+      {
+        "title": "01 / Check nearby surfaces",
+        "detail": "Combine the directions of nearby surfaces to determine gravity."
+      },
+      {
+        "title": "02 / Update the character",
+        "detail": "Use that gravity direction for movement, orientation, and animation."
+      },
+      {
+        "title": "03 / Connect the course",
+        "detail": "Align room entrances and exits, then record progress along the route."
+      }
+    ]
+  },
+  "cases": [
+    {
+      "id": "gravity-frame",
+      "title": "Movement and animation on different surfaces",
+      "player": "The character’s movement and animations follow its changing sense of down.",
+      "technical": "The controller consumes combined surface normals and drives a custom VectorForce / BodyGyro rig. StateTracker projects velocity onto the current gravity axis to distinguish running, jumping, and free fall. Exclusion tags keep solid containment geometry from accidentally redirecting gravity; round boundaries explicitly reset the controller.",
+      "tradeoff": "Surface sampling is adapted and credited. The contribution presented here is controller integration, coordinate-state handling, resets, and edge-case engineering. Continuous floor-to-wall-to-ceiling behavior still needs a current capture.",
+      "evidence": "verified-source",
+      "claims": [
+        "GD-C01",
+        "GD-C02",
+        "GD-C03"
+      ]
+    },
+    {
+      "id": "course-coordinates",
+      "title": "Building connected race courses",
+      "player": "Room layouts connect to form courses with changes in direction and elevation.",
+      "technical": "Entrance and Exit transforms align consecutive room templates. StartArc, RoomLength, and CheckpointArc let progress, checkpoints, and culling share a monotonic arc coordinate. An occupancy guard prevents culling a room containing a living player. seedFromExisting can reconstruct an unordered room chain through greedy position/orientation matching.",
+      "tradeoff": "Chain reconstruction is source-verified; a particular operational purpose such as server restart recovery is not established. No generation speed or performance benchmark is claimed.",
+      "evidence": "verified-source",
+      "claims": [
+        "GD-C04",
+        "GD-C05",
+        "GD-C06"
+      ]
+    }
+  ],
+  "notes": [
+    "Implementation verified through the supplied source audit; the current released-build traversal and procedural-course captures are pending.",
+    "Release status was supplied by the developer. No player counts or performance results are presented."
+  ],
+  "attribution": "The surface-detection method is adapted from EmilyBendsSpace’s DevForum gravity-controller example. My work here covers integrating that method with movement, animation, and the rest of the game.",
+  "next": "time-tag",
+  "features": [
+    {
+      "title": "Movement and generated courses",
+      "description": "Run along floors, walls, and ceilings through courses assembled from connected rooms.",
+      "sources": [
+        "02-deep-pass.md §3 Gravity Surface Detection / RollingCourseController",
+        "Final: GD-C01–GD-C06"
+      ]
+    },
+    {
+      "title": "Currencies, shop, and cosmetics",
+      "description": "A coins-and-keys economy connects the shop, rotating cosmetic crates, and player inventory.",
+      "sources": [
+        "01-mechanics.md §3 Shop / Monetization",
+        "02-deep-pass.md §3 CrateService; §5 profile mutations"
+      ],
+      "note": "The audited currency shop uses free grants for testing. A store demonstration is not evidence of a live Robux purchase."
+    },
+    {
+      "title": "Saved player profiles",
+      "description": "Cosmetic and progression changes share a saved player profile.",
+      "sources": [
+        "02-deep-pass.md §5 named profile commands; §8 persistence"
+      ],
+      "note": "A current save-and-return recording is still pending; Time Tag is the planned saved-progress demonstration."
+    }
+  ]
+}

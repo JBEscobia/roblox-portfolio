@@ -1,0 +1,15 @@
+import {chromium,expect} from '@playwright/test';
+import assert from 'node:assert/strict';
+import {writeFile} from 'node:fs/promises';
+const browser=await chromium.launch();const page=await browser.newPage({viewport:{width:1440,height:900}});const requests=[];page.on('request',r=>requests.push(r.url()));
+await page.route('**/decorative/intro-wall.webm',async route=>{await new Promise(resolve=>setTimeout(resolve,800));await route.continue();});
+await page.addInitScript(()=>{window.introVideoFrames=[];window.introWaits=[];document.addEventListener('waiting',e=>{if(e.target.matches?.('.intro-film')&&e.target.currentTime>0)window.introWaits.push(e.target.currentTime);},true);});
+await page.goto('http://127.0.0.1:4321/',{waitUntil:'domcontentloaded'});
+await expect(page.locator('[data-workshop]')).toHaveAttribute('data-render-mode','film');
+await page.locator('.intro-film').evaluate(v=>{function sample(now,meta){window.introVideoFrames.push({t:now,media:meta.mediaTime});v.requestVideoFrameCallback(sample);}v.requestVideoFrameCallback(sample);});
+await page.waitForFunction(()=>document.querySelector('.intro-film').readyState>=2);
+await page.mouse.wheel(0,650);await expect(page.locator('.descent')).toHaveAttribute('data-animation-state','playing');assert.equal(await page.evaluate(()=>scrollY),0);
+await expect(page.locator('.descent')).toHaveAttribute('data-animation-state','complete',{timeout:12000});
+const result=await page.evaluate(()=>({frames:window.introVideoFrames.length,waits:window.introWaits,gaps:window.introVideoFrames.flatMap((f,i,frames)=>i&&f.t-frames[i-1].t>150?[f.t-frames[i-1].t]:[]),scroll:scrollY,quality:document.querySelector('.intro-film').getVideoPlaybackQuality().droppedVideoFrames}));
+assert(result.frames>1,'The film must actually play, not silently use the fallback');assert.equal(result.waits.length,0,'Video must not pause to buffer during playback');assert.equal(result.scroll,0);assert(result.gaps.every(gap=>gap<500),'Long playback stall');assert.equal(await page.locator('canvas').count(),0);assert(!requests.some(url=>/wall\.worker|wall-host|wall-scene/.test(url)),'Live renderer must not load');
+await page.screenshot({path:'artifacts/intro-film-final.png'});await writeFile('artifacts/intro-film-validation.json',JSON.stringify({...result,requests},null,2));console.log(result);await browser.close();

@@ -1,0 +1,95 @@
+{
+  "title": "ANTS!",
+  "shortTitle": "ANTS!",
+  "order": 3,
+  "zone": "Force",
+  "accent": "ants",
+  "status": {
+    "label": "Status to confirm",
+    "evidence": "status-confirmation-required"
+  },
+  "headline": "Multiplayer grabbing and hauling.",
+  "premise": "An ant-scale game where players drag objects, pull together, and recover after being knocked down.",
+  "proof": "Shared hauling, physical knockdowns, and getting back into the game.",
+  "capabilities": [
+    "Grabbing & hauling",
+    "Multiplayer physics",
+    "Ragdoll recovery"
+  ],
+  "hero": "AN-01",
+  "supporting": [
+    "AN-02"
+  ],
+  "play": {
+    "title": "Grab objects and pull together",
+    "description": "Ants grab objects or other creatures using physical tethers. More ants joining changes the hauling behavior. Struggling or letting go changes the interaction again. A multiplayer recording will be added here."
+  },
+  "explode": {
+    "title": "How several ants share one object",
+    "description": "The server checks where an ant is trying to grab, combines the active grabbers, and updates the hauling behavior. It also decides how the object’s physics should be shared across players.",
+    "layers": [
+      {
+        "title": "01 / Check the grab",
+        "detail": "Compare the proposed bite point with the object’s actual surface."
+      },
+      {
+        "title": "02 / Combine the grabbers",
+        "detail": "Update the tethers and hauling behavior as ants join or leave."
+      },
+      {
+        "title": "03 / Assign physics ownership",
+        "detail": "Solo drag: the dragging player. Multiple grabbers or release: automatic selection."
+      }
+    ]
+  },
+  "cases": [
+    {
+      "id": "grab-authority",
+      "title": "Checking grabs and coordinating multiple players",
+      "player": "The server checks grabs and updates behavior when ants join or leave.",
+      "technical": "GrabService runs a server heartbeat simulation around RopeConstraints, aggregate item/creature state, and struggle/tear-off logic. For item grabs, the server re-derives the nearest valid bite point and rejects implausible disagreement. publishItem and publishCreature recompute shared state as claimants change. Solo drag can assign ownership to the dragging player; multi-ant hauling and release return items to automatic network ownership.",
+      "tradeoff": "Automatic ownership is Roblox’s selection behavior, not an assertion that the server always simulates the item. Validation is a narrow geometric boundary, not a complete anti-cheat claim.",
+      "evidence": "verified-source",
+      "claims": [
+        "AN-C01",
+        "AN-C02",
+        "AN-C03"
+      ]
+    },
+    {
+      "id": "ragdoll-authority",
+      "title": "Keeping the legs working during a ragdoll",
+      "player": "The body can ragdoll while the legs keep their procedural animation; recovery returns player control.",
+      "technical": "Including client-posed legs in the server ragdoll skeleton caused stale server transforms to overwrite leg IK. RagdollAdapter excludes leg parts from that skeleton and keeps them anchored on the server. The body uses server physics while clients continue posing the legs. Recovery explicitly restores the player’s network ownership; NPC bodies remain server-owned.",
+      "tradeoff": "The fix partitions transform authority instead of asking two systems to compose the same parts. Ragdoll → recovery → immediate movement still requires a current capture.",
+      "evidence": "verified-source",
+      "claims": [
+        "AN-C05",
+        "AN-C06"
+      ]
+    }
+  ],
+  "notes": [
+    "Release status remains unconfirmed. The source-inspected grab and ragdoll systems are presented with runtime evidence pending.",
+    "Hauling and recovery are the selected demonstrations. The audit does not establish a saved economy or persistent player inventory for this project."
+  ],
+  "next": "anipal-archipelago",
+  "features": [
+    {
+      "title": "Grab and haul together",
+      "description": "Grab an object, bring in another ant, and change how it moves as players join or let go.",
+      "sources": [
+        "02-deep-pass.md §3 GrabService",
+        "Final: AN-C01–AN-C04"
+      ]
+    },
+    {
+      "title": "Ragdolls and recovery",
+      "description": "An ant can tumble, recover, and return to player control while its procedural legs remain part of the animation.",
+      "sources": [
+        "02-deep-pass.md §3 RagdollAdapter",
+        "Final: AN-C05–AN-C06"
+      ]
+    }
+  ]
+}

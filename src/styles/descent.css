@@ -1,0 +1,32 @@
+body .descent{position:relative;background:#b9dfee}
+body .descent.motion-enabled{height:138svh}
+body .descent .hero{height:100svh;min-height:650px;max-height:none;position:sticky;top:0;padding:0;display:block;overflow:hidden;background:linear-gradient(180deg,#afd8ec,#c4e2ec 70%,#c9d8b6)}
+body .descent .workshop{position:absolute;inset:0;width:100%;height:100%;margin:0;transform:none;z-index:1;max-width:none;pointer-events:none}
+body .descent .hero-copy{position:absolute;top:16%;left:50%;width:min(1000px,calc(100% - 64px));transform:translateX(-50%);text-align:center;z-index:4;pointer-events:auto}
+body .descent.motion-enabled .hero-copy{opacity:var(--copy-opacity,0);transform:translate(-50%,var(--copy-y,65px));will-change:transform,opacity}
+body .descent .hero-copy .eyebrow{display:block;font-size:11px;letter-spacing:.17em;margin-bottom:27px}
+body .descent h1{font-size:clamp(54px,6.6vw,98px);letter-spacing:-.05em;line-height:.98;font-weight:700;max-width:none;color:#223a42}
+body .descent h1 span{color:#3d694d}
+body .descent .hero-description{margin-top:25px;font-size:16px;line-height:1.7;color:#3a5356}
+body .descent .hero-actions{justify-content:center;margin-top:26px}
+body .descent .ground-horizon{height:175px;bottom:0;z-index:0;transform:translateY(var(--ground-rise,0px))}
+body .descent .sky-clouds{z-index:0}
+body .descent .cloud-one{width:430px;left:-5%;top:6%;opacity:.9}
+body .descent .cloud-two{width:470px;right:-6%;top:20%;opacity:.85}
+body .descent .cloud-three{width:280px;left:40%;top:2%;opacity:.7}
+body .descent .cloud-four{width:310px;left:27%;bottom:27%;opacity:.75}
+.intro-skip{position:absolute;right:35px;bottom:27px;z-index:8;padding:11px 17px;font-size:11px;font-weight:600;color:#2b463d;background:#e3e9d6e6;border:1px solid #9daf9a;border-radius:4px}
+.intro-skip:hover{background:#f1ebcc}
+.descent-cue{position:absolute;bottom:29px;left:50%;z-index:5;display:grid;gap:4px;opacity:calc(1 - var(--descent,0)*2)}
+.descent-cue span{width:12px;height:12px;border-right:2px solid #375875;border-bottom:2px solid #375875;transform:rotate(45deg)}
+.descent-cue span:first-child{opacity:.3}.descent-cue span:nth-child(2){opacity:.6}
+body .descent:not(.motion-enabled) .hero-copy{opacity:1;transform:translateX(-50%)}
+body .project-heading h2{font-size:clamp(37px,4vw,58px);line-height:1.04}
+body .project-heading{align-items:flex-start}
+body .project-premise{padding-top:42px}
+body .project-section .mode-controls button{font-size:9px;padding:9px 12px}
+body .project-section .play-copy h3,body .project-section .explode-copy h3{font-size:27px;line-height:1.12}
+body .mode-controls button{font-size:9px;padding-inline:10px}
+@media(max-width:1100px){body .descent .hero-copy{top:18%}body .descent h1{font-size:72px}body .descent .hero-description{font-size:15px}}
+@media(max-width:760px){body .descent.motion-enabled{height:240svh}body .descent .hero{height:100svh;min-height:570px}body .descent .hero-copy{top:16%;width:calc(100% - 40px)}body .descent .hero-copy .eyebrow{font-size:8px;margin-bottom:23px}body .descent h1{font-size:clamp(41px,10vw,65px);line-height:1.03}body .descent .hero-description{font-size:12px;margin-top:21px}body .descent .hero-description br{display:none}body .descent .hero-actions{gap:23px;margin-top:23px}body .descent .cloud-one{width:230px;left:-25%;top:7%}body .descent .cloud-two{width:260px;right:-38%;top:30%}body .descent .cloud-three{width:150px;left:40%;top:0}body .descent .cloud-four{width:160px;left:5%;bottom:27%}.intro-skip{bottom:19px;right:17px;font-size:10px;min-height:43px;padding:10px 13px}.descent-cue{left:25px;bottom:27px}body .descent .ground-horizon{height:145px}body .project-heading h2{font-size:38px}body .project-premise{padding-top:0}body .project-section .mode-controls button{font-size:8px;padding-inline:10px}body .assembly-top>.mono{font-size:7px}}
+@media(prefers-reduced-motion:reduce){body .descent.motion-enabled{height:auto}body .descent .hero-copy{opacity:1!important;transform:translateX(-50%)!important}.descent-cue{display:none}body .descent .ground-horizon{transform:none}}

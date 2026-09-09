@@ -1,0 +1,15 @@
+---
+import type { Project } from '../lib/projects';
+import { motif } from '../lib/illustrations';
+interface Props { project: Project; instance?: string; }
+const {project,instance='main'}=Astro.props; const p=project.data; const id=`${project.id}-${instance}`;
+---
+<section class="system-assembly" data-assembly data-mode="play" data-kind={p.accent} aria-label={`${p.title} system model`}>
+  <div class="assembly-top"><span class="mono">ABOUT THE GAME</span><div class="mode-controls" role="group" aria-label={`${p.title} explanation`} hidden><button type="button" data-mode-button="play" aria-pressed="true" aria-controls={`${id}-play ${id}-explode`}>Gameplay</button><button type="button" data-mode-button="explode" aria-pressed="false" aria-controls={`${id}-play ${id}-explode`}>How it works</button></div></div>
+  <div class="model-stage"><svg viewBox="0 0 520 420" aria-hidden="true" class="project-model" set:html={motif(p.accent)}/><span class="model-label mono">ILLUSTRATION · NOT GAMEPLAY</span><button class="mechanic-button" data-mechanic type="button" hidden>{p.accent==='gravity'?'↻ Rotate the example':p.accent==='time'?'↶ Rewind the example':p.accent==='ants'?'+ Add another ant':'↗ Reveal the layers'}</button><span class="sr-only" data-model-status aria-live="polite"></span></div>
+  <div class="play-copy" id={`${id}-play`}><h3>{p.play.title}</h3><p>{p.play.description}</p></div>
+  <div class="explode-copy" id={`${id}-explode`}><h3>{p.explode.title}</h3><p>{p.explode.description}</p><ol class="system-layers">{p.explode.layers.map((layer)=><li><strong>{layer.title}</strong><span>{layer.detail}</span></li>)}</ol><p class="diagram-caption">A simplified explanation based on the project code.</p></div>
+</section>
+<script>
+  import '../scripts/interactions';
+</script>

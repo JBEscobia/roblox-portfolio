@@ -1,0 +1,23 @@
+import { chromium } from '@playwright/test';
+import { mkdir } from 'node:fs/promises';
+await mkdir('artifacts',{recursive:true});
+const browser=await chromium.launch({headless:true});
+const page=await browser.newPage({viewport:{width:1440,height:1000},deviceScaleFactor:1});
+page.on('pageerror',error=>console.log('PAGE ERROR',error.message));
+page.on('console',m=>{if(m.type()==='error'||m.type()==='warning')console.log('BROWSER',m.type(),m.text());});
+await page.goto('http://127.0.0.1:4321/',{waitUntil:'networkidle'});
+await page.screenshot({path:'artifacts/desktop.png',fullPage:false});
+await page.waitForFunction(()=>document.querySelector('.intro-film')?.readyState>=2,{},{timeout:10000}).catch(()=>{});
+await page.screenshot({path:'artifacts/desktop-ready.png',fullPage:false});
+for(const [label,p] of [['falling',.35],['assembled',.86]]){await page.evaluate(p=>{const e=document.querySelector('.descent');window.scrollTo({top:e.offsetTop+(e.offsetHeight-innerHeight)*p,behavior:'instant'});},p);await page.waitForTimeout(900);await page.screenshot({path:`artifacts/intro-${label}.png`});}
+await page.locator('#gravity-dash').scrollIntoViewIfNeeded();
+await page.screenshot({path:'artifacts/gravity-section.png'});
+await page.locator('#time-tag').scrollIntoViewIfNeeded();
+await page.screenshot({path:'artifacts/time-section.png'});
+await page.screenshot({path:'artifacts/home-full.png',fullPage:true});
+console.log(await page.locator('[data-workshop]').evaluate(e=>({renderer:e.dataset.renderMode,videoReady:e.querySelector('video')?.readyState})));
+await page.setViewportSize({width:390,height:844});
+await page.reload({waitUntil:'networkidle'});
+await page.screenshot({path:'artifacts/mobile.png',fullPage:true});
+await page.locator('#ants').scrollIntoViewIfNeeded();await page.screenshot({path:'artifacts/mobile-ants.png'});
+await browser.close();

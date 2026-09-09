@@ -1,0 +1,11 @@
+import {chromium,expect} from '@playwright/test';
+import assert from 'node:assert/strict';
+const browser=await chromium.launch();const page=await browser.newPage({viewport:{width:1440,height:900}});
+await page.route('**/src/scripts/descent.ts',async route=>{await new Promise(resolve=>setTimeout(resolve,1000));await route.continue();});
+await page.route('**/decorative/intro-wall.webm',async route=>{await new Promise(resolve=>setTimeout(resolve,800));await route.continue();});
+await page.goto('http://127.0.0.1:4321/',{waitUntil:'commit'});await page.waitForFunction(()=>!!window.__introEarly);
+await page.mouse.wheel(0,650);assert.equal(await page.evaluate(()=>scrollY),0);
+await expect(page.locator('.descent')).toHaveAttribute('data-animation-state','playing');await page.mouse.wheel(0,650);assert.equal(await page.evaluate(()=>scrollY),0);
+await expect(page.locator('.descent')).toHaveAttribute('data-animation-state','complete',{timeout:12000});assert.equal(await page.evaluate(()=>scrollY),0);
+await page.mouse.wheel(0,400);await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(0);
+console.log('PASS: immediate scroll captured before main script loads; delayed media completes through playback or the matching still and releases scrolling without advancing the page.');await browser.close();

@@ -1,0 +1,38 @@
+﻿# Editorial evidence — gameplay and feature breadth
+
+This website-local record documents the September 2026 editorial revision. The user's revised audience and capture priorities supersede the earlier omissions of ordinary game features in Final and the per-game highlights. `../Final/` and all original reports remain unchanged. Their attribution, status, and claim limits still apply.
+
+## Reading and verification approach
+
+The implementation and media guide were reviewed against Final's synthesis, creative direction, media plan, architecture, and claims checklist, plus each game's portfolio highlights. `01-mechanics.md` supplies broader feature discovery; `02-deep-pass.md` supplies verification and corrections. A deep-pass audit of implementation is not a fresh runtime test. Historical configuration is labeled as audited configuration, not assumed to describe today's published game.
+
+Each project JSON now has `features` with source references, plain-language descriptions, and material notes. Existing technical cases retain their Final claim IDs. New breadth claims are mapped here rather than assigned fabricated Final IDs. Feature copy is included in the existing claim scanner and Astro schema validation. These automated checks do not replace editorial/source review.
+
+## Feature and capture mapping
+
+| Website claim | Discovery and verification | Capture / boundary |
+| --- | --- | --- |
+| Gravity Dash custom gravity and connected generated courses | [GD deep pass](../Gravity%20Dash/02-deep-pass.md), §3 Gravity Surface Detection + StateTracker and RollingCourseController; Final GD-C01–06 | GD-01 combines traversal/course. An uncut surface transition is required. Visible layout alone does not demonstrate generation happening live. EmilyBendsSpace attribution remains visible. |
+| Gravity Dash coins/keys, rotating crate shop, collected cosmetics | [GD mechanics](../Gravity%20Dash/01-mechanics.md), §3 Shop / Monetization; deep pass §3 CrateService, §5 named locked profile commands, and shop/crate/equipment interactions | GD-04. Exact currencies are discovered in Pass 1; Pass 2 confirms crate purchase/open operations and economy/profile integration. Current UI/outcome requires recording. Free-grant mode is an audited limitation; do not imply paid sales. |
+| Gravity Dash saved profiles | GD deep pass §8 identifies the persistence authority; §5 verifies named mutations across shop/crates/level-ups/tutorial | Source-reviewed capability; not a fresh reconnect result. Main persistence footage assigned to Time Tag. |
+| Time Tag dash and rewind | [TT deep pass](../Time%20Tag/02-deep-pass.md), §3 solver/echo networking; Final TT-C01–07 | TT-01 and TT-02 remain separate. Local playback with endpoint checks; no rollback or server-driven movement claim. |
+| Time Tag round leaderboard, coins/keys/XP | [TT mechanics](../Time%20Tag/01-mechanics.md), §2 round resolution; deep-pass opening lists RoundSystem, TimeTag and RewardService direct reads; §1 confirms round/payout structure | TT-05 shows round results and wallet. Public claim is scoped to round leaderboards. Pass 1's global OrderedDataStore boards were not individually re-read in Pass 2 and are excluded from the main capture requirement. |
+| Time Tag currency shop / monetization implementation | TT mechanics §3 Economy records paid mode; deep pass §3 PlayerProfileService confirms receipt/pending-grant handling, crate section confirms currency-spend trail opening | TT-06 shows offer and genuine prompt only. Receipt code is source evidence, not checkout footage. Subscription IDs from the prior universe remain a blocker for subscription demonstrations. No revenue or successful live sale claim. |
+| Time Tag cosmetic inventory and saved progress | TT mechanics §3 Persistence and §6 equip remotes; deep pass §3 PlayerProfileService + SessionLock confirms currency/inventory persistence | TT-07: owned trail and balance before/after a real rejoin. Confirm equipped-selection restoration separately. Avoid auto-grants that could recreate the item. |
+| ANTS! shared hauling and ragdoll recovery | [ANTS deep pass](../ANTS!/02-deep-pass.md), §3 GrabService and RagdollAdapter; Final AN-C01–06 | AN-01 and AN-02. No added persistence/economy claims; deep pass §1 and §8 confirm the absence in the inspected scope. Release status remains unconfirmed. |
+| AniPal work and job changes | [AP deep pass](../Anipal%20Archipelago/02-deep-pass.md), §3.4 scheduler/lifetimes and §3.5 logistics; Final AP-C02/05/12 | AP-01 combines an active island and ordinary job change. This does not visually prove generation counters or stale-work rejection. |
+| AniPal inventories/chests | [AP mechanics](../Anipal%20Archipelago/01-mechanics.md), §3 logistics/placeable chests and §8 Storage UI; deep pass §3.5, §6 ChestUI, slot headroom in §4 | AP-06: one inventory/chest transfer. Filters/capacity are supported; general losslessness is not. |
+| AniPal weather/environmental presentation | AP mechanics §3 Global environmental events; deep pass §3.3 event application and §9 environmental-transition candidate; Final AP-C18 | AP-07: one-server visual transition. Global convergence and arbitrary modifier effects are not claimed. |
+| AniPal saved world state | AP deep pass §3.2 and §5 authority map; corrections in §2; Final AP-C09/11/17 | Profile data is source-reviewed. Leave-checkpoint mismatch remains visible beside the feature. AP-03 offline return is deferred, not a launch requirement. No universal exact-position restoration. |
+
+## Deliberate exclusions
+
+- Gravity Dash trading remains disabled in the audit. Do not turn its technical architecture into a live feature claim.
+- Time Tag has a usable currency-spend Trail shop path. Its separately granted round-reward `TrailCrates` have no discovered consumption path; do not conflate them. Enchantment movement effects remain disconnected. Trade dependencies remain prototype technical material.
+- AniPal's mechanics map reports no registered developer products; it is not the monetization example. Its Doubloon/fish/bait economy is broader discovery material, but the revised public emphasis uses the more directly deep-pass-supported chest/logistics/weather systems.
+- AniPal Guard, invasion, housing, hidden abilities, and unhooked weather modifier tables are not promoted. Catalog clothing is an optional, verified-combination follow-up, not a normal acquisition claim.
+- Historical performance commentary is not a benchmark. Diagnostic captures, if later requested, must be real; none are required to understand the gameplay portfolio.
+
+## Presentation decisions
+
+Keep the same project order, colors, constructed environments, intro copy and playback fixes. Homepage tags and service links communicate breadth; project pages show feature overviews and supporting gameplay before optional engineering. Technical cases, the Time Tag authority diagram, and detailed testing notes remain available through disclosures. Project enquiries offer a direct next step for implementation questions; the contact configuration still needs the user's real contact details before publication.

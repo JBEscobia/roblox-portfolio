@@ -1,0 +1,21 @@
+---
+interface Props{from:string;to:string;}
+const {from,to}=Astro.props;
+const themes:Record<string,string>= {
+ dirt:'#d2b087',
+ gravity:'#20374e',
+ time:'#332e48',
+ ants:'#65462f',
+ anipal:'#21647b',
+ services:'#a5b07a',
+};
+const a=themes[from],b=themes[to];
+function blend(x:string,y:string,t:number){const channels=[1,3,5].map(i=>Math.round(parseInt(x.slice(i,i+2),16)*(1-t)+parseInt(y.slice(i,i+2),16)*t));return '#'+channels.map(c=>c.toString(16).padStart(2,'0')).join('');}
+const rows=Array.from({length:4},(_,row)=>Array.from({length:17},(_,col)=>{
+ const color=blend(a,b,row/3);
+ return {x:col*120-(row%2)*60,y:row*68,color};
+})).flat();
+---
+<div class="world-transition" aria-hidden="true" style={`--world-from:${a};--world-to:${b}`}><svg width="100%" height="272">
+ {rows.map(tile=><g transform={`translate(${tile.x} ${tile.y})`}><rect x="1" y="9" width="118" height="57" rx="4" fill={tile.color}/><rect x="1" y="9" width="118" height="57" rx="4" fill="#fff" opacity=".035"/><path d="M5 65H115Q119 65 119 60V16" fill="none" stroke="#172023" stroke-opacity=".14" stroke-width="2"/><path d="M5 10H115" stroke="#fff" stroke-opacity=".18"/><g fill={tile.color}><path d="M21 11V6H43V11A11 4 0 0 1 21 11M77 11V6H99V11A11 4 0 0 1 77 11" stroke="#172023" stroke-opacity=".1"/><ellipse cx="32" cy="6" rx="11" ry="4"/><ellipse cx="88" cy="6" rx="11" ry="4"/><ellipse cx="32" cy="6" rx="11" ry="4" fill="#fff" opacity=".13"/><ellipse cx="88" cy="6" rx="11" ry="4" fill="#fff" opacity=".13"/></g></g>)}
+ </svg></div>
