@@ -23,7 +23,10 @@ export async function createWallScene(canvas:OffscreenCanvas,width:number,height
  const bricks:{index:number;start:THREE.Vector3;end:THREE.Vector3;rotation:THREE.Vector3;delay:number}[]=[];
  for(let row=0;row<6;row++)for(let col=0;col<16;col++){
   const n=row*16+col,end=new THREE.Vector3(col*1.96-14.8+(row%2)*-.98,-5.7+row*.57,0);
-  const start=new THREE.Vector3(end.x+Math.sin(n*2.7)*3,end.y+7.5+(n*7%9)*.72,(n%4)*.7);
+  // Bricks begin above the camera's visible top (world y is off-frame past ~6.9
+  // across the wall's x-range) so the wall assembles from empty sky rather than
+  // from a field of bricks already sitting on screen at the first frame.
+  const start=new THREE.Vector3(end.x+Math.sin(n*2.7)*3,end.y+13.5+(n*7%9)*.72,(n%4)*.7);
   instances.setColorAt(n,new THREE.Color(colors[(n*3+row)%colors.length]));
   bricks.push({index:n,start,end,rotation:new THREE.Vector3(Math.sin(n)*.7,Math.cos(n*1.7)*.7,Math.sin(n*2.1)*.9),delay:row*.047+(col%5)*.012});
  }

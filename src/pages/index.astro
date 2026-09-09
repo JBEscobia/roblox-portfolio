@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import Workshop from '../components/Workshop.astro';
+import IntroGate from '../components/IntroGate.astro';
+import ScrollCue from '../components/ScrollCue.astro';
 import Landscape from '../components/Landscape.astro';
 import ProjectSummary from '../components/ProjectSummary.astro';
 import WorldTransition from '../components/WorldTransition.astro';
@@ -8,7 +10,7 @@ import {getProjects} from '../lib/projects';
 import {services,site} from '../data/site';
 const projects=await getProjects();
 ---
-<Base title="Roblox systems development"><section class="descent" id="systems" aria-label="Portfolio introduction"><div class="hero"><Landscape/><Workshop/><div class="hero-copy"><p class="eyebrow">INDEPENDENT ROBLOX DEVELOPER</p><h1>Gameplay &<br/>systems development<span>.</span></h1><p class="hero-description">Character movement, multiplayer interactions,<br/>and game worlds that remember your progress.</p><div class="hero-actions"><a class="button button-primary" href="#projects">Explore the projects <span aria-hidden="true">↓</span></a><a class="button button-quiet" href="/contact/">Contact <span aria-hidden="true">↗</span></a></div></div><a class="intro-skip" href="#projects">Skip introduction ↓</a><div class="descent-cue" aria-hidden="true"><span></span><span></span><span></span></div></div></section>
+<Base title="Roblox systems development"><section class="descent" id="systems" aria-label="Portfolio introduction"><div class="hero"><Landscape/><Workshop/><IntroGate/><div class="hero-copy"><p class="eyebrow">{site.username} · Independent Roblox developer</p><h1>Gameplay &<br/>systems development<span>.</span></h1><p class="hero-description">Character movement, multiplayer interactions, <br/>and game worlds that remember your progress.</p><div class="hero-actions"><a class="button button-primary" href="#projects">Explore the projects <span aria-hidden="true">↓</span></a><a class="button button-quiet" href="/contact/">Contact <span aria-hidden="true">↗</span></a></div></div><a class="intro-skip" href="#projects">Skip introduction ↓</a><ScrollCue/></div></section>
 <div id="projects">
 <section class="about-strip content-width" id="about"><p class="eyebrow">ABOUT ME</p><div><h2>Built for fun.<br/>Made by me.</h2><p>{site.introduction}</p><p>{site.ownership}</p><a class="text-link" href="/about/">More about me ↗</a></div></section>
 <section class="workshop-intro content-width"><div><p class="eyebrow">SELECTED PROJECTS</p><h2>See what I can build.<br/><span>Explore it in the games.</span></h2></div><div><p>Four independently developed Roblox games: custom movement and multiplayer physics, plus currencies, leaderboards, shops, inventories, weather, and saved progress.</p><p class="muted">Start with the gameplay and feature overviews. <strong>How it works</strong> is there for a closer look, and detailed questions are welcome through project enquiries. Real gameplay recordings are still to be added.</p></div></section>

@@ -1,5 +1,6 @@
 export const site = {
-  name: 'Systems Workshop',
+  name: 'FloppySide',
+  username: 'FloppySide',
   role: 'Roblox Systems Developer',
   email: '',
   introduction: 'I’m a third-year Computer Science student who enjoys making games. These four projects started as hobby ideas: I thought the mechanics would be fun, so I built them.',

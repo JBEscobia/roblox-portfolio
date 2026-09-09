@@ -5,9 +5,12 @@ const mobile=matchMedia('(max-width:760px)');
 const connection=(navigator as Navigator & {connection?:{saveData?:boolean}}).connection;
 if(section&&host){
  type Phase='idle'|'playing'|'complete';
- let frame=0,visible=true,phase:Phase='idle',elapsed=0,lastTime=0,touchY=0;
+ let frame=0,visible=true,phase:Phase='idle',elapsed=0,lastTime=0,touchY=0,inputBound=false;
+ let gateOpen=false,gateGesture=false,gateStart=0,gateMin=0,gateCap=0,filmReady=false,stillReady=false,fontsReady=false;
+ const GATE_MIN=1200,GATE_MAX=4000;
  const copy=section.querySelector<HTMLElement>('.hero-copy')!;
  const film=host.querySelector<HTMLVideoElement>('.intro-film');
+ const still=host.querySelector<HTMLImageElement>('.intro-film-finished');
  const loading=section.querySelector<HTMLElement>('.intro-load-status');
  const ground=section.querySelector<SVGElement>('.ground-horizon');
  const cue=section.querySelector<HTMLElement>('.descent-cue');
@@ -18,8 +21,8 @@ if(section&&host){
  let useFilm=!!film&&!motion.matches&&!mobile.matches&&!connection?.saveData&&!!film.canPlayType('video/webm; codecs="vp9"');
  const clamp=(x:number)=>Math.min(1,Math.max(0,x));
  function unlock(){document.documentElement.classList.remove('intro-playing');}
- function complete(){phase='complete';elapsed=2400;clearTimeout(startTimer);download.abort();film?.pause();unlock();schedule();}
- function eligible(){const bounds=section!.getBoundingClientRect();return phase==='idle'&&!motion.matches&&bounds.top<innerHeight*.4&&bounds.bottom>innerHeight*.65;}
+ function complete(){phase='complete';elapsed=2400;clearTimeout(startTimer);download.abort();film?.pause();unlock();closeGate();releaseInput();schedule();}
+ function eligible(){if(phase!=='idle'||gateOpen||motion.matches)return false;const bounds=section!.getBoundingClientRect();return bounds.top<innerHeight*.4&&bounds.bottom>innerHeight*.65;}
  function playFilm(){
   if(!useFilm||!film||!filmUrl||phase!=='playing'||film.readyState<2||playPending)return;
   playPending=true;
@@ -35,6 +38,7 @@ if(section&&host){
  function begin(){
   if(phase!=='idle')return;
   phase='playing';elapsed=0;lastTime=0;lastMediaAdvance=performance.now();
+  copy.classList.add('copy-animates');
   document.documentElement.classList.add('intro-playing');
   if(useFilm){startTimer=window.setTimeout(filmFailure,startWait);playFilm();}
   schedule();
@@ -56,30 +60,48 @@ if(section&&host){
   host!.classList.toggle('film-complete',phase==='complete');
   // Inherited custom properties invalidated the intro SVG subtree every frame.
   // Only touch the individual elements that consume the animation progress.
-  const reveal=clamp((p-.62)/.16);
-  copy.style.opacity=String(reveal);copy.style.transform=`translate(-50%,${(1-reveal)*65}px)`;
+  const revealed=reduced||phase==='complete'||p>=.62;
+  if(copy.classList.contains('is-revealed')!==revealed)copy.classList.toggle('is-revealed',revealed);
   if(ground)ground.style.transform=`translateY(${(1-clamp((p-.3)/.4))*180}px)`;
-  if(cue)cue.style.opacity=String(clamp(1-p*2));
+  if(cue)cue.style.opacity=gateOpen||phase!=='idle'?'0':'1';
   clouds.forEach((cloud,i)=>cloud.style.transform=i===2?`translateY(${-80*p}px)`:`translateX(${[-60,80,0,-40][i]*p}px)`);
-  const inert=!reduced&&p<.64;if(copy.inert!==inert)copy.inert=inert;
+  const inert=!reduced&&!revealed;if(copy.inert!==inert)copy.inert=inert;
   host!.dispatchEvent(new CustomEvent('descentprogress',{detail:p}));
   if(!reduced&&phase==='playing')frame=requestAnimationFrame(update);
  }
  function schedule(){if(!frame&&visible&&!document.hidden)frame=requestAnimationFrame(update);}
- function wheel(event:WheelEvent){if(event.ctrlKey||motion.matches)return;if(phase==='playing'){event.preventDefault();return;}if(event.deltaY>0&&eligible()){event.preventDefault();begin();}}
+ function wheel(event:WheelEvent){if(event.ctrlKey||motion.matches)return;if(phase==='playing'){event.preventDefault();return;}if(event.deltaY>0){if(gateHold(event))return;if(eligible()){event.preventDefault();begin();}}}
  function touchStart(event:TouchEvent){touchY=event.touches[0]?.clientY||0;}
- function touchMove(event:TouchEvent){if(motion.matches||event.touches.length!==1)return;if(phase==='playing'){event.preventDefault();return;}if(touchY-(event.touches[0]?.clientY||0)>3&&eligible()){event.preventDefault();begin();}}
- function key(event:KeyboardEvent){if(event.key==='Escape'&&phase==='playing'){complete();return;}if((event.target as HTMLElement).closest('input,textarea,select,button,a'))return;const down=['ArrowDown','PageDown',' ','End'].includes(event.key);const navigation=['ArrowUp','PageUp','Home',...['ArrowDown','PageDown',' ','End']].includes(event.key);if(phase==='playing'&&navigation){event.preventDefault();return;}if(down&&eligible()){event.preventDefault();begin();}}
+ function touchMove(event:TouchEvent){if(motion.matches||event.touches.length!==1)return;if(phase==='playing'){event.preventDefault();return;}if(touchY-(event.touches[0]?.clientY||0)>3){if(gateHold(event))return;if(eligible()){event.preventDefault();begin();}}}
+ function key(event:KeyboardEvent){if(event.key==='Escape'){if(gateOpen){gateGesture=false;closeGate();complete();return;}if(phase==='playing'){complete();return;}}if((event.target as HTMLElement).closest('input,textarea,select,button,a'))return;const down=['ArrowDown','PageDown',' ','End'].includes(event.key);const navigation=['ArrowUp','PageUp','Home',...['ArrowDown','PageDown',' ','End']].includes(event.key);if(phase==='playing'&&navigation){event.preventDefault();return;}if(down){if(gateHold(event))return;if(eligible()){event.preventDefault();begin();}}}
  function navigation(event:MouseEvent){if((event.target as HTMLElement).closest('a[href]'))complete();}
  function resize(){section!.style.setProperty('--header-height',`${document.querySelector('.site-header')?.getBoundingClientRect().height||98}px`);schedule();}
  function visibility(){lastTime=0;lastMediaAdvance=performance.now();if(document.hidden){clearTimeout(startTimer);film?.pause();}else if(useFilm&&phase==='playing'){startTimer=window.setTimeout(filmFailure,startWait);playFilm();}schedule();}
  function preference(){section!.classList.toggle('motion-enabled',!motion.matches);if(motion.matches){complete();copy.inert=false;}schedule();}
  const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;lastTime=0;if(visible)schedule();else if(phase==='playing')complete();});observer.observe(section);
- window.addEventListener('wheel',wheel,{passive:false});window.addEventListener('touchstart',touchStart,{passive:true});window.addEventListener('touchmove',touchMove,{passive:false});window.addEventListener('keydown',key);document.addEventListener('click',navigation);
+ // The entrance waits for the film, its final still and the fonts before it can
+ // be started at all, so the assembly never begins against a cold cache. A
+ // minimum keeps it from flashing; a cap keeps a slow connection from stranding
+ // anyone. A gesture made while it is up is remembered and honoured on release.
+ function openGate(){gateOpen=true;gateStart=performance.now();document.documentElement.classList.add('intro-gating');gateCap=window.setTimeout(closeGate,GATE_MAX);}
+ function closeGate(){if(!gateOpen)return;gateOpen=false;clearTimeout(gateCap);clearTimeout(gateMin);document.documentElement.classList.remove('intro-gating');if(gateGesture&&phase==='idle')begin();else schedule();}
+ function checkGate(){if(!gateOpen||!filmReady||!stillReady||!fontsReady)return;clearTimeout(gateMin);gateMin=window.setTimeout(closeGate,Math.max(0,GATE_MIN-(performance.now()-gateStart)));}
+ function markFilm(){if(filmReady)return;filmReady=true;checkGate();}
+ function markStill(){if(stillReady)return;stillReady=true;checkGate();}
+ function markFonts(){if(fontsReady)return;fontsReady=true;checkGate();}
+ // A gesture during the gate holds the page and is replayed once it lifts.
+ function gateHold(event:Event){if(!gateOpen||motion.matches)return false;const b=section!.getBoundingClientRect();if(b.top<innerHeight*.4&&b.bottom>innerHeight*.65){event.preventDefault();gateGesture=true;return true;}return false;}
+ // The gesture listeners have to be non-passive to hold the page still during the
+ // intro, which also stops the compositor scrolling the page by itself. Once the
+ // intro is over they can never fire usefully again, so they are released rather
+ // than left routing every later wheel tick through the main thread.
+ function releaseInput(){if(!inputBound)return;inputBound=false;window.removeEventListener('wheel',wheel);window.removeEventListener('touchstart',touchStart);window.removeEventListener('touchmove',touchMove);window.removeEventListener('keydown',key);document.removeEventListener('click',navigation);}
+ window.addEventListener('wheel',wheel,{passive:false});window.addEventListener('touchstart',touchStart,{passive:true});window.addEventListener('touchmove',touchMove,{passive:false});window.addEventListener('keydown',key);document.addEventListener('click',navigation);inputBound=true;
  window.addEventListener('resize',resize);document.addEventListener('visibilitychange',visibility);motion.addEventListener('change',preference);host.addEventListener('wallfallback',schedule);
  if(useFilm&&film){
   host.dataset.renderMode='film';film.muted=true;
-  film.addEventListener('loadeddata',playFilm);film.addEventListener('canplay',playFilm);film.addEventListener('error',filmFailure);film.addEventListener('ended',complete);
+  film.addEventListener('loadeddata',playFilm);film.addEventListener('canplay',playFilm);
+  film.addEventListener('canplay',markFilm);film.addEventListener('canplaythrough',markFilm);film.addEventListener('loadeddata',markFilm);film.addEventListener('error',filmFailure);film.addEventListener('ended',complete);
   // canplaythrough is a bandwidth estimate, not a promise of uninterrupted
   // playback. A complete local blob removes network buffering from playback.
   fetch(film.dataset.src!,{signal:download.signal}).then(response=>{if(!response.ok)throw new Error('Intro download failed');return response.blob();}).then(blob=>{
@@ -87,10 +109,15 @@ if(section&&host){
    filmUrl=URL.createObjectURL(blob);film.src=filmUrl;film.load();
   }).catch(error=>{if(error.name!=='AbortError')filmFailure();});
  }
- section.classList.toggle('motion-enabled',!motion.matches);if(!useFilm||motion.matches||scrollY>innerHeight*.6)phase='complete';resize();update();document.documentElement.classList.remove('intro-boot');
+ section.classList.toggle('motion-enabled',!motion.matches);if(!useFilm||motion.matches||scrollY>innerHeight*.6){phase='complete';releaseInput();}else{openGate();
+ // Decoding the final still up front removes the hitch that used to land
+ // exactly on the handover, when a display:none 2700x900 image was shown.
+ if(still)still.decode().then(markStill,markStill);else markStill();
+ if(document.fonts)document.fonts.ready.then(markFonts);else markFonts();
+ }resize();update();document.documentElement.classList.remove('intro-boot');
  const earlyWindow=window as Window & {__introEarly?:{requested:boolean;cancelled?:boolean;release:()=>void}};
- const early=earlyWindow.__introEarly;if(early){early.release();delete earlyWindow.__introEarly;if(early.cancelled)complete();else if(early.requested)begin();}
- function dispose(){cancelAnimationFrame(frame);clearTimeout(startTimer);download.abort();if(filmUrl)URL.revokeObjectURL(filmUrl);film?.pause();film?.removeEventListener('loadeddata',playFilm);film?.removeEventListener('canplay',playFilm);film?.removeEventListener('error',filmFailure);film?.removeEventListener('ended',complete);unlock();observer.disconnect();window.removeEventListener('wheel',wheel);window.removeEventListener('touchstart',touchStart);window.removeEventListener('touchmove',touchMove);window.removeEventListener('keydown',key);document.removeEventListener('click',navigation);window.removeEventListener('resize',resize);document.removeEventListener('visibilitychange',visibility);motion.removeEventListener('change',preference);host!.removeEventListener('wallfallback',schedule);}
+ const early=earlyWindow.__introEarly;if(early){early.release();delete earlyWindow.__introEarly;if(early.cancelled){gateGesture=false;closeGate();complete();}else if(early.requested){if(gateOpen)gateGesture=true;else begin();}}
+ function dispose(){cancelAnimationFrame(frame);clearTimeout(startTimer);clearTimeout(gateCap);clearTimeout(gateMin);document.documentElement.classList.remove('intro-gating');download.abort();if(filmUrl)URL.revokeObjectURL(filmUrl);film?.pause();film?.removeEventListener('loadeddata',playFilm);film?.removeEventListener('canplay',playFilm);film?.removeEventListener('error',filmFailure);film?.removeEventListener('ended',complete);unlock();observer.disconnect();releaseInput();window.removeEventListener('resize',resize);document.removeEventListener('visibilitychange',visibility);motion.removeEventListener('change',preference);host!.removeEventListener('wallfallback',schedule);}
  if(import.meta.hot)import.meta.hot.dispose(dispose);
  window.addEventListener('pagehide',()=>{unlock();},{once:true});
 }

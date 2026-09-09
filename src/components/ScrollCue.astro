@@ -1,0 +1,33 @@
+---
+// A double chevron pointing down, built from front-facing bricks on the same
+// 56px stud pitch and shading as the wall, so the cue is made of the same
+// material as the thing it points at. Positions are [stud column, stud count].
+const chevron=[
+ [[0,2],[6,2]],
+ [[1,2],[5,2]],
+ [[2,4]],
+];
+const columns=8,rowHeight=68,gap=62;
+const width=32+(columns-1)*56+32;
+const chevronHeight=chevron.length*rowHeight;
+const height=chevronHeight*2+gap;
+const colors=['#4e78d6','#e4ad40'];
+const brickWidth=(studs:number)=>56*(studs-1)+64;
+---
+<div class="descent-cue" aria-hidden="true">
+ <svg class="cue-arrow" viewBox={`0 0 ${width} ${height}`} width={width} height={height} role="presentation">
+  {colors.map((color,copy)=>chevron.map((row,index)=>row.map(([column,studs])=>{
+   const w=brickWidth(studs),x=column*56,y=copy*(chevronHeight+gap)+index*rowHeight;
+   return <g transform={`translate(${x} ${y})`} class="cue-brick" style={`--copy:${copy}`}>
+    <rect x="1" y="9" width={w-2} height="57" rx="4" fill={color}/>
+    <rect x="1" y="9" width={w-2} height="57" rx="4" fill="#fff" opacity=".035"/>
+    <path d={`M5 65H${w-5}Q${w-1} 65 ${w-1} 60V16`} fill="none" stroke="#172023" stroke-opacity=".14" stroke-width="2"/>
+    <path d={`M5 10H${w-5}`} stroke="#fff" stroke-opacity=".18"/>
+    <g fill={color}>{Array.from({length:studs},(_,stud)=>{
+     const cx=32+stud*56;
+     return <><path d={`M${cx-11} 11V6H${cx+11}V11A11 4 0 0 1 ${cx-11} 11`} stroke="#172023" stroke-opacity=".1"/><ellipse cx={cx} cy="6" rx="11" ry="4"/><ellipse cx={cx} cy="6" rx="11" ry="4" fill="#fff" opacity=".13"/></>;
+    })}</g>
+   </g>;
+  })))}
+ </svg>
+</div>

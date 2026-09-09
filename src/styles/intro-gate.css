@@ -1,0 +1,16 @@
+/* A deliberate, honest loading gate for the entrance. The film, its final still,
+   and the fonts all have to be ready before the assembly can start; showing sky
+   and a tumbling brick reads as loading, where a stalled first scroll read as a
+   broken page. Gated from the very first paint via .intro-boot so the finished
+   wall still never flashes before the script runs. */
+.intro-gate{position:absolute;inset:0;z-index:6;display:none;flex-direction:column;align-items:center;justify-content:center;gap:26px;pointer-events:none}
+html.intro-boot .intro-gate,html.intro-gating .intro-gate{display:flex}
+html.intro-boot body .descent .workshop,html.intro-gating body .descent .workshop{visibility:hidden}
+.gate-brick{display:grid;grid-template-columns:repeat(2,17px);gap:10px;padding:14px 16px;background:#3866d8;border-radius:7px;box-shadow:0 9px 0 #244797;animation:gate-tumble 1.5s cubic-bezier(.62,.02,.35,1) infinite}
+.gate-brick i{width:17px;height:17px;border-radius:50%;background:#7398f1;box-shadow:0 3px 0 #254fae}
+.gate-label{font-family:var(--body);font-size:.7rem;letter-spacing:.14em;font-weight:650;text-transform:uppercase;color:#3f6579}
+@keyframes gate-tumble{0%{transform:translateY(0) rotate(-12deg)}45%{transform:translateY(-20px) rotate(160deg)}100%{transform:translateY(0) rotate(348deg)}}
+/* The gate only guards the film path. Reduced motion and small screens never
+   load the film, so they must not sit behind a loading screen for nothing. */
+@media(prefers-reduced-motion:reduce){.gate-brick{animation:none}html.intro-boot .intro-gate,html.intro-gating .intro-gate{display:none}html.intro-boot body .descent .workshop,html.intro-gating body .descent .workshop{visibility:visible}}
+@media(max-width:760px){html.intro-boot .intro-gate,html.intro-gating .intro-gate{display:none}html.intro-boot body .descent .workshop,html.intro-gating body .descent .workshop{visibility:visible}}
