@@ -36,3 +36,34 @@ html.intro-boot body .descent .hero-copy{opacity:0;transform:translate(-50%,65px
 @media(prefers-reduced-motion:reduce){html.intro-boot body .descent .hero-copy{opacity:1;transform:translateX(-50%)}}
 @media(max-width:760px){body .descent.motion-enabled{height:calc(100svh - var(--header-height,83px))}body .project-section{padding-top:26px}.world-transition{height:272px}body .project-section:nth-child(even) .media-frame{transform:none}}
 @media(max-width:760px){body .workshop-intro:before{inset:10px -10px -8px}body .about-strip:before{inset:24px -10px}body .editorial-page{padding-inline:0;background:transparent}body .editorial-page h1{font-size:clamp(40px,11vw,52px)}body .editorial-grid{grid-template-columns:minmax(0,1fr)}body .technical-cases{padding-inline:0;background:transparent}.project-environment svg{opacity:.8}}
+
+/* About: the left column used to hold nothing but the eyebrow, leaving about
+   45% of the section empty. The facts panel is a plate with studs poking above
+   its top edge - the same object the sky and the contact brick are made of,
+   at UI scale. Numbers are drawn from the copy beside it, not invented. */
+body .about-strip .about-side{max-width:394px}
+body .about-facts{list-style:none;margin:36px 0 0;padding:22px 0 0;position:relative;background:#eddcbb;border:1px solid #a8895c;border-radius:6px;box-shadow:0 6px 0 #a8895c59;overflow:hidden}
+body .about-facts:before{content:'';position:absolute;top:0;left:0;right:0;height:22px;background:#f6ead0;border-bottom:1px solid #b89b68}
+body .facts-studs{position:absolute;top:6px;left:20px;right:20px;z-index:1;display:flex;justify-content:space-between;pointer-events:none}
+body .facts-studs i{width:27px;height:10px;border-radius:50%;background:#fdf6e4;border:1px solid #c4a877;box-shadow:inset 0 2px 0 #fffdf7,0 2px 0 #bb9e6b73}
+body .about-facts li{display:flex;align-items:baseline;gap:18px;padding:19px 22px}
+body .about-facts li+li{border-top:1px dashed #b09468}
+body .about-facts .fact-figure{font-family:var(--display);font-weight:700;font-size:33px;line-height:1;letter-spacing:-.045em;color:#4a6140;min-width:52px}
+body .about-facts .fact-label{font-size:12px;line-height:1.55;color:#4e5943}
+
+/* Project shortcuts: four identical sand cards with a 15px dot were the only
+   thing telling the projects apart. Each card now carries its own accent as a
+   top edge and a tint, so the colour coding starts before the hover. */
+body .project-index a{background:color-mix(in srgb,var(--accent) 11%,#e3caa1);border-top:6px solid var(--accent);border-right-color:#a58c65;box-shadow:0 5px 0 #af8e61}
+body .project-index a:hover{background:color-mix(in srgb,var(--accent) 22%,#efdcb6);box-shadow:0 10px 0 #af8e61}
+body .project-index small{color:color-mix(in srgb,var(--accent),#3b3524 35%)}
+
+/* Four project cards and three service columns both stop being readable at
+   tablet width - "Gravity Dash" wraps inside a 170px card - so both drop to
+   two columns before the phone layout takes over. */
+@media(max-width:900px){
+ body .project-index{grid-template-columns:1fr 1fr}
+ body .project-index a:nth-child(2){border-right:0}
+ body .project-index a:nth-child(-n+2){border-bottom:1px solid #a58c65}
+ body .service-grid{grid-template-columns:1fr 1fr}
+}

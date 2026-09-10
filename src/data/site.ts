@@ -3,7 +3,7 @@ export const site = {
   username: 'FloppySide',
   role: 'Roblox Systems Developer',
   email: '',
-  introduction: 'I’m a third-year Computer Science student who enjoys making games. These four projects started as hobby ideas: I thought the mechanics would be fun, so I built them.',
+  introduction: 'I enjoy making games. These four projects started as hobby ideas: I thought the mechanics would be fun, so I built them.',
   ownership: 'I made each game independently, from the builds and UI to the code that brings it all together.',
   responsibility: 'Independently Developed',
   responsibilityNote: 'I made these hobby projects independently, including the builds, UI, gameplay, and supporting code. Libraries and adapted techniques are credited where relevant.',

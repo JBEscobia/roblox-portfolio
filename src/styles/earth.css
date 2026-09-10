@@ -4,11 +4,14 @@ body .site-header{background:#b9dfee;color:#223746}body .site-header .contact-li
 body .hero{background:linear-gradient(180deg,#b9dfee 0%,#aed9ee 48%,#d0e6d9 100%);min-height:820px;isolation:isolate;padding-bottom:170px}
 body .hero:before,body .hero:after{display:none}
 .sky-clouds{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+/* Landscape is only rendered inside .descent on the homepage, so the per-cloud
+   rules below are the base layer and descent.css wins on specificity. Change a
+   cloud's position THERE; editing it here does nothing visible today. */
 .cloud{position:absolute;filter:drop-shadow(0 9px 0 #77a7be0b);will-change:transform}
-.cloud-one{width:340px;top:2%;left:-7%;opacity:.85;transform:translateX(calc(var(--descent,0)*-60px))}
-.cloud-two{width:330px;right:-5%;top:9%;transform:translateX(calc(var(--descent,0)*80px))}
-.cloud-three{width:180px;left:42%;top:9%;opacity:.65;transform:translateY(calc(var(--descent,0)*-80px))}
-.cloud-four{width:270px;left:37%;bottom:18%;opacity:.55;transform:translateX(calc(var(--descent,0)*-40px))}
+.cloud-one{width:352px;top:1%;left:-7%;transform:translateX(calc(var(--descent,0)*-60px))}
+.cloud-two{width:318px;right:-7%;top:41%;transform:translateX(calc(var(--descent,0)*80px))}
+.cloud-three{width:196px;left:40%;top:15%;opacity:.82;transform:translateY(calc(var(--descent,0)*-46px))}
+.cloud-four{width:262px;left:34%;bottom:19%;opacity:.72;transform:translateX(calc(var(--descent,0)*-40px))}
 .ground-horizon{position:absolute;bottom:-1px;left:0;width:100%;height:190px;z-index:2;pointer-events:none}
 body .hero-copy{z-index:3}body .hero-copy .eyebrow{color:#294b5f}
 body .hero h1{color:#1d3543}body .hero-description{color:#355364}
@@ -48,8 +51,13 @@ body .contact-panel{background:#c2c69e;border-color:#999e74}body .brief-form inp
 @media(max-width:1100px){body .hero-bottom{left:32px;right:32px}body .hero{min-height:770px}.cloud-two{width:260px}.cloud-three{left:40%;width:140px}.ground-horizon{height:160px}}
 @media(max-width:760px){body .hero{min-height:0;padding-bottom:160px}.cloud-one{width:210px;left:-20%;top:1%;opacity:.5}.cloud-two{width:180px;right:-19%;top:25%;opacity:.8}.cloud-three{width:100px;left:65%;top:2%;opacity:.7}.cloud-four{width:160px;left:4%;bottom:20%}.ground-horizon{height:153px}.sky-clouds{z-index:-1}body .hero-bottom{bottom:37px;left:20px;right:20px;align-items:center;gap:8px}body .hero-bottom>span:first-child{font-size:5px;max-width:172px;padding:7px 8px}body .hero-bottom .scroll-cue{font-size:5px;gap:6px;padding:7px 8px}body .workshop{margin-top:4px;margin-bottom:-20px}body .note-bottom{bottom:16%;right:8%}body .project-index a:last-child{border-color:#a58c65}body .workshop-intro{padding-top:35px}body .hero h1{font-size:clamp(64px,15.5vw,108px)}}
 @media(prefers-reduced-motion:reduce){.cloud{transform:none!important;will-change:auto}}
-/* A round plate sun with brick rays, sitting in the sky layer behind the wall.
+/* A brick-built sun sitting in the sky layer behind the wall: a stepped
+   octagon of plates with four cardinal rays, because the wall and the ground
+   horizon are rectangles and a smooth circle was the only round thing here.
+   The viewBox is 14 modules wide but the disc is only the middle 10, so the
+   CSS width is about 1.4x the apparent size of the sun.
    Deliberately not animated: an always-running animation on the entrance cost
    real frame time when the scroll cue had one. */
-.sky-sun{position:absolute;right:6%;top:4%;width:210px;height:auto;pointer-events:none}
-@media(max-width:760px){.sky-sun{width:124px;right:5%;top:2%}}
+.sky-sun{position:absolute;right:4.5%;top:3%;width:272px;height:auto;pointer-events:none}
+@media(max-width:1100px){.sky-sun{width:200px;right:3%;top:2%}}
+@media(max-width:760px){.sky-sun{width:128px;right:4%;top:1%}}

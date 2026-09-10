@@ -47,3 +47,97 @@ export function skyWall():string {
  }
  return s;
 }
+
+/* ---------------------------------------------------------------------------
+   Sky geometry.
+
+   The wall, the ground horizon and the contact brick are all rectangles, so
+   nothing in the sky is allowed to be a smooth circle either. Sun and clouds
+   are mosaics of rectangular plates on a fixed module: a round shape is
+   approximated by stepping the rows, the way it would actually be built.
+
+   Studs are one <defs> shape reused through <use>. Drawing all 100 of the
+   sun's studs inline costs about three times the nodes, and the homepage node
+   count is already the thing that made scrolling stall.
+--------------------------------------------------------------------------- */
+export type Plate={x:number,y:number,w:number,h:number};
+
+export function studDefs(id:string,cap:string,dark:string,r:number):string{
+ const n=(v:number)=>Number(v.toFixed(2));
+ return `<defs><g id="${id}">`
+  +`<circle cy="${n(r*.34)}" r="${n(r)}" fill="${dark}"/>`
+  +`<circle r="${n(r)}" fill="${cap}"/>`
+  +`<path d="M${n(-r*.66)} ${n(-r*.3)}A${n(r*.8)} ${n(r*.8)} 0 0 1 ${n(r*.18)} ${n(-r*.72)}" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="${n(r*.24)}" stroke-linecap="round"/>`
+  +`</g></defs>`;
+}
+
+/** Lays plates onto the module grid: one flat dark under-layer whose union
+    gives the silhouette its edge and its bottom thickness, then each plate's
+    face inset by `gap` so the under-layer reads through as a seam. */
+export function plateBuild(plates:Plate[],o:{m:number,body:string,dark:string,studId:string,studR:number,lip?:number,gap?:number}):string{
+ const {m,body,dark,studId,studR}=o,lip=o.lip??6,gap=o.gap??1;
+ const n=(v:number)=>Number(v.toFixed(2));
+ let base='',face='',studs='';
+ for(const p of plates){
+  base+=`<rect x="${n(p.x*m)}" y="${n(p.y*m)}" width="${n(p.w*m)}" height="${n(p.h*m+lip)}"/>`;
+  face+=`<rect x="${n(p.x*m+gap)}" y="${n(p.y*m+gap)}" width="${n(p.w*m-gap*2)}" height="${n(p.h*m-gap*2)}" rx="${n(Math.min(3.2,m*.16))}"/>`;
+  for(let c=0;c<p.w;c++)for(let r=0;r<p.h;r++)studs+=`<use href="#${studId}" x="${n((p.x+c+.5)*m)}" y="${n((p.y+r+.5)*m)}"/>`;
+ }
+ return `<g fill="${dark}">${base}</g><g fill="${body}">${face}</g>${studs}`;
+}
+
+/* Sun: a 12x12 stepped disc on a 16x16 module grid, split into 2- and 4-wide
+   plates with staggered seams so the pieces stay readable, ringed by eight
+   detached rays - four 1x2 plates on the cardinals, four 1x1 sparks on the
+   diagonals.
+
+   Two things were learned the hard way here. Stepping the row widths evenly
+   (4,6,8,10...) chamfers every corner at 45 degrees and the disc reads as a
+   diamond; the widths below are the ones a circle of radius 6 actually covers
+   on this grid, so the steps are large at the poles and flat at the equator.
+   And rays attached to the disc just extend that diamond into a gem - a ray
+   has to sit off the body with a clear module of sky around it to read as
+   light rather than as more brick. */
+const SUN_ROWS:number[][][]=[
+ [[6,4]],
+ [[4,4],[8,4]],
+ [[3,2],[5,4],[9,4]],
+ [[3,4],[7,4],[11,2]],
+ [[2,4],[6,4],[10,4]],
+ [[2,2],[4,4],[8,4],[12,2]],
+ [[2,4],[6,4],[10,4]],
+ [[2,4],[6,2],[8,4],[12,2]],
+ [[3,4],[7,4],[11,2]],
+ [[3,2],[5,4],[9,4]],
+ [[4,4],[8,4]],
+ [[6,4]],
+];
+const SUN_RAYS:Plate[]=[
+ {x:7,y:0,w:2,h:1},{x:7,y:15,w:2,h:1},{x:0,y:7,w:1,h:2},{x:15,y:7,w:1,h:2},
+ {x:2,y:2,w:1,h:1},{x:13,y:2,w:1,h:1},{x:2,y:13,w:1,h:1},{x:13,y:13,w:1,h:1},
+];
+export function sun():string{
+ const plates:Plate[]=[...SUN_RAYS];
+ SUN_ROWS.forEach((row,i)=>row.forEach(([x,w])=>plates.push({x,y:i+2,w,h:1})));
+ return `<defs><radialGradient id="sun-glow"><stop offset=".38" stop-color="#ffd97a" stop-opacity=".46"/><stop offset="1" stop-color="#ffd97a" stop-opacity="0"/></radialGradient></defs>`
+  +studDefs('sun-stud','#f9cb60','#cf9522',6.2)
+  +`<circle cx="160" cy="160" r="159" fill="url(#sun-glow)"/>`
+  +plateBuild(plates,{m:20,body:'#f2b93c',dark:'#c78a1f',studId:'sun-stud',studR:6.2,lip:6,gap:1});
+}
+
+/* Clouds: a wide flat base with bumps of unequal width sitting off-centre.
+   Symmetrical bumps on a stepped stack read as a ziggurat, not weather, so
+   every variant is deliberately lopsided. All three share a 12x4 grid - the
+   flatter ones simply leave the top row empty - so one viewBox fits all. */
+const CLOUD_SHAPES:number[][][][]=[
+ [[[3,3]],[[2,5],[7,3]],[[1,5],[6,5]],[[0,6],[6,6]]],
+ [[],[[2,4],[6,2]],[[1,5],[6,4]],[[0,6],[6,6]]],
+ [[],[[4,3]],[[2,4],[6,3]],[[1,5],[6,5]]],
+];
+export function cloud(variant=0):string{
+ const shape=CLOUD_SHAPES[variant%CLOUD_SHAPES.length]!;
+ const plates:Plate[]=[];
+ shape.forEach((row,i)=>row.forEach(([x,w])=>plates.push({x,y:i,w,h:1})));
+ return studDefs(`cloud-stud-${variant}`,'#fff','#bcd8e4',5.4)
+  +plateBuild(plates,{m:18,body:'#f4fbfd',dark:'#b3d3e0',studId:`cloud-stud-${variant}`,studR:5.4,lip:6,gap:1});
+}
