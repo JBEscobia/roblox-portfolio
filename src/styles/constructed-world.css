@@ -66,4 +66,7 @@ body .project-index small{color:color-mix(in srgb,var(--accent),#3b3524 35%)}
  body .project-index a:nth-child(2){border-right:0}
  body .project-index a:nth-child(-n+2){border-bottom:1px solid #a58c65}
  body .service-grid{grid-template-columns:1fr 1fr}
+ /* Nine services fill three columns exactly but leave one card over in two;
+    let an odd last card take the whole row instead of sitting beside a gap. */
+ body .service-grid>a:last-child:nth-child(odd){grid-column:1/-1}
 }

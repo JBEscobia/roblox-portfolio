@@ -91,6 +91,19 @@
     "height": 1080
   },
   {
+    "id": "GD-05",
+    "project": "gravity-dash",
+    "title": "Power-ups in a race",
+    "description": "Grab a Lucky Block and hit another racer with a power-up, such as a homing projectile or a forced gravity flip.",
+    "duration": "8–12 s",
+    "kind": "video",
+    "status": "placeholder",
+    "src": "",
+    "poster": "",
+    "width": 1920,
+    "height": 1080
+  },
+  {
     "id": "TT-05",
     "project": "time-tag",
     "title": "Round results and rewards",

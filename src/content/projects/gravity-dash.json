@@ -9,22 +9,23 @@
     "evidence": "user-supplied"
   },
   "headline": "Movement built for floors, walls, and ceilings.",
-  "premise": "A gravity-changing runner with connected race courses, a currency shop, and collectible cosmetics.",
+  "premise": "A gravity-changing runner with connected race courses, Lucky Block power-ups, a currency shop, and collectible cosmetics.",
   "proof": "Custom movement, generated courses, and the features around the race.",
   "capabilities": [
     "Wall & ceiling movement",
     "Generated courses",
+    "Abilities & projectiles",
     "Currencies & shops",
-    "Cosmetic inventory",
     "Saved profiles"
   ],
   "hero": "GD-01",
   "supporting": [
-    "GD-04"
+    "GD-04",
+    "GD-05"
   ],
   "play": {
     "title": "Run across walls, then make the character your own",
-    "description": "Race through connected rooms as gravity changes. Away from the course, spend in-game currency on rotating crates and manage collected cosmetics. Gameplay recordings are still to be added."
+    "description": "Race through connected rooms as gravity changes, grabbing power-ups from Lucky Blocks, from homing projectiles to thrown bombs. Away from the course, spend in-game currency on rotating crates and manage collected cosmetics. Gameplay recordings are still to be added."
   },
   "explode": {
     "title": "How changing gravity affects the game",
@@ -70,11 +71,35 @@
         "GD-C05",
         "GD-C06"
       ]
+    },
+    {
+      "id": "projectile-system",
+      "title": "Homing shots and thrown bombs",
+      "player": "Homing shots curve toward a locked target and follow it as it moves, bombs are thrown to a landing point, and only the players being aimed at see a warning.",
+      "technical": "TargetingSystem locks on to the candidate nearest the aim point, inside a screen radius that shrinks with distance, after range, line-of-sight, visibility, and health checks. BezierProjectile flies a quadratic Bezier whose control point is recomputed every frame from the target's current position, so the arc bends to follow a moving target; the arc's offset is built from the thrower's current gravity direction rather than world up, and it flattens as the shot closes in. The Homing Projectile and the Gravity Distortion attack share this path, and an unlocked Homing Projectile travels straight with a swept raycast each frame. For other players, the power-up companion flies the same trajectory, timed from the server clock. Hostile trajectories are tagged on the server: homing shots warn only the locked target and bombs warn players near the landing point, through an indicator that tracks the projectile, pins to the screen edge when it is off-screen, and intensifies as it closes.",
+      "tradeoff": "Hits are detected on the thrower's client. The server checks each claimed damage hit, including a live round, range, damage bounds, a per-target cooldown, and a matching tool authorization, but does not re-simulate the flight or re-check line of sight at impact. Read directly from source in a September 2026 autosave; not re-tested in play.",
+      "evidence": "verified-source",
+      "claims": [
+        "Editorial evidence: GD projectiles, source read 2026-09-10",
+        "GD-C07"
+      ]
+    },
+    {
+      "id": "combat-authorization",
+      "title": "Authorizing power-ups on the server",
+      "player": "Bombs, gravity flips, shields, and invisibility behave normally; the checks behind them are invisible.",
+      "technical": "CombatAuthService treats a server-observed Tool.Activated as the root of authority, because a client cannot fire that server-side event by calling a remote. Each real activation mints short-lived grants scoped to one tool and one character instance, so they do not survive a respawn. Damage grants are payload-locked: the requested damage, stagger, and damage type must match the profile of the tool that minted them. Buffs such as invisibility and shields are applied and expired by the server. Cosmetic effect broadcasts draw on a separate budget, so visual effects cannot be spammed at other players through the effects remote.",
+      "tradeoff": "This limits what a modified client can trigger; it is not a complete anti-cheat. Grants are budgeted per activation with a stacking ceiling rather than tied to one specific hit. DamageHandler was read directly and consumes a matching grant before applying damage; the gravity-flip and effect handlers were identified from source comments rather than re-read line by line.",
+      "evidence": "verified-source",
+      "claims": [
+        "GD-C07"
+      ]
     }
   ],
   "notes": [
     "Implementation verified through the supplied source audit; the current released-build traversal and procedural-course captures are pending.",
-    "Release status was supplied by the developer. No player counts or performance results are presented."
+    "Release status was supplied by the developer. No player counts or performance results are presented.",
+    "Projectile behavior was read directly from a September 8, 2026 source autosave. It has not been re-tested in play."
   ],
   "attribution": "The surface-detection method is adapted from EmilyBendsSpace’s DevForum gravity-controller example. My work here covers integrating that method with movement, animation, and the rest of the game.",
   "next": "time-tag",
@@ -86,6 +111,26 @@
         "02-deep-pass.md §3 Gravity Surface Detection / RollingCourseController",
         "Final: GD-C01–GD-C06"
       ]
+    },
+    {
+      "title": "Power-ups and abilities",
+      "description": "Lucky Blocks along the course hand out twelve power-ups, from bombs and forced gravity flips to shields, invisibility, and speed boosts. The odds shift with race position, favoring catch-up items for players at the back.",
+      "sources": [
+        "01-mechanics.md §3 Power-Ups / Lucky Blocks",
+        "02-deep-pass.md §3 CombatAuthService; §4 catch-up factor",
+        "Final: GD-C07"
+      ],
+      "note": "Power-up effects are authorized on the server, which limits what a modified client can trigger. It is not a complete anti-cheat."
+    },
+    {
+      "title": "Projectiles",
+      "description": "Homing shots lock on to a racer near your aim, curve toward them along an arc that bends with your current gravity, and follow them as they move. Bombs are thrown to a landing point. Players being aimed at get an on-screen warning that grows more urgent as the shot closes in.",
+      "sources": [
+        "Source read 2026-09-10 (September 8 autosave): Homing Projectile ProjectileController, BezierProjectile, TargetingSystem, ProjectileWarningSystem / ProjectileWarningUI, PowerUpCompanion client and server, bomb and Gravity Distortion controllers, DamageHandler",
+        "01-mechanics.md §3 Power-Ups; §6 projectile-warning remote",
+        "Final: GD-C07"
+      ],
+      "note": "Hits are detected by the thrower’s game and then checked by the server, which does not re-simulate the flight."
     },
     {
       "title": "Currencies, shop, and cosmetics",

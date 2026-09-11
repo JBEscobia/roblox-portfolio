@@ -6,7 +6,7 @@ Show managers and clients what they can hire me to build. Lead with a short, rec
 
 This guide supersedes the capture priorities in `../Final/` and the earlier highlights reports for this website revision. Those source documents remain untouched. See [EDITORIAL_EVIDENCE.md](EDITORIAL_EVIDENCE.md) for the claim-to-report map and exclusions. Source-reviewed implementation and current runtime verification are separate: every active slot is still a placeholder.
 
-The active website plan has **12 short videos and no required photos**: six core gameplay clips and six supporting feature clips. Record the six core clips first, then the breadth clips. Do not delay clean footage to build diagnostics. Longer raw takes are welcome; the listed durations are targets, not a reason to rush an unreadable action. If a feature cannot be reproduced, leave its slot pending and report the actual blocker.
+The active website plan has **13 short videos and no required photos**: six core gameplay clips and seven supporting feature clips. Record the six core clips first, then the breadth clips. Do not delay clean footage to build diagnostics. Longer raw takes are welcome; the listed durations are targets, not a reason to rush an unreadable action. If a feature cannot be reproduced, leave its slot pending and report the actual blocker.
 
 | Priority | ID | Demonstration | Target | Website placement |
 | --- | --- | --- | --- | --- |
@@ -17,6 +17,7 @@ The active website plan has **12 short videos and no required photos**: six core
 | Core | AN-02 | Ragdoll, recovery, immediate movement | 8–12 s | ANTS! supporting |
 | Core | AP-01 | Working island and a companion job change | 12–16 s | Homepage and AniPal lead |
 | Breadth | GD-04 | Currency → rotating crate → collection | 10–14 s | Gravity Dash supporting |
+| Breadth | GD-05 | Lucky Block power-up used on another racer | 8–12 s | Gravity Dash supporting |
 | Breadth | TT-05 | Round leaderboard and currency reward | 8–12 s | Time Tag supporting |
 | Breadth | TT-06 | Currency offer and real purchase prompt | 6–10 s | Time Tag supporting |
 | Breadth | TT-07 | Owned trail and currency after returning | 10–14 s | Time Tag supporting |
@@ -44,6 +45,12 @@ This absorbs the old GD-02 course footage. Do not lengthen the hero just to fit 
 Use a normal test profile without the owner's automatic full-catalog grants. Start with the real wallet and an affordable rotating crate. Open it through the in-game currency-spend path, hold on the resulting reward and changed balance, then show that reward in the collection. Equip it only if the normal supported flow fits clearly. No need to wait for a rare item or a rotation boundary.
 
 The source audit reports `FREE_GRANT_MODE` enabled for the currency shop. A free currency grant must not look like paid monetization or earned race income. This clip demonstrates spending currency and collecting an item. If extra currency is needed for setup, document the test grant outside the excerpt. Current UI behavior still needs runtime checking; do not imply a duplicate roll adds a new collectible if that is not the actual result.
+
+### GD-05 — Power-ups in a race
+
+Record a real round with at least two players. Pick up a Lucky Block, then use a power-up that visibly affects the other racer. A Homing Projectile shows the most: the lock-on reticle, the curved flight, and the hit. Its incoming warning appears only on the target's screen, so capture from the target's side as well if you want it in the clip. Gravity Distortion's forced flip and a thrown bomb also work. Keep both players in frame so cause and effect read together, and hold briefly on the result. Fun Race was the only mode in the live vote at the time of the audit.
+
+The server-side authorization behind power-ups is invisible in footage; this clip shows the gameplay, not the security layer. Lucky Block odds depend on race position, so the wanted power-up may take several pickups. If a tool is granted for setup instead of drawn from a Lucky Block, record that in the capture note and caption.
 
 ## Time Tag
 

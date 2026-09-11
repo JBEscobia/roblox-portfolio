@@ -9,12 +9,12 @@
     "evidence": "user-supplied"
   },
   "headline": "A village where companions work and interact.",
-  "premise": "An island village with working companions, job changes, resource storage, weather events, and saved world state.",
-  "proof": "Companion jobs, usable storage, and a changing island environment.",
+  "premise": "An island village with working companions, job changes, resource storage, shared shops, weather events, and saved world state.",
+  "proof": "Companion jobs, usable storage, shared shops, and a changing island environment.",
   "capabilities": [
     "Companion jobs",
-    "Job changes",
     "Inventories & chests",
+    "Shared shops",
     "Weather events",
     "Saved world state"
   ],
@@ -25,7 +25,7 @@
   ],
   "play": {
     "title": "Give companions work and manage the island",
-    "description": "Companions produce resources and carry them to storage. Change a companion’s job, manage chest contents, and see weather change the island. Gameplay recordings are still to be added."
+    "description": "Companions produce resources and carry them to storage. Change a companion’s job, manage chest contents, sell fish and buy bait at shops that rotate on a schedule, and see weather change the island. Gameplay recordings are still to be added."
   },
   "explode": {
     "title": "How the village’s work and saved state connect",
@@ -93,6 +93,28 @@
       ]
     },
     {
+      "id": "event-coordination",
+      "title": "Choosing weather, tide, and sky events",
+      "player": "Weather, tide, and sky events change the island over time.",
+      "technical": "GeneralEventManager has each server propose events for an epoch-aligned half-hour slot. A DataStore UpdateAsync transform accepts one proposal per slot and rejects slots that are already decided or out of date. Compatible tide, weather, and sky combinations are resolved inside the transform, while random choices are made before it, so a retried write does not re-roll. Each record carries a revision and each category an activation token: two consecutive events with the same name stay distinct, and an expiry timer only resets a category whose token still matches. Local application is serialized and keeps the highest pending revision; MessagingService announces changes, and polling covers missed messages.",
+      "tradeoff": "The coordination structure is source-verified, but convergence across several live servers has not been tested, so this does not claim every server always shows the same event. It is application-level coordination on DataStore atomic updates, not a consensus protocol. Not every modifier in the event tables has a gameplay consumer.",
+      "evidence": "verified-source",
+      "claims": [
+        "AP-C18"
+      ]
+    },
+    {
+      "id": "shared-shop-rotation",
+      "title": "Shop rotations that match on every server",
+      "player": "The fish market changes its featured fish every hour and the bait shop restocks every five minutes, and every server works out the same offers for each rotation.",
+      "technical": "GlobalRotationManager keys each rotation to its UTC time slot and generates it from a seeded hash of that key: a seeded Fisher-Yates shuffle picks the featured and runner-up fish, and weighted selection without replacement picks the bait stock and quantities. Any server therefore derives the same rotation on its own. A server that finds no record for a new slot writes one through a DataStore UpdateAsync that will not replace a newer record, then serves whatever record the store holds; MessagingService pushes the change and a periodic poll covers missed messages. BaitShopManager tracks purchases per player and per rotation, so buying never reduces anyone else’s stock. It checks inventory space before charging, re-checks the allowance after the Doubloon deduction, and refunds if a concurrent purchase or a full inventory stops the item.",
+      "tradeoff": "Read directly from an August 2026 source snapshot, which matches the September audit’s description; not yet exercised across live servers. Servers can briefly disagree at a rotation boundary because each reads its own clock. Prices use the in-game Doubloon currency; AniPal has no registered Robux products.",
+      "evidence": "verified-source",
+      "claims": [
+        "Editorial evidence: AniPal shared shops, source read 2026-09-10"
+      ]
+    },
+    {
       "id": "engine-lifecycle",
       "title": "Picking up and redeploying a clothed companion",
       "player": "A held companion preview preserves its identity and clothing during pickup and redeployment.",
@@ -107,7 +129,8 @@
   ],
   "notes": [
     "Companion scheduling, resource storage, environmental event handling, and persistence are reviewed in the supplied source audit. Current gameplay captures are pending.",
-    "The leave checkpoint has an unresolved PosterHandler Script/Module mismatch in the audit. Offline-return footage is deferred. No crash durability, cross-server profile locking, numeric NPC capacity, or guaranteed data preservation is claimed."
+    "The leave checkpoint has an unresolved PosterHandler Script/Module mismatch in the audit. Offline-return footage is deferred. No crash durability, cross-server profile locking, numeric NPC capacity, or guaranteed data preservation is claimed.",
+    "The shared shop rotation was read directly from an August 2026 source snapshot, which matches the September audit’s description. It has not been exercised across live servers."
   ],
   "next": "gravity-dash",
   "features": [
@@ -126,6 +149,16 @@
         "01-mechanics.md §3 Resource logistics / Placeable chests; §8 Storage UI",
         "02-deep-pass.md §3.5 logistics; §6 ChestUI"
       ]
+    },
+    {
+      "title": "Shared shops",
+      "description": "The fish market’s featured fish change every hour and the bait shop restocks every five minutes. Every server works out the same offers for each rotation, while each player keeps their own purchase allowance.",
+      "sources": [
+        "Source read 2026-09-10 (August 14 autosave): GlobalRotationManager, BaitShopManager, TidalMarketManager",
+        "01-mechanics.md §3 Fish economy and global rotations",
+        "02-deep-pass.md §3.3 GlobalRotationManager"
+      ],
+      "note": "Prices use the in-game Doubloon currency. The rotation has not yet been checked across live servers."
     },
     {
       "title": "Weather and environmental events",
