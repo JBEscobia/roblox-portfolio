@@ -2,7 +2,64 @@
 import Base from '../layouts/Base.astro';
 import {site} from '../data/site';
 ---
-<Base title="Project enquiries"><div class="editorial-page content-width"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Workshop</a><span>/</span><span aria-current="page">Contact</span></nav><p class="eyebrow">PROJECT ENQUIRIES</p><h1>Discuss your<br/>project.</h1><p class="lead">Describe the gameplay system you need, the behavior you want to change, or the technical problem you need help investigating.</p><div class="editorial-grid"><section class="contact-panel"><h2>A direct conversation.</h2>{site.email?<a class="text-link" href={`mailto:${site.email}`}>{site.email} ↗</a>:<p>Public contact details are being added. This preview does not yet send enquiries.</p>}<p class="contact-note">Useful starting points: the player experience, what currently happens, the relevant constraints, and the kind of help you need.</p></section><div><form class="brief-form" data-brief><label>Project or working title<input name="project" autocomplete="off" required maxlength="120" placeholder="What are you building?"/></label><label>The system or problem<textarea name="problem" required maxlength="5000" placeholder="What should happen? What happens instead?"></textarea></label><label>Requirements & timing<textarea name="constraints" maxlength="3000" placeholder="Existing code, target devices, timeline, or anything else that matters."></textarea></label><button class="button button-primary" type="submit" hidden data-copy-brief>Copy project summary <span aria-hidden="true">↗</span></button><p class="brief-status" aria-live="polite"></p><noscript><p class="contact-note">You can select and copy your notes directly. Nothing is submitted by this preview.</p></noscript><p class="contact-note">A local drafting tool. Nothing is sent or stored by the site.</p></form></div></div></div><script>
- const form=document.querySelector<HTMLFormElement>('[data-brief]');const button=form?.querySelector<HTMLButtonElement>('[data-copy-brief]');
- if(form&&button){button.hidden=false;form.addEventListener('submit',async event=>{event.preventDefault();const data=new FormData(form);const brief=`Project: ${data.get('project')}\n\nSystem / problem:\n${data.get('problem')}\n\nRequirements & timing:\n${data.get('constraints')}`;const status=form.querySelector<HTMLElement>('.brief-status')!;try{await navigator.clipboard.writeText(brief);status.textContent='Summary copied. Paste it into your preferred conversation when contact details are available.';}catch{status.textContent='Clipboard access was unavailable. Select and copy your notes from the fields above.';}});}
-</script></Base>
+<Base title="Contact">
+ <div class="editorial-page content-width contact-page">
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Workshop</a><span>/</span><span aria-current="page">Contact</span></nav>
+  <p class="eyebrow">CONTACT</p>
+  <h1>Let’s build<br/>something<span class="contact-dot">.</span></h1>
+  <p class="lead">Have a game feature in mind or a bug that won’t go away? Discord is the quickest way to reach me.</p>
+
+  <div class="handle-plates">
+   <section class="handle-plate discord" aria-labelledby="discord-label">
+    <span class="plate-studs" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <div class="plate-body">
+     <p class="mono plate-platform" id="discord-label"><span class="platform-mark" aria-hidden="true"></span>Discord</p>
+     <p class="plate-handle">{site.discord}</p>
+     <p class="plate-hint">Add me as a friend and send a message.</p>
+     <button class="button button-primary plate-action" type="button" hidden data-copy-handle={site.discord}>Copy username <span aria-hidden="true">⧉</span></button>
+     <p class="plate-status" aria-live="polite"></p>
+    </div>
+   </section>
+
+   <section class="handle-plate roblox" aria-labelledby="roblox-label">
+    <span class="plate-studs" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <div class="plate-body">
+     <p class="mono plate-platform" id="roblox-label"><span class="platform-mark" aria-hidden="true"></span>Roblox</p>
+     <p class="plate-handle">{site.roblox}</p>
+     <p class="plate-hint">Find my profile and games on Roblox.</p>
+     <a class="button button-outline plate-action" href={site.robloxProfile} target="_blank" rel="noopener noreferrer">View profile <span aria-hidden="true">↗</span></a>
+    </div>
+   </section>
+  </div>
+ </div>
+</Base>
+<script>
+ document.querySelectorAll<HTMLButtonElement>('[data-copy-handle]').forEach(button=>{
+  const status=button.parentElement?.querySelector<HTMLElement>('.plate-status');
+  button.hidden=false;
+  button.addEventListener('click',async()=>{
+   const handle=button.dataset.copyHandle??'';
+   try{await navigator.clipboard.writeText(handle);if(status)status.textContent=`Copied “${handle}”.`;}
+   catch{if(status)status.textContent='Couldn’t copy. Select the username instead.';}
+  });
+ });
+</script>
+<style>
+ .contact-dot{color:var(--blue)}
+ .contact-page .lead{margin-bottom:48px}
+ .handle-plates{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px;max-width:980px}
+ .handle-plate{--plate:#f3e6c8;--edge:#a8895c;--top:#faf1dc;--mark:#5865f2;position:relative;background:var(--plate);border:1px solid var(--edge);border-radius:8px;box-shadow:0 8px 0 #a8895c59;padding-top:30px;overflow:hidden}
+ .handle-plate.roblox{--mark:#1f2328}
+ .handle-plate:before{content:'';position:absolute;top:0;left:0;right:0;height:30px;background:var(--top);border-bottom:1px solid #c2a676}
+ .plate-studs{position:absolute;top:8px;left:26px;right:26px;display:flex;justify-content:space-between;pointer-events:none}
+ .plate-studs i{width:34px;height:12px;border-radius:50%;background:#fffaf0;border:1px solid #c4a877;box-shadow:inset 0 2px 0 #fffdf7,0 2px 0 #bb9e6b73}
+ .plate-body{padding:30px 30px 32px;display:grid;justify-items:start;gap:12px}
+ .plate-platform{display:flex;align-items:center;gap:9px;font-size:.68rem;color:#5b5140}
+ .platform-mark{width:12px;height:12px;border-radius:3px;background:var(--mark);box-shadow:0 2px 0 color-mix(in srgb,var(--mark),black 30%)}
+ .plate-handle{font-family:var(--display);font-weight:700;font-size:clamp(34px,4vw,46px);line-height:1;letter-spacing:-.045em;color:var(--ink);overflow-wrap:anywhere;user-select:all}
+ .plate-hint{font-size:14px;color:#5e5847}
+ .plate-action{margin-top:10px;gap:18px}
+ .handle-plate.discord .button-primary{background:#5865f2;box-shadow:0 4px 0 #3c45b8}
+ .plate-status{font-size:12px;color:#4e5943;min-height:18px}
+ @media(max-width:760px){.handle-plates{grid-template-columns:1fr;gap:26px}.plate-body{padding:26px 22px 28px}}
+</style>
