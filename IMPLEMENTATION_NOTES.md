@@ -257,3 +257,19 @@ Services are now nine cards. Three columns fill exactly; the two-column breakpoi
 After the project JSON changed, `npm run test:explore` failed because the development server kept serving the old project records while `site.ts` hot-reloaded, so the pages looked half-updated. This is the persisted `.astro/data-store.json` problem from "Development-server content cache repair" again; the production build was correct throughout. The dev server was stopped, the cache moved to `artifacts/data-store.stale-2026-09-10.json`, and `npm run dev` started again as a hidden process.
 
 Validation: production build green (claims; media with 13 placeholders; `astro check` 0 errors and 0 warnings), the preview on 4322 confirmed serving the rebuilt pages, `npm run test` 311 checks across 8 routes including axe WCAG A/AA, and `npm run test:explore` green against the restarted development server. The services grid, both project pages' features and the Gravity Dash supporting media were checked in screenshots at 1440, 900 and 390: three full rows of three at 1440, the odd ninth card spanning its row at 900 and 390, and no horizontal overflow at any of them.
+
+## Real captures, AniPal hidden (2026-09-27)
+
+Media went from 13 placeholders to 11 real captures across the three visible games. Everything was recorded with Roblox's own `CaptureService` from temporary Studio-only probe scripts (all deleted afterwards from Gravity Dash, Time Tag and ANTS!); the video recorder has no UI and a 30 s cap, screenshots do include UI. Originals and a capture note per item live in `_media-source/` (ignored). Staged clips are captioned "Studio demonstration" and each note says what was real and what was scripted.
+
+- Gravity Dash: GD-06 (JB's run through the Factory course, now the lead), GD-01 (gravity controller walking a test box, now supporting), GD-05 (homing projectile lock-on and curve onto an NPC; no damage because DamageHandler only accepts players in a live round), GD-04 now an image (crate shop).
+- Time Tag: TT-01 (seeker dash, real E key), TT-02 (runner rewind, real E key), TT-05 and TT-06 images (round results with reward; coin shop). TT-07 was removed entirely at JB's request.
+- ANTS!: AN-01 (JB's take: hauling a ladybug, then a sugar cube; single ant, ~15 fps), AN-02 (ragdoll and recovery through RagdollAdapter, developer-triggered), new AN-04 (JB's wall-stick climb across the cave ceiling). AN-03 stays reserved for the human physgun.
+
+The homepage now shows every recorded gameplay video for a project under its lead clip (`ProjectSummary` `more-clips`), not only the hero.
+
+AniPal Archipelago is hidden, not deleted: `HIDDEN_PROJECTS` in `src/data/site.ts` filters it out of `getProjects()` and out of the services list (its four service cards). Counts and copy follow the visible projects (facts panel `0{projects.length}`, "Three independently developed", section hand-off text computed from the next visible project, the last world transition uses the last visible accent, and a project whose `next` is hidden falls through to the following visible one). `public/projects/anipal/` moved to `artifacts/hidden-projects/anipal-public` so its README is not published. `test-site.mjs` and `test-explore.mjs` no longer route to AniPal. To bring it back: empty `HIDDEN_PROJECTS`, move the public folder back, and restore the two test entries.
+
+Stale copy removed: "recordings are still to be added" lines, the free-grant shop note (FREE_GRANT_MODE is false now), and the save-and-return promises. Media processing: `media:video` needs ffprobe, which is not installed; the same encode steps were run with the bundled ffmpeg-static.
+
+Validation: production build green (claims, media 14 references / 11 captures / 3 AniPal placeholders not rendered, astro check), `npm run test` 261 checks across 7 routes including axe, `npm run test:explore` green. The services grid now holds five cards (3 + 2 at desktop).

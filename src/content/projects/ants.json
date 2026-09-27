@@ -18,11 +18,12 @@
   ],
   "hero": "AN-01",
   "supporting": [
-    "AN-02"
+    "AN-02",
+    "AN-04"
   ],
   "play": {
     "title": "Grab objects and pull together",
-    "description": "Ants grab objects or other creatures using physical tethers. More ants joining changes the hauling behavior. Struggling or letting go changes the interaction again. A multiplayer recording will be added here."
+    "description": "Ants grab objects or other creatures using physical tethers. More ants joining changes the hauling behavior. Struggling or letting go changes the interaction again."
   },
   "explode": {
     "title": "How several ants share one object",

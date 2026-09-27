@@ -1,4 +1,7 @@
-﻿# Portfolio capture guide
+# Portfolio capture guide
+
+> **Status 2026-09-27:** capture pass done for Gravity Dash, Time Tag and ANTS! (see IMPLEMENTATION_NOTES.md, "Real captures, AniPal hidden"). Studio demonstrations are allowed and must be captioned as such. TT-07 was dropped, AN-04 (wall climbing) and GD-06 (course run, new GD lead) were added, and AniPal Archipelago is hidden from the site for now.
+
 
 ## Direction and priorities
 

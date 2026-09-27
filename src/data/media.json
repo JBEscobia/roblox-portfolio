@@ -1,68 +1,101 @@
 [
   {
+    "id": "GD-06",
+    "project": "gravity-dash",
+    "title": "A run through the course",
+    "description": "A real run through the Factory course: sprinting under laser grids and flipping onto walls and ceilings.",
+    "duration": "30.0 s",
+    "kind": "video",
+    "status": "verified-capture",
+    "src": "/projects/gravity-dash/gd-06.mp4",
+    "poster": "/projects/gravity-dash/gd-06-poster.jpg",
+    "width": 1088,
+    "height": 612,
+    "mobileSrc": "/projects/gravity-dash/gd-06-mobile.mp4"
+  },
+  {
     "id": "GD-01",
     "project": "gravity-dash",
-    "title": "Running through a gravity-changing course",
-    "description": "Continuous wall and ceiling movement through connected course rooms.",
-    "duration": "12–16 s",
+    "title": "Gravity wall-walking",
+    "description": "Studio demonstration: the game's gravity controller walks a character around every surface of a test box, floor to wall to ceiling and back.",
+    "duration": "13.8 s",
     "kind": "video",
-    "status": "placeholder",
-    "src": "",
-    "poster": "",
-    "width": 1920,
-    "height": 1080
+    "status": "verified-capture",
+    "src": "/projects/gravity-dash/gd-01.mp4",
+    "poster": "/projects/gravity-dash/gd-01-poster.jpg",
+    "width": 1088,
+    "height": 612,
+    "mobileSrc": "/projects/gravity-dash/gd-01-mobile.mp4"
   },
   {
     "id": "TT-01",
     "project": "time-tag",
-    "title": "Dashing around obstacles",
-    "description": "Aim, preview a route, dash around an obstacle, and land at the target.",
-    "duration": "8–12 s",
+    "title": "Echo dash",
+    "description": "Studio demonstration: hold to preview a dash route, release to fly it. The route is solved around gaps and ledges.",
+    "duration": "5.4 s",
     "kind": "video",
-    "status": "placeholder",
-    "src": "",
-    "poster": "",
-    "width": 1920,
-    "height": 1080
+    "status": "verified-capture",
+    "src": "/projects/time-tag/tt-01.mp4",
+    "poster": "/projects/time-tag/tt-01-poster.jpg",
+    "width": 1088,
+    "height": 612,
+    "mobileSrc": "/projects/time-tag/tt-01-mobile.mp4"
   },
   {
     "id": "TT-02",
     "project": "time-tag",
-    "title": "Rewinding a movement sequence",
-    "description": "Move through a turn, rewind past the ghost, and finish back on the recorded route.",
-    "duration": "7–10 s",
+    "title": "Rewind",
+    "description": "Studio demonstration: a runner rewinds along their recent path back to their echo.",
+    "duration": "7.0 s",
     "kind": "video",
-    "status": "placeholder",
-    "src": "",
-    "poster": "",
-    "width": 1920,
-    "height": 1080
+    "status": "verified-capture",
+    "src": "/projects/time-tag/tt-02.mp4",
+    "poster": "/projects/time-tag/tt-02-poster.jpg",
+    "width": 1088,
+    "height": 612,
+    "mobileSrc": "/projects/time-tag/tt-02-mobile.mp4"
   },
   {
     "id": "AN-01",
     "project": "ants",
-    "title": "Two ants hauling an object",
-    "description": "One ant drags, another joins, and the object responds as an ant lets go.",
-    "duration": "10–14 s",
+    "title": "Biting and hauling",
+    "description": "An ant bites and hauls a ladybug, then drags a sugar cube.",
+    "duration": "19.4 s",
     "kind": "video",
-    "status": "placeholder",
-    "src": "",
-    "poster": "",
-    "width": 1920,
-    "height": 1080
+    "status": "verified-capture",
+    "src": "/projects/ants/an-01.mp4",
+    "poster": "/projects/ants/an-01-poster.jpg",
+    "width": 1088,
+    "height": 612,
+    "mobileSrc": "/projects/ants/an-01-mobile.mp4"
   },
   {
     "id": "AN-02",
     "project": "ants",
-    "title": "Falling and getting back up",
-    "description": "An ant tumbles, recovers, and immediately walks or turns again.",
-    "duration": "8–12 s",
+    "title": "Ragdoll and recovery",
+    "description": "Studio demonstration: an ant is knocked flying, tumbles, and recovers straight into a walk.",
+    "duration": "6.9 s",
     "kind": "video",
-    "status": "placeholder",
-    "src": "",
-    "poster": "",
-    "width": 1920,
-    "height": 1080
+    "status": "verified-capture",
+    "src": "/projects/ants/an-02.mp4",
+    "poster": "/projects/ants/an-02-poster.jpg",
+    "width": 1088,
+    "height": 612,
+    "mobileSrc": "/projects/ants/an-02-mobile.mp4"
+  },
+  {
+    "id": "AN-04",
+    "project": "ants",
+    "title": "Wall climbing",
+    "description": "An ant climbs a wall, crosses the ceiling upside down, and comes back down.",
+    "duration": "21.0 s",
+    "kind": "video",
+    "status": "verified-capture",
+    "src": "/projects/ants/an-04.mp4",
+    "poster": "/projects/ants/an-04-poster.jpg",
+    "width": 1088,
+    "height": 612,
+    "mobileSrc": "/projects/ants/an-04-mobile.mp4"
   },
   {
     "id": "AP-01",
@@ -80,67 +113,148 @@
   {
     "id": "GD-04",
     "project": "gravity-dash",
-    "title": "Currency, crates, and collected cosmetics",
-    "description": "Spend in-game currency on a rotating crate and show the item added to the collection.",
-    "duration": "10–14 s",
-    "kind": "video",
-    "status": "placeholder",
-    "src": "",
+    "title": "Rotating crate shop",
+    "description": "The crate shop: a rotating crate with published drop odds, paid for with in-game coins and keys.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/gravity-dash/gd-04-960.jpg",
     "poster": "",
-    "width": 1920,
-    "height": 1080
+    "width": 960,
+    "height": 725,
+    "variants": [
+      {
+        "src": "/projects/gravity-dash/gd-04-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/gravity-dash/gd-04-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/gravity-dash/gd-04-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/gravity-dash/gd-04-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/gravity-dash/gd-04-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/gravity-dash/gd-04-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
   },
   {
     "id": "GD-05",
     "project": "gravity-dash",
-    "title": "Power-ups in a race",
-    "description": "Grab a Lucky Block and hit another racer with a power-up, such as a homing projectile or a forced gravity flip.",
-    "duration": "8–12 s",
+    "title": "Homing projectile",
+    "description": "Studio demonstration: the Homing Projectile locks on to a target and curves onto it. In a race it hits other players.",
+    "duration": "6.0 s",
     "kind": "video",
-    "status": "placeholder",
-    "src": "",
-    "poster": "",
-    "width": 1920,
-    "height": 1080
+    "status": "verified-capture",
+    "src": "/projects/gravity-dash/gd-05.mp4",
+    "poster": "/projects/gravity-dash/gd-05-poster.jpg",
+    "width": 1088,
+    "height": 612,
+    "mobileSrc": "/projects/gravity-dash/gd-05-mobile.mp4"
   },
   {
     "id": "TT-05",
     "project": "time-tag",
-    "title": "Round results and rewards",
-    "description": "Finish a round, read the leaderboard, and see the confirmed currency reward.",
-    "duration": "8–12 s",
-    "kind": "video",
-    "status": "placeholder",
-    "src": "",
+    "title": "Round results and reward",
+    "description": "The end-of-round results board with the coin and key reward.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/time-tag/tt-05-960.jpg",
     "poster": "",
-    "width": 1920,
-    "height": 1080
+    "width": 960,
+    "height": 725,
+    "variants": [
+      {
+        "src": "/projects/time-tag/tt-05-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/time-tag/tt-05-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/time-tag/tt-05-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/time-tag/tt-05-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/time-tag/tt-05-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/time-tag/tt-05-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
   },
   {
     "id": "TT-06",
     "project": "time-tag",
-    "title": "The currency shop purchase flow",
-    "description": "Choose a currency offer and show the real purchase prompt. Grant verification is a separate check.",
-    "duration": "6–10 s",
-    "kind": "video",
-    "status": "placeholder",
-    "src": "",
+    "title": "Coin shop",
+    "description": "Coin bundles sold for Robux through Roblox's own checkout.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/time-tag/tt-06-960.jpg",
     "poster": "",
-    "width": 1920,
-    "height": 1080
-  },
-  {
-    "id": "TT-07",
-    "project": "time-tag",
-    "title": "Inventory and progress after returning",
-    "description": "Equip an owned trail, leave, and return to compare the saved collection and currency.",
-    "duration": "10–14 s",
-    "kind": "video",
-    "status": "placeholder",
-    "src": "",
-    "poster": "",
-    "width": 1920,
-    "height": 1080
+    "width": 960,
+    "height": 725,
+    "variants": [
+      {
+        "src": "/projects/time-tag/tt-06-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/time-tag/tt-06-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/time-tag/tt-06-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/time-tag/tt-06-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/time-tag/tt-06-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/time-tag/tt-06-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
   },
   {
     "id": "AP-06",

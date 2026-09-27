@@ -8,7 +8,9 @@ import {site} from '../../data/site';
 export async function getStaticPaths(){return (await getProjects()).map(project=>({params:{slug:project.id},props:{project}}));}
 interface Props {project: Project;}
 const {project}=Astro.props; const p=project.data;
-const next=(await getProjects()).find(n=>n.id===p.next)!;
+const all=await getProjects();
+// A hidden project can be named as next; fall back to the following visible one.
+const next=all.find(n=>n.id===p.next) ?? all[(all.findIndex(n=>n.id===project.id)+1)%all.length];
 ---
 <Base title={p.title} description={p.premise}>
   <article class:list={['case-study',p.accent]}>
@@ -20,7 +22,7 @@ const next=(await getProjects()).find(n=>n.id===p.next)!;
         <div class="inner-title-row"><h1>{p.title}</h1><span class="mono">{p.status.label}</span></div>
         <p class="lede">{p.premise}</p>
         <ul class="tags">{p.capabilities.map(c=><li>{c}</li>)}</ul>
-        <div class="project-meta"><span><i></i>{site.responsibility}</span><span>Implementation reviewed in code</span><span>Game recordings to be added</span></div>
+        <div class="project-meta"><span><i></i>{site.responsibility}</span><span>Implementation reviewed in code</span><span>Recorded in Roblox Studio</span></div>
       </div>
     </header>
     <div class="content-width">

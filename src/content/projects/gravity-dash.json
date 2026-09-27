@@ -18,14 +18,15 @@
     "Currencies & shops",
     "Saved profiles"
   ],
-  "hero": "GD-01",
+  "hero": "GD-06",
   "supporting": [
+    "GD-01",
     "GD-04",
     "GD-05"
   ],
   "play": {
     "title": "Run across walls, then make the character your own",
-    "description": "Race through connected rooms as gravity changes, grabbing power-ups from Lucky Blocks, from homing projectiles to thrown bombs. Away from the course, spend in-game currency on rotating crates and manage collected cosmetics. Gameplay recordings are still to be added."
+    "description": "Race through connected rooms as gravity changes, grabbing power-ups from Lucky Blocks, from homing projectiles to thrown bombs. Away from the course, spend in-game currency on rotating crates and manage collected cosmetics."
   },
   "explode": {
     "title": "How changing gravity affects the game",
@@ -139,7 +140,7 @@
         "01-mechanics.md §3 Shop / Monetization",
         "02-deep-pass.md §3 CrateService; §5 profile mutations"
       ],
-      "note": "The audited currency shop uses free grants for testing. A store demonstration is not evidence of a live Robux purchase."
+      "note": "The crate shop screenshot uses the owner test account’s balances. It shows the shop, not a live Robux purchase."
     },
     {
       "title": "Saved player profiles",
@@ -147,7 +148,7 @@
       "sources": [
         "02-deep-pass.md §5 named profile commands; §8 persistence"
       ],
-      "note": "A current save-and-return recording is still pending; Time Tag is the planned saved-progress demonstration."
+      "note": "No save-and-return recording is shown; saving is described from the code."
     }
   ]
 }

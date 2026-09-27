@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 import {mkdir,writeFile} from 'node:fs/promises';
 import assert from 'node:assert/strict';
 const base=process.env.TEST_URL||'http://127.0.0.1:4322';
-const routes=['/','/projects/gravity-dash/','/projects/time-tag/','/projects/ants/','/projects/anipal-archipelago/','/about/','/services/','/contact/'];
+const routes=['/','/projects/gravity-dash/','/projects/time-tag/','/projects/ants/','/about/','/services/','/contact/'];
 await mkdir('artifacts',{recursive:true});
 const browser=await chromium.launch({headless:true});
 const context=await browser.newContext({viewport:{width:1440,height:1000}});
@@ -46,7 +46,7 @@ try{
   }
  }
  await page.setViewportSize({width:390,height:844});await page.goto(base+'/',{waitUntil:'networkidle'});await page.locator('.menu-toggle').click();await expect(page.locator('#site-nav')).toBeVisible();await page.keyboard.press('Escape');await expect(page.locator('.menu-toggle')).toBeFocused();assertions+=2;
- await page.locator('#anipal-archipelago').scrollIntoViewIfNeeded();await page.screenshot({path:'artifacts/validated-mobile.png'});
+ await page.locator('.project-section').last().scrollIntoViewIfNeeded();await page.screenshot({path:'artifacts/validated-mobile.png'});
  await page.reload({waitUntil:'networkidle'});assert.equal(await page.evaluate(()=>scrollY),0,'A normal homepage reload must not restore the old scroll position');assertions++;
  await page.emulateMedia({reducedMotion:'reduce'});await page.goto(base+'/',{waitUntil:'networkidle'});await expect(page.locator('.hero-copy')).toBeVisible();assert.equal(await page.locator('.descent').evaluate(e=>e.classList.contains('motion-enabled')),false);assert.equal(await page.locator('canvas').count(),0);assertions+=3;
  await page.locator('[data-mode-button=explode]').first().click();const transition=await page.locator('.model-layer').first().evaluate(e=>getComputedStyle(e).transitionDuration);assert(transition.split(',').every(n=>parseFloat(n)<=.01));assertions++;

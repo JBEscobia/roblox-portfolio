@@ -22,12 +22,11 @@
   "supporting": [
     "TT-02",
     "TT-05",
-    "TT-06",
-    "TT-07"
+    "TT-06"
   ],
   "play": {
     "title": "Dash to a target or rewind your movement",
-    "description": "The game plans a route for the seeker’s dash. Rewind follows a recorded movement sequence, with a ghost and connecting line showing the previous positions. Gameplay videos will be added here."
+    "description": "The game plans a route for the seeker’s dash. Rewind follows a recorded movement sequence, with a ghost and connecting line showing the previous positions."
   },
   "explode": {
     "title": "How a dash route is planned and checked",
@@ -89,7 +88,7 @@
     }
   ],
   "notes": [
-    "The source audit verifies movement abilities, profile persistence, currency-spend trail crates, and reward/purchase handling. Current gameplay recordings are pending.",
+    "The source audit verifies movement abilities, profile persistence, currency-spend trail crates, and reward/purchase handling. The dash and rewind recordings are Studio demonstrations.",
     "No claim of fully server-driven movement, rollback netcode, or a frame-time guarantee is made."
   ],
   "next": "ants",
@@ -126,7 +125,7 @@
         "01-mechanics.md §3 Persistence",
         "02-deep-pass.md §3 PlayerProfileService + SessionLock"
       ],
-      "note": "The save-and-return clip will show a specific confirmed result, not a guarantee against every save failure."
+      "note": "No save-and-return clip is shown; saving is described from the code, not guaranteed against every save failure."
     }
   ]
 }

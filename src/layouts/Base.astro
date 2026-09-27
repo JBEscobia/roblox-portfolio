@@ -4,7 +4,7 @@ import '@fontsource-variable/inter';
 import '../styles/global.css';
 import {site} from '../data/site';
 interface Props { title?: string; description?: string; }
-const {title='Roblox gameplay and systems development',description='Four independently developed Roblox projects featuring custom movement, power-ups, multiplayer physics, currencies, shops, inventories, weather, and saved progress.'}=Astro.props;
+const {title='Roblox gameplay and systems development',description='Three independently developed Roblox projects featuring custom movement, power-ups, multiplayer physics, currencies, shops, and saved progress.'}=Astro.props;
 const canonical=Astro.site?new URL(Astro.url.pathname,Astro.site):undefined;
 const path=Astro.url.pathname;
 const links=[['Systems','/#systems'],['Projects','/#projects'],['About','/about/'],['Services','/services/']];
