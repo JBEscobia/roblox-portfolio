@@ -49,7 +49,7 @@
       "title": "Checking grabs and coordinating multiple players",
       "player": "The server checks grabs and updates behavior when ants join or leave.",
       "technical": "GrabService runs a server heartbeat simulation around RopeConstraints, aggregate item/creature state, and struggle/tear-off logic. For item grabs, the server re-derives the nearest valid bite point and rejects implausible disagreement. publishItem and publishCreature recompute shared state as claimants change. Solo drag can assign ownership to the dragging player; multi-ant hauling and release return items to automatic network ownership.",
-      "tradeoff": "Automatic ownership is Roblox’s selection behavior, not an assertion that the server always simulates the item. Validation is a narrow geometric boundary, not a complete anti-cheat claim.",
+      "tradeoff": "Item ownership follows Roblox’s own automatic selection, so the server does not always simulate the item. Grab validation is a narrow geometric check, not a complete anti-cheat.",
       "evidence": "verified-source",
       "claims": [
         "AN-C01",
@@ -62,7 +62,7 @@
       "title": "Keeping the legs working during a ragdoll",
       "player": "The body can ragdoll while the legs keep their procedural animation; recovery returns player control.",
       "technical": "Including client-posed legs in the server ragdoll skeleton caused stale server transforms to overwrite leg IK. RagdollAdapter excludes leg parts from that skeleton and keeps them anchored on the server. The body uses server physics while clients continue posing the legs. Recovery explicitly restores the player’s network ownership; NPC bodies remain server-owned.",
-      "tradeoff": "The fix partitions transform authority instead of asking two systems to compose the same parts. Ragdoll → recovery → immediate movement still requires a current capture.",
+      "tradeoff": "The fix splits which system controls each part, instead of asking two systems to drive the same parts at once.",
       "evidence": "verified-source",
       "claims": [
         "AN-C05",

@@ -67,7 +67,7 @@
       "title": "Checking where a dash or rewind ends",
       "player": "The player’s computer plays the movement, then the server checks the final position.",
       "technical": "Both abilities follow request → server approval → local playback → completion-position report → endpoint validation/reconciliation. Rewind is checked against independent server history; dash uses geometric bounds and landing-clearance checks. Observers receive server-derived replica state with frame-rate-independent smoothing.",
-      "tradeoff": "The server checks the endpoint, not every movement step. This is neither rollback netcode nor conventional input-replay prediction. Current rewind and solver behavior still need recorded runtime evidence.",
+      "tradeoff": "The server checks where a dash or rewind ends, not every step along the way. This is not rollback netcode or input-replay prediction.",
       "evidence": "verified-source",
       "claims": [
         "TT-C06",
@@ -79,7 +79,7 @@
       "title": "Saved profiles and prototype trade handling",
       "player": "Currency and inventory use a shared saved profile; the prototype also contains trade coordination.",
       "technical": "SessionLock stores ownership in the protected DataStore record and uses UpdateAsync to reject an active competing owner, with stale takeover rules. A trade takes two profile/resource types for each of two players in deterministic order, revalidates and snapshots state, then applies the swap with failure and rollback branches.",
-      "tradeoff": "This is source-inspected prototype architecture, not evidence of a released trading feature or universal fault tolerance. The companion-profile dependency should be rechecked before promoting trading as product scope.",
+      "tradeoff": "This is prototype architecture. Trading is not a released feature, and saving is not claimed to survive every possible failure.",
       "evidence": "verified-source",
       "claims": [
         "TT-C10",

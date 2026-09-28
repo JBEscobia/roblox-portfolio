@@ -4,11 +4,15 @@ interface Props { id: string; compact?: boolean; }
 const { id, compact=false }=Astro.props;
 const m=manifest.find(item=>item.id===id);
 if(!m) throw new Error(`Unknown capture ${id}`);
+// Staged clips say so in the header instead of contradicting it in the caption.
+const staged=m.description.startsWith('Studio demonstration: ');
+const label=m.status==='placeholder'?(m.kind==='video'?'VIDEO TO BE ADDED':'SCREENSHOT TO BE ADDED'):staged?'STUDIO DEMONSTRATION':m.kind==='image'?'SCREENSHOT FROM THE GAME':'RECORDED IN THE GAME';
+const caption=staged?m.description.slice(22,23).toUpperCase()+m.description.slice(23):m.description;
 ---
 <figure class:list={['media-frame',{compact}]} data-media-id={id}>
-  <div class="media-top"><span class="mono"><span class="record-dot"></span>{m.status==='placeholder'?(m.kind==='video'?'VIDEO TO BE ADDED':'SCREENSHOT TO BE ADDED'):'RECORDED IN THE GAME'}</span><span class="mono">{id}</span></div>
+  <div class="media-top"><span class="mono"><span class="record-dot"></span>{label}</span></div>
   {m.status==='placeholder' ? <div class="media-placeholder"><span class="frame-corner tl"></span><span class="frame-corner tr"></span><span class="frame-corner bl"></span><span class="frame-corner br"></span><div><span class="placeholder-symbol" aria-hidden="true">▧</span><h3>{m.title}</h3><p>{m.description}</p></div></div> : m.kind==='video' ? <><video controls playsinline preload="none" poster={m.poster} width={m.width} height={m.height} aria-label={m.title} data-mobile-src={m.mobileSrc}><source src={m.src} type="video/mp4"/><p>Your browser cannot play this clip. <a href={m.src}>Download the gameplay capture</a>.</p></video><p class="media-error" hidden>Playback is unavailable. <a href={m.src}>Open the original capture</a>.</p></> : <picture>{['avif','webp'].map(format=>m.variants?.some(v=>v.format===format)&&<source type={`image/${format}`} srcset={m.variants.filter(v=>v.format===format).map(v=>`${v.src} ${v.width}w`).join(', ')} sizes="(max-width: 760px) calc(100vw - 40px), 640px"/>)}<img src={m.src} alt={m.description} width={m.width} height={m.height} loading="lazy" decoding="async"/></picture>}
-  <figcaption>{m.status==='placeholder'?'This space is reserved for a real recording from the game.':m.description}</figcaption>
+  <figcaption>{m.status==='placeholder'?'This space is reserved for a real recording from the game.':caption}</figcaption>
   {m.transcript&&<details class="media-transcript"><summary>Transcript</summary><p>{m.transcript}</p></details>}
 </figure>
 <script>

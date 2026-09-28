@@ -273,3 +273,33 @@ AniPal Archipelago is hidden, not deleted: `HIDDEN_PROJECTS` in `src/data/site.t
 Stale copy removed: "recordings are still to be added" lines, the free-grant shop note (FREE_GRANT_MODE is false now), and the save-and-return promises. Media processing: `media:video` needs ffprobe, which is not installed; the same encode steps were run with the bundled ffmpeg-static.
 
 Validation: production build green (claims, media 14 references / 11 captures / 3 AniPal placeholders not rendered, astro check), `npm run test` 261 checks across 7 routes including axe, `npm run test:explore` green. The services grid now holds five cards (3 + 2 at desktop).
+
+## UI/UX polish pass (2026-09-28)
+
+JB compared his own UI/UX review (plus outside feedback) against an independent one. Fixed in this pass:
+
+- The header is sticky (`ui-polish.css`, imported last and body-prefixed so it beats global.css's own rules), with `scroll-padding-top` so anchor jumps land below it. Screenshots taken straight after a programmatic `scrollTo` can show the header offset; that is `scroll-behavior:smooth` mid-flight, not a bug. Real wheel scrolling and instant scrolls hold it at 0.
+- The ANTS! shortcut card had no accent top edge: `earth.css` `body .project-index a:last-child` was written for the four-card row (AniPal last) and outranked the accent rule. The row is now `repeat(var(--cards),1fr)` from the visible project count, and one column on phones (<=600px).
+- Hero "Contact" secondary button removed (the nav already has it). "Systems" nav link removed (it only went to the top of the homepage). Breadcrumbs say "Home" everywhere instead of Workshop/Portfolio.
+- Video cards, the Gameplay/How it works switch and the enquiry panel are no longer rotated.
+- About facts rows are centre-aligned and the panel is centred against the copy on desktop; on phones it follows the copy.
+- On phones the illustration's mechanic button sits below the drawing instead of on top of it.
+- Media headers no longer show internal IDs (GD-06 etc.). Staged clips are headed "STUDIO DEMONSTRATION" and the caption drops its "Studio demonstration:" prefix; images are headed "SCREENSHOT FROM THE GAME".
+- A status whose evidence is `status-confirmation-required` (ANTS!) is not rendered. The "Source review and testing notes" block is gone from project pages; `notes` stays in the JSON.
+- About page: removed the AniPal companion-jobs sentence and "inventory transfers".
+
+Still open, needs JB: the desktop hero copy is hidden until the first wheel gestures (intro design, not changed); no "Play on Roblox" links (need game URLs, ANTS! status); defensive disclaimer copy; no og:image; tall world-transition walls on phones.
+
+Validation: production build green, `npm run test` 253 checks across 7 routes incl. axe (fewer than before because the removed links/sections no longer generate checks), `npm run test:explore` green on 4322, screenshots at 1440 and 390.
+
+## Follow-up decisions (2026-09-28)
+
+JB approved: headline visible from the start, Play on Roblox for Gravity Dash only, softer caveats moved under How it works, shorter phone walls. The link-preview image (og:image) is not made yet; JB wasn't sure what it was.
+
+- **Hero.** `.hero-copy` is visible from the first paint (`ui-polish.css`; `descent.ts` `revealed` is always true). The film no longer waits for a scroll: when the loading gate closes it plays by itself behind the headline, and the loading brick is not shown. Any scroll, swipe or down key skips to the finished wall, and the page is never held: all gesture listeners are passive, including the early inline script in `Base.astro`. `test-site.mjs` and `test-intro-resilience.mjs` were rewritten for this; the old ones asserted that the first gesture must not scroll. Intro resilience has a new `skip` mode. Its `film` mode failed once on a cold preview server, when the stall guard fell back to the final still, then passed on two runs in a row.
+- **Play on Roblox.** New optional `playUrl` in the project schema. It renders a button on the project page and a link in the homepage section footer. It is **not set yet**: place 76443130781048 shows as "Title Unavailable" publicly, so JB needs to supply the public link. `test-explore.mjs` now clicks the `/projects/` link specifically, because the footer can hold two links.
+- **Caveats.** Feature `note`s are no longer rendered in the front feature list (the data is kept). The How it works "Limitations and testing" section is now "Limitations". Nine tradeoffs were reworded in plain language, keeping every real limitation (no re-simulation, not a complete anti-cheat, endpoint-only checks, prototype trading) and dropping stale "still needs a capture" lines and internal source-audit wording. No new claims were added.
+- **Phone walls.** At <=760px the world transitions show rows 0 and 3 (136px instead of 272px), so both edge colours still match the sections they join.
+- Feature-list titles on project pages are top-aligned with their descriptions. "Explore X" links lost their ↗ (they are internal).
+
+Validation: build green (0 errors, 0 warnings), `npm run test` 250 checks incl. axe, `test:explore` green, intro resilience 6/6 modes, screenshots of hero at 200 ms / 2.6 s / 4.5 s, phone wall, features list.

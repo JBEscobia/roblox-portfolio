@@ -12,7 +12,7 @@ try {
     const project=JSON.parse(await readFile(`src/content/projects/${slug}.json`,'utf8'));
     await page.goto(base+'/',{waitUntil:'networkidle'});
     const response=page.waitForResponse(r=>r.request().isNavigationRequest()&&new URL(r.url()).pathname===`/projects/${slug}/`);
-    await page.locator(`#${slug} .project-evidence-footer a`).click();
+    await page.locator(`#${slug} .project-evidence-footer a[href^="/projects/"]`).click();
     assert.equal((await response).status(),200,`${slug}: Explore must load successfully`);
     await expect(page.locator('h1')).toHaveText(project.title);
     await expect(page.locator('.feature-overview h3')).toHaveText(project.features.map(f=>f.title));

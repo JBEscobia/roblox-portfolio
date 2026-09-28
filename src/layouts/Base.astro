@@ -7,7 +7,7 @@ interface Props { title?: string; description?: string; }
 const {title='Roblox gameplay and systems development',description='Three independently developed Roblox projects featuring custom movement, power-ups, multiplayer physics, currencies, shops, and saved progress.'}=Astro.props;
 const canonical=Astro.site?new URL(Astro.url.pathname,Astro.site):undefined;
 const path=Astro.url.pathname;
-const links=[['Systems','/#systems'],['Projects','/#projects'],['About','/about/'],['Services','/services/']];
+const links=[['Projects','/#projects'],['About','/about/'],['Services','/services/']];
 ---
 <!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="theme-color" content="#e4f2f8"/><meta name="description" content={description}/><meta name="generator" content={Astro.generator}/><title>{title} — {site.name}</title>{canonical&&<link rel="canonical" href={canonical}/>}<meta property="og:title" content={`${title} — ${site.name}`}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/>{canonical&&<meta property="og:url" content={canonical}/>}<meta name="twitter:card" content="summary"/><link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
  <script is:inline>
@@ -20,18 +20,18 @@ const links=[['Systems','/#systems'],['Projects','/#projects'],['About','/about/
    }
   }
   if(location.pathname==='/'&&!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
-   let touchY=0,requestTimeout=0;
-   const early={requested:false,cancelled:false,release:()=>{clearTimeout(timeout);clearTimeout(requestTimeout);removeEventListener('wheel',wheel);removeEventListener('touchstart',touchStart);removeEventListener('touchmove',touchMove);removeEventListener('keydown',key);removeEventListener('click',navigation);}};
+   // A scroll before the intro script loads means "skip it"; the page is never held.
+   let touchY=0;
+   const early={requested:false,cancelled:false,release:()=>{clearTimeout(timeout);removeEventListener('wheel',wheel);removeEventListener('touchstart',touchStart);removeEventListener('touchmove',touchMove);removeEventListener('keydown',key);removeEventListener('click',navigation);}};
    const cancel=()=>{early.cancelled=true;early.release();document.documentElement.classList.remove('intro-boot');};
-   const request=()=>{if(!early.requested)requestTimeout=setTimeout(cancel,1200);early.requested=true;};
-   const wheel=e=>{if(!e.ctrlKey&&(early.requested||e.deltaY>0)){e.preventDefault();request();}};
+   const wheel=e=>{if(!e.ctrlKey&&e.deltaY>0)cancel();};
    const touchStart=e=>{touchY=e.touches[0]?.clientY||0;};
-   const touchMove=e=>{if(e.touches.length===1&&(early.requested||touchY-e.touches[0].clientY>3)){e.preventDefault();request();}};
-   const key=e=>{if(e.key==='Escape'){cancel();return;}if(['ArrowDown','PageDown',' ','End'].includes(e.key)&&!e.target.closest('a,button,input,textarea,select')){e.preventDefault();request();}};
+   const touchMove=e=>{if(e.touches.length===1&&touchY-e.touches[0].clientY>3)cancel();};
+   const key=e=>{if(e.key==='Escape'||['ArrowDown','PageDown',' ','End'].includes(e.key))cancel();};
    const navigation=e=>{if(e.target.closest('a[href]'))cancel();};
    const timeout=setTimeout(()=>{cancel();document.documentElement.classList.remove('nav-enhanced');},3000);
    window.__introEarly=early;
-   addEventListener('wheel',wheel,{passive:false});addEventListener('touchstart',touchStart,{passive:true});addEventListener('touchmove',touchMove,{passive:false});addEventListener('keydown',key);addEventListener('click',navigation);
+   addEventListener('wheel',wheel,{passive:true});addEventListener('touchstart',touchStart,{passive:true});addEventListener('touchmove',touchMove,{passive:true});addEventListener('keydown',key);addEventListener('click',navigation);
   }
  </script>
  </head>

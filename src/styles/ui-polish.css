@@ -1,0 +1,56 @@
+/* UI/UX polish pass (2026-09-28). Imported last and body-prefixed on purpose: global.css declares
+   its own rules after its @imports, so an unprefixed rule here would lose every equal-specificity tie. */
+
+/* The header stays on screen; anchor jumps land below it instead of under it. */
+body .site-header{position:sticky;top:0;z-index:50;box-shadow:0 1px 0 #2237461a}
+html{scroll-padding-top:110px}
+@media(max-width:760px){html{scroll-padding-top:96px}}
+
+/* Project shortcuts: one column per visible project (AniPal is hidden, so no empty fourth slot).
+   earth.css styles a:last-child for the old four-card row and was stripping the last card's accent edge. */
+body .project-index{grid-template-columns:repeat(var(--cards,3),1fr)}
+body .project-index a,body .project-index a:last-child{border-top:6px solid var(--accent)}
+@media(max-width:600px){
+ body .project-index{grid-template-columns:1fr;gap:10px}
+ body .project-index a,body .project-index a:last-child{padding:14px 16px}
+}
+
+/* Video cards, the Gameplay/How it works switch and the enquiry panel sit square. */
+body .project-section .media-frame,body .project-section:nth-child(even) .media-frame,
+body .project-section .mode-controls,body .contact-cta{transform:none}
+
+/* About facts: figure and label share a centre line; the panel sits level with the copy beside it. */
+body .about-facts li{align-items:center}
+@media(min-width:761px){body .about-strip{align-items:center}}
+
+/* Illustration buttons drop below the drawing on phones instead of covering it. */
+@media(max-width:760px){
+ body .model-stage .mechanic-button{position:static;display:block;margin:6px 0 14px auto}
+}
+
+/* Phones: the facts panel follows the About copy instead of wedging between the label and the headline. */
+@media(max-width:760px){
+ body .about-strip .about-side{display:contents}
+ body .about-strip .about-facts{order:2;margin-top:14px}
+}
+
+/* Homepage hero: the headline is up from the first paint and the intro film plays behind it,
+   so the loading brick (which sat on top of the headline) is no longer shown. */
+html body .descent.motion-enabled .hero-copy,html.intro-boot body .descent .hero-copy{opacity:1;transform:translateX(-50%)}
+html.intro-boot body .intro-gate,html.intro-gating body .intro-gate{display:none}
+
+/* Phones: the wall between sections is two rows (first and last colour, so both joins still match)
+   instead of four, which took about a third of the screen. */
+@media(max-width:760px){
+ body .world-transition{height:136px}
+ body .world-transition .wall-row-1,body .world-transition .wall-row-2{display:none}
+ body .world-transition .wall-row-3{transform:translateY(-136px)}
+}
+
+/* "Play on Roblox" (only when a project has a public playUrl). ↗ is kept for links that leave the site. */
+body .case-study .play-link{margin-top:22px}
+body .project-section .project-evidence-footer .play-link{margin-left:auto}
+
+/* Project page feature list: each title starts level with its description. */
+body .feature-overview .technical-case{align-items:start}
+body .feature-overview .technical-case h3{margin-top:0}

@@ -21,5 +21,5 @@ const rows=Array.from({length:4},(_,row)=>({id:`brick-${from}-${to}-${row}`,y:ro
  <defs>
   {rows.map(row=><pattern id={row.id} width="120" height="68" patternUnits="userSpaceOnUse" patternTransform={`translate(${row.shift} 0)`}><rect x="1" y="9" width="118" height="57" rx="4" fill={row.color}/><rect x="1" y="9" width="118" height="57" rx="4" fill="#fff" opacity=".035"/><path d="M5 65H115Q119 65 119 60V16" fill="none" stroke="#172023" stroke-opacity=".14" stroke-width="2"/><path d="M5 10H115" stroke="#fff" stroke-opacity=".18"/><g fill={row.color}><path d="M21 11V6H43V11A11 4 0 0 1 21 11M77 11V6H99V11A11 4 0 0 1 77 11" stroke="#172023" stroke-opacity=".1"/><ellipse cx="32" cy="6" rx="11" ry="4"/><ellipse cx="88" cy="6" rx="11" ry="4"/><ellipse cx="32" cy="6" rx="11" ry="4" fill="#fff" opacity=".13"/><ellipse cx="88" cy="6" rx="11" ry="4" fill="#fff" opacity=".13"/></g></pattern>)}
  </defs>
- {rows.map(row=><rect x="0" y={row.y} width="100%" height="68" fill={`url(#${row.id})`}/>)}
+ {rows.map((row,i)=><rect class={`wall-row wall-row-${i}`} x="0" y={row.y} width="100%" height="68" fill={`url(#${row.id})`}/>)}
  </svg></div>

@@ -13,7 +13,7 @@ const projects = defineCollection({
     play: z.object({ title: z.string(), description: z.string() }),
     explode: z.object({ title: z.string(), description: z.string(), layers: z.array(z.object({ title: z.string(), detail: z.string() })) }),
     cases: z.array(z.object({ id: z.string(), title: z.string(), player: z.string(), technical: z.string(), tradeoff: z.string(), evidence, claims: z.array(z.string()) })),
-    notes: z.array(z.string()), attribution: z.string().optional(), next: z.string(),
+    notes: z.array(z.string()), attribution: z.string().optional(), playUrl: z.url().optional(), next: z.string(),
   })
 });
 export const collections = { projects };

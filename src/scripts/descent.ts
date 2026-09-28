@@ -6,7 +6,7 @@ const connection=(navigator as Navigator & {connection?:{saveData?:boolean}}).co
 if(section&&host){
  type Phase='idle'|'playing'|'complete';
  let frame=0,visible=true,phase:Phase='idle',elapsed=0,lastTime=0,touchY=0,inputBound=false;
- let gateOpen=false,gateGesture=false,gateStart=0,gateMin=0,gateCap=0,filmReady=false,stillReady=false,fontsReady=false;
+ let gateOpen=false,gateStart=0,gateMin=0,gateCap=0,filmReady=false,stillReady=false,fontsReady=false;
  const GATE_MIN=1200,GATE_MAX=4000;
  const copy=section.querySelector<HTMLElement>('.hero-copy')!;
  const film=host.querySelector<HTMLVideoElement>('.intro-film');
@@ -60,7 +60,8 @@ if(section&&host){
   host!.classList.toggle('film-complete',phase==='complete');
   // Inherited custom properties invalidated the intro SVG subtree every frame.
   // Only touch the individual elements that consume the animation progress.
-  const revealed=reduced||phase==='complete'||p>=.62;
+  // The headline is up from the first paint; the film assembles behind it.
+  const revealed=true;
   if(copy.classList.contains('is-revealed')!==revealed)copy.classList.toggle('is-revealed',revealed);
   if(ground)ground.style.transform=`translateY(${(1-clamp((p-.3)/.4))*180}px)`;
   if(cue)cue.style.opacity=gateOpen||phase!=='idle'?'0':'1';
@@ -70,10 +71,12 @@ if(section&&host){
   if(!reduced&&phase==='playing')frame=requestAnimationFrame(update);
  }
  function schedule(){if(!frame&&visible&&!document.hidden)frame=requestAnimationFrame(update);}
- function wheel(event:WheelEvent){if(event.ctrlKey||motion.matches)return;if(phase==='playing'){event.preventDefault();return;}if(event.deltaY>0){if(gateHold(event))return;if(eligible()){event.preventDefault();begin();}}}
+ // The intro plays by itself; any move to scroll skips straight to its end rather than holding the page.
+ function skip(){if(phase!=='complete')complete();}
+ function wheel(event:WheelEvent){if(event.ctrlKey||motion.matches)return;if(event.deltaY>0)skip();}
  function touchStart(event:TouchEvent){touchY=event.touches[0]?.clientY||0;}
- function touchMove(event:TouchEvent){if(motion.matches||event.touches.length!==1)return;if(phase==='playing'){event.preventDefault();return;}if(touchY-(event.touches[0]?.clientY||0)>3){if(gateHold(event))return;if(eligible()){event.preventDefault();begin();}}}
- function key(event:KeyboardEvent){if(event.key==='Escape'){if(gateOpen){gateGesture=false;closeGate();complete();return;}if(phase==='playing'){complete();return;}}if((event.target as HTMLElement).closest('input,textarea,select,button,a'))return;const down=['ArrowDown','PageDown',' ','End'].includes(event.key);const navigation=['ArrowUp','PageUp','Home',...['ArrowDown','PageDown',' ','End']].includes(event.key);if(phase==='playing'&&navigation){event.preventDefault();return;}if(down){if(gateHold(event))return;if(eligible()){event.preventDefault();begin();}}}
+ function touchMove(event:TouchEvent){if(motion.matches||event.touches.length!==1)return;if(touchY-(event.touches[0]?.clientY||0)>3)skip();}
+ function key(event:KeyboardEvent){if(event.key==='Escape'){if(gateOpen){closeGate();complete();return;}if(phase==='playing'){complete();return;}}if((event.target as HTMLElement).closest('input,textarea,select,button,a'))return;const down=['ArrowDown','PageDown',' ','End'].includes(event.key);const navigation=['ArrowUp','PageUp','Home',...['ArrowDown','PageDown',' ','End']].includes(event.key);if(navigation||down)skip();}
  function navigation(event:MouseEvent){if((event.target as HTMLElement).closest('a[href]'))complete();}
  function resize(){section!.style.setProperty('--header-height',`${document.querySelector('.site-header')?.getBoundingClientRect().height||98}px`);schedule();}
  function visibility(){lastTime=0;lastMediaAdvance=performance.now();if(document.hidden){clearTimeout(startTimer);film?.pause();}else if(useFilm&&phase==='playing'){startTimer=window.setTimeout(filmFailure,startWait);playFilm();}schedule();}
@@ -82,21 +85,17 @@ if(section&&host){
  // The entrance waits for the film, its final still and the fonts before it can
  // be started at all, so the assembly never begins against a cold cache. A
  // minimum keeps it from flashing; a cap keeps a slow connection from stranding
- // anyone. A gesture made while it is up is remembered and honoured on release.
+ // anyone. The film then plays by itself behind the already-visible headline.
  function openGate(){gateOpen=true;gateStart=performance.now();document.documentElement.classList.add('intro-gating');gateCap=window.setTimeout(closeGate,GATE_MAX);}
- function closeGate(){if(!gateOpen)return;gateOpen=false;clearTimeout(gateCap);clearTimeout(gateMin);document.documentElement.classList.remove('intro-gating');if(gateGesture&&phase==='idle')begin();else schedule();}
+ function closeGate(){if(!gateOpen)return;gateOpen=false;clearTimeout(gateCap);clearTimeout(gateMin);document.documentElement.classList.remove('intro-gating');if(phase==='idle'){if(eligible())begin();else complete();}else schedule();}
  function checkGate(){if(!gateOpen||!filmReady||!stillReady||!fontsReady)return;clearTimeout(gateMin);gateMin=window.setTimeout(closeGate,Math.max(0,GATE_MIN-(performance.now()-gateStart)));}
  function markFilm(){if(filmReady)return;filmReady=true;checkGate();}
  function markStill(){if(stillReady)return;stillReady=true;checkGate();}
  function markFonts(){if(fontsReady)return;fontsReady=true;checkGate();}
- // A gesture during the gate holds the page and is replayed once it lifts.
- function gateHold(event:Event){if(!gateOpen||motion.matches)return false;const b=section!.getBoundingClientRect();if(b.top<innerHeight*.4&&b.bottom>innerHeight*.65){event.preventDefault();gateGesture=true;return true;}return false;}
- // The gesture listeners have to be non-passive to hold the page still during the
- // intro, which also stops the compositor scrolling the page by itself. Once the
- // intro is over they can never fire usefully again, so they are released rather
- // than left routing every later wheel tick through the main thread.
+ // The gesture listeners only skip the intro. Once it is over they can never fire
+ // usefully again, so they are released rather than left on every wheel tick.
  function releaseInput(){if(!inputBound)return;inputBound=false;window.removeEventListener('wheel',wheel);window.removeEventListener('touchstart',touchStart);window.removeEventListener('touchmove',touchMove);window.removeEventListener('keydown',key);document.removeEventListener('click',navigation);}
- window.addEventListener('wheel',wheel,{passive:false});window.addEventListener('touchstart',touchStart,{passive:true});window.addEventListener('touchmove',touchMove,{passive:false});window.addEventListener('keydown',key);document.addEventListener('click',navigation);inputBound=true;
+ window.addEventListener('wheel',wheel,{passive:true});window.addEventListener('touchstart',touchStart,{passive:true});window.addEventListener('touchmove',touchMove,{passive:true});window.addEventListener('keydown',key);document.addEventListener('click',navigation);inputBound=true;
  window.addEventListener('resize',resize);document.addEventListener('visibilitychange',visibility);motion.addEventListener('change',preference);host.addEventListener('wallfallback',schedule);
  if(useFilm&&film){
   host.dataset.renderMode='film';film.muted=true;
@@ -116,7 +115,7 @@ if(section&&host){
  if(document.fonts)document.fonts.ready.then(markFonts);else markFonts();
  }resize();update();document.documentElement.classList.remove('intro-boot');
  const earlyWindow=window as Window & {__introEarly?:{requested:boolean;cancelled?:boolean;release:()=>void}};
- const early=earlyWindow.__introEarly;if(early){early.release();delete earlyWindow.__introEarly;if(early.cancelled){gateGesture=false;closeGate();complete();}else if(early.requested){if(gateOpen)gateGesture=true;else begin();}}
+ const early=earlyWindow.__introEarly;if(early){early.release();delete earlyWindow.__introEarly;if(early.cancelled){closeGate();complete();}}
  function dispose(){cancelAnimationFrame(frame);clearTimeout(startTimer);clearTimeout(gateCap);clearTimeout(gateMin);document.documentElement.classList.remove('intro-gating');download.abort();if(filmUrl)URL.revokeObjectURL(filmUrl);film?.pause();film?.removeEventListener('loadeddata',playFilm);film?.removeEventListener('canplay',playFilm);film?.removeEventListener('error',filmFailure);film?.removeEventListener('ended',complete);unlock();observer.disconnect();releaseInput();window.removeEventListener('resize',resize);document.removeEventListener('visibilitychange',visibility);motion.removeEventListener('change',preference);host!.removeEventListener('wallfallback',schedule);}
  if(import.meta.hot)import.meta.hot.dispose(dispose);
  window.addEventListener('pagehide',()=>{unlock();},{once:true});

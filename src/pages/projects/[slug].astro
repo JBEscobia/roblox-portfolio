@@ -17,12 +17,13 @@ const next=all.find(n=>n.id===p.next) ?? all[(all.findIndex(n=>n.id===project.id
     <header class="inner-hero">
       <ProjectEnvironment kind={p.accent}/>
       <div class="content-width">
-        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Portfolio</a><span aria-hidden="true">/</span><a href="/#projects">Projects</a><span aria-hidden="true">/</span><span aria-current="page">{p.shortTitle}</span></nav>
+        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/#projects">Projects</a><span aria-hidden="true">/</span><span aria-current="page">{p.shortTitle}</span></nav>
         <p class="eyebrow">0{p.order} / {p.zone}</p>
-        <div class="inner-title-row"><h1>{p.title}</h1><span class="mono">{p.status.label}</span></div>
+        <div class="inner-title-row"><h1>{p.title}</h1>{p.status.evidence!=='status-confirmation-required'&&<span class="mono">{p.status.label}</span>}</div>
         <p class="lede">{p.premise}</p>
         <ul class="tags">{p.capabilities.map(c=><li>{c}</li>)}</ul>
         <div class="project-meta"><span><i></i>{site.responsibility}</span><span>Implementation reviewed in code</span><span>Recorded in Roblox Studio</span></div>
+        {p.playUrl&&<a class="button button-primary play-link" href={p.playUrl} target="_blank" rel="noopener">Play on Roblox <span aria-hidden="true">↗</span></a>}
       </div>
     </header>
     <div class="content-width">
@@ -33,7 +34,7 @@ const next=all.find(n=>n.id===p.next) ?? all[(all.findIndex(n=>n.id===project.id
       </div>
       <section id="features">
         <h2 class="case-proof">{p.proof}</h2>
-        <div class="technical-cases feature-overview">{p.features.map(f=><section class="technical-case"><div><h3>{f.title}</h3></div><div><p class="case-player">{f.description}</p>{f.note&&<p class="feature-note">{f.note}</p>}</div></section>)}</div>
+        <div class="technical-cases feature-overview">{p.features.map(f=><section class="technical-case"><div><h3>{f.title}</h3></div><div><p class="case-player">{f.description}</p></div></section>)}</div>
       </section>
       <section class="supporting-media" id="more-gameplay">
         <p class="eyebrow">MORE FROM THE GAME</p><h2>Short gameplay demonstrations</h2>
@@ -42,9 +43,8 @@ const next=all.find(n=>n.id===p.next) ?? all[(all.findIndex(n=>n.id===project.id
       <section class="enquiry-note"><h2>Have a feature in mind?</h2><p>Tell me what you want players to be able to do. I can discuss the implementation and answer detailed questions about this project.</p><a class="text-link" href="/contact/">Discuss your project ↗</a></section>
       <details id="engineering" class="engineering-details">
         <summary>How it works — optional technical details</summary>
-        <div class="technical-cases">{p.cases.map((c,i)=><section class="technical-case" id={c.id}><div><p class="mono">0{i+1} / IMPLEMENTATION</p><h3>{c.title}</h3><p class="case-player">{c.player}</p><span class="evidence-badge mono">Reviewed in project code</span></div><div class="technical-body"><details class="implementation-detail"><summary>Technical details</summary><p>{c.technical}</p>{c.id==='ability-authority'&&<figure class="authority-diagram"><div><h4>01 / Owner client</h4><p>Request approval, play the movement locally, then report the final position.</p></div><div><h4>02 / Server</h4><p>Check the endpoint against history or geometric bounds, then accept or correct it.</p></div><div><h4>03 / Observer clients</h4><p>Receive and smooth the server’s replica state.</p></div><figcaption>Explanatory diagram based on the source audit. Endpoint checks do not re-simulate every movement step.</figcaption></figure>}</details><details><summary>Limitations and testing</summary><p>{c.tradeoff}</p></details></div></section>)}</div>
+        <div class="technical-cases">{p.cases.map((c,i)=><section class="technical-case" id={c.id}><div><p class="mono">0{i+1} / IMPLEMENTATION</p><h3>{c.title}</h3><p class="case-player">{c.player}</p><span class="evidence-badge mono">Reviewed in project code</span></div><div class="technical-body"><details class="implementation-detail"><summary>Technical details</summary><p>{c.technical}</p>{c.id==='ability-authority'&&<figure class="authority-diagram"><div><h4>01 / Owner client</h4><p>Request approval, play the movement locally, then report the final position.</p></div><div><h4>02 / Server</h4><p>Check the endpoint against history or geometric bounds, then accept or correct it.</p></div><div><h4>03 / Observer clients</h4><p>Receive and smooth the server’s replica state.</p></div><figcaption>Explanatory diagram based on the source audit. Endpoint checks do not re-simulate every movement step.</figcaption></figure>}</details><details><summary>Limitations</summary><p>{c.tradeoff}</p></details></div></section>)}</div>
       </details>
-      <details class="evidence-notes" id="evidence"><summary>Source review and testing notes</summary>{p.notes.map(n=><p>{n}</p>)}</details>
       {p.attribution&&<p class="responsibility-caption attribution"><strong>Attribution.</strong> {p.attribution}</p>}
       <a class="next-project" href={`/projects/${next.id}/`}><div><p class="mono">NEXT PROJECT / {next.data.zone}</p><h2>{next.data.title}</h2></div><span aria-hidden="true">↗</span></a>
     </div>

@@ -52,7 +52,7 @@
       "title": "Movement and animation on different surfaces",
       "player": "The character’s movement and animations follow its changing sense of down.",
       "technical": "The controller consumes combined surface normals and drives a custom VectorForce / BodyGyro rig. StateTracker projects velocity onto the current gravity axis to distinguish running, jumping, and free fall. Exclusion tags keep solid containment geometry from accidentally redirecting gravity; round boundaries explicitly reset the controller.",
-      "tradeoff": "Surface sampling is adapted and credited. The contribution presented here is controller integration, coordinate-state handling, resets, and edge-case engineering. Continuous floor-to-wall-to-ceiling behavior still needs a current capture.",
+      "tradeoff": "The surface-sampling technique is adapted from a credited DevForum example. The work shown here is the controller built around it: switching between surfaces, resetting cleanly and handling the edge cases.",
       "evidence": "verified-source",
       "claims": [
         "GD-C01",
@@ -65,7 +65,7 @@
       "title": "Building connected race courses",
       "player": "Room layouts connect to form courses with changes in direction and elevation.",
       "technical": "Entrance and Exit transforms align consecutive room templates. StartArc, RoomLength, and CheckpointArc let progress, checkpoints, and culling share a monotonic arc coordinate. An occupancy guard prevents culling a room containing a living player. seedFromExisting can reconstruct an unordered room chain through greedy position/orientation matching.",
-      "tradeoff": "Chain reconstruction is source-verified; a particular operational purpose such as server restart recovery is not established. No generation speed or performance benchmark is claimed.",
+      "tradeoff": "Rebuilding the room chain is verified in the code. No generation-speed or performance figures are claimed.",
       "evidence": "verified-source",
       "claims": [
         "GD-C04",
@@ -78,7 +78,7 @@
       "title": "Homing shots and thrown bombs",
       "player": "Homing shots curve toward a locked target and follow it as it moves, bombs are thrown to a landing point, and only the players being aimed at see a warning.",
       "technical": "TargetingSystem locks on to the candidate nearest the aim point, inside a screen radius that shrinks with distance, after range, line-of-sight, visibility, and health checks. BezierProjectile flies a quadratic Bezier whose control point is recomputed every frame from the target's current position, so the arc bends to follow a moving target; the arc's offset is built from the thrower's current gravity direction rather than world up, and it flattens as the shot closes in. The Homing Projectile and the Gravity Distortion attack share this path, and an unlocked Homing Projectile travels straight with a swept raycast each frame. For other players, the power-up companion flies the same trajectory, timed from the server clock. Hostile trajectories are tagged on the server: homing shots warn only the locked target and bombs warn players near the landing point, through an indicator that tracks the projectile, pins to the screen edge when it is off-screen, and intensifies as it closes.",
-      "tradeoff": "Hits are detected on the thrower's client. The server checks each claimed damage hit, including a live round, range, damage bounds, a per-target cooldown, and a matching tool authorization, but does not re-simulate the flight or re-check line of sight at impact. Read directly from source in a September 2026 autosave; not re-tested in play.",
+      "tradeoff": "Hits are detected on the thrower’s side. The server checks every claimed hit (a live round, range, damage amount, a per-target cooldown and a matching power-up grant) but does not re-simulate the flight or re-check line of sight at impact.",
       "evidence": "verified-source",
       "claims": [
         "Editorial evidence: GD projectiles, source read 2026-09-10",
@@ -90,7 +90,7 @@
       "title": "Authorizing power-ups on the server",
       "player": "Bombs, gravity flips, shields, and invisibility behave normally; the checks behind them are invisible.",
       "technical": "CombatAuthService treats a server-observed Tool.Activated as the root of authority, because a client cannot fire that server-side event by calling a remote. Each real activation mints short-lived grants scoped to one tool and one character instance, so they do not survive a respawn. Damage grants are payload-locked: the requested damage, stagger, and damage type must match the profile of the tool that minted them. Buffs such as invisibility and shields are applied and expired by the server. Cosmetic effect broadcasts draw on a separate budget, so visual effects cannot be spammed at other players through the effects remote.",
-      "tradeoff": "This limits what a modified client can trigger; it is not a complete anti-cheat. Grants are budgeted per activation with a stacking ceiling rather than tied to one specific hit. DamageHandler was read directly and consumes a matching grant before applying damage; the gravity-flip and effect handlers were identified from source comments rather than re-read line by line.",
+      "tradeoff": "This limits what a modified client can trigger, but it is not a complete anti-cheat. Grants are budgeted per activation with a cap on stacking, rather than tied to one specific hit.",
       "evidence": "verified-source",
       "claims": [
         "GD-C07"

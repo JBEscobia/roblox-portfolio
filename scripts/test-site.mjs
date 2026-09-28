@@ -17,14 +17,10 @@ try{
   assert(await page.locator('meta[name=description]').getAttribute('content'));assertions++;
   for(const tags of await page.locator('.project-evidence>.tags').all()){assert(await tags.evaluate(e=>e.getBoundingClientRect().bottom<e.parentElement.querySelector('.media-frame').getBoundingClientRect().top),'Feature tags must be separated from the footage');assertions++;}
   if(route==='/'){
-   await expect.poll(()=>page.locator('.hero-copy').evaluate(e=>getComputedStyle(e).opacity)).toBe('0');assertions++;
-   await page.mouse.wheel(0,260);
-   await expect(page.locator('.descent')).toHaveAttribute('data-animation-state','playing');
-   assert.equal(await page.evaluate(()=>scrollY),0,'Trigger gesture must not scroll the page');assertions++;
-   await page.mouse.wheel(0,650);assert.equal(await page.evaluate(()=>scrollY),0,'Input during animation must be ignored');assertions++;
-   await expect.poll(()=>page.locator('.hero-copy').evaluate(e=>getComputedStyle(e).opacity),{timeout:6000}).toBe('1');assertions++;
-   await expect(page.locator('.descent')).toHaveAttribute('data-animation-state','complete');
-   assert.equal(await page.evaluate(()=>scrollY),0,'Completion must not advance the page');assertions++;
+   // The headline is up from the first paint and the intro plays by itself behind it.
+   await expect.poll(()=>page.locator('.hero-copy').evaluate(e=>getComputedStyle(e).opacity)).toBe('1');assertions++;
+   await expect(page.locator('.descent')).toHaveAttribute('data-animation-state','complete',{timeout:8000});
+   assert.equal(await page.evaluate(()=>scrollY),0,'The intro must not advance the page by itself');assertions++;
    await page.screenshot({path:'artifacts/validated-intro.png'});
   }
   for(const root of await page.locator('[data-assembly]').all()){
