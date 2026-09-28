@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 import {mkdir,writeFile} from 'node:fs/promises';
 import assert from 'node:assert/strict';
 const base=process.env.TEST_URL||'http://127.0.0.1:4322';
-const routes=['/','/projects/gravity-dash/','/projects/time-tag/','/projects/ants/','/about/','/services/','/contact/'];
+const routes=['/','/projects/gravity-dash/','/projects/time-tag/','/projects/ants/','/about/','/services/','/contact/','/assets/'];
 await mkdir('artifacts',{recursive:true});
 const browser=await chromium.launch({headless:true});
 const context=await browser.newContext({viewport:{width:1440,height:1000}});

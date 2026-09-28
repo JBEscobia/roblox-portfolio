@@ -281,5 +281,1293 @@
     "poster": "",
     "width": 1920,
     "height": 1080
+  },
+  {
+    "id": "AS-01",
+    "project": "assets",
+    "title": "Orc moveset",
+    "description": "Orc: idle, walk, run, Cleave, Sweep, Pauldron Charge, Backhand and stagger, with a procedural axe.",
+    "duration": "18.4 s",
+    "kind": "video",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-01.mp4",
+    "poster": "/projects/assets/as-01-poster.jpg",
+    "width": 960,
+    "height": 540,
+    "mobileSrc": "/projects/assets/as-01-mobile.mp4"
+  },
+  {
+    "id": "AS-02",
+    "project": "assets",
+    "title": "Tauren chieftain moveset",
+    "description": "Tauren chieftain: brute idle with the totem maul on his shoulder, walk, bull-charge run, War Stomp, Low Sweep, Horn Gore, Stomp and stagger.",
+    "duration": "23.1 s",
+    "kind": "video",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-02.mp4",
+    "poster": "/projects/assets/as-02-poster.jpg",
+    "width": 960,
+    "height": 540,
+    "mobileSrc": "/projects/assets/as-02-mobile.mp4"
+  },
+  {
+    "id": "AS-03",
+    "project": "assets",
+    "title": "Troll moveset",
+    "description": "Troll: idle, walk, run, Thrust, Spin Sweep, Leap Impale, javelin Throw and stagger.",
+    "duration": "16.1 s",
+    "kind": "video",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-03.mp4",
+    "poster": "/projects/assets/as-03-poster.jpg",
+    "width": 960,
+    "height": 540,
+    "mobileSrc": "/projects/assets/as-03-mobile.mp4"
+  },
+  {
+    "id": "AS-04",
+    "project": "assets",
+    "title": "Goblin moveset",
+    "description": "Goblin: idle, walk, run, Stab Flurry, Pounce, Spin Slash and stagger, with twin shivs.",
+    "duration": "12.7 s",
+    "kind": "video",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-04.mp4",
+    "poster": "/projects/assets/as-04-poster.jpg",
+    "width": 960,
+    "height": 540,
+    "mobileSrc": "/projects/assets/as-04-mobile.mp4"
+  },
+  {
+    "id": "AS-10",
+    "project": "assets",
+    "title": "Toadstool House",
+    "description": "Toadstool House: a mushroom-cap cottage with a round door, lanterns and a smoking chimney.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-10-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-10-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-10-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-10-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-10-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-10-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-10-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-11",
+    "project": "assets",
+    "title": "Treehollow Home",
+    "description": "Treehollow Home: a cottage built into the roots of a giant tree, with a loft balcony and a rope swing.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-11-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-11-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-11-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-11-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-11-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-11-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-11-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-12",
+    "project": "assets",
+    "title": "Shell Cottage",
+    "description": "Shell Cottage: a spiral seashell home on a sandy plot with a round front door.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-12-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-12-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-12-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-12-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-12-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-12-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-12-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-13",
+    "project": "assets",
+    "title": "Riverside Cottage",
+    "description": "Riverside Cottage: a tiled blue-roof cottage with a turning waterwheel.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-13-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-13-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-13-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-13-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-13-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-13-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-13-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-14",
+    "project": "assets",
+    "title": "Village Family House",
+    "description": "Village Family House: a two-storey timber-frame house with a porch and a stone ground floor.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-14-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-14-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-14-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-14-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-14-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-14-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-14-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-15",
+    "project": "assets",
+    "title": "Flower Cottage",
+    "description": "Flower Cottage: a rose-roofed cottage framed by flower beds and a white picket fence.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-15-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-15-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-15-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-15-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-15-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-15-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-15-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-20",
+    "project": "assets",
+    "title": "Axes",
+    "description": "Named axe line, from a lashed starter axe up to the gold-and-ruby Heirloom Axe.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-20-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-20-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-20-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-20-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-20-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-20-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-20-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-21",
+    "project": "assets",
+    "title": "Pickaxes",
+    "description": "Named pickaxe line; later tiers add crystal inlays and a glow.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-21-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-21-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-21-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-21-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-21-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-21-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-21-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-22",
+    "project": "assets",
+    "title": "Swords",
+    "description": "Sixteen-sword set, named line: training blade to Ember, Frost and Heirloom swords.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-22-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-22-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-22-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-22-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-22-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-22-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-22-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-23",
+    "project": "assets",
+    "title": "Fishing rods",
+    "description": "Fishing rods, each with its own reel and guides, from an old bamboo rod to the Diamond Rod.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-23-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-23-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-23-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-23-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-23-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-23-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-23-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-24",
+    "project": "assets",
+    "title": "Material axes",
+    "description": "Material line: the same axe silhouette in wood, cobblestone, copper, steel, silver, gold, diamond and mythril.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-24-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-24-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-24-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-24-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-24-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-24-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-24-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-30",
+    "project": "assets",
+    "title": "Eden: the great tree",
+    "description": "The Eden map from above: rivers winding past orchards and cliffs toward the giant tree.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-30-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-30-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-30-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-30-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-30-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-30-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-30-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-31",
+    "project": "assets",
+    "title": "Eden: the meadow",
+    "description": "Ground level in Eden: fruit trees, flower meadows and the giant tree over the river.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-31-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-31-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-31-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-31-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-31-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-31-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-31-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-40",
+    "project": "assets",
+    "title": "Costumes: Royal, Knight, Samurai",
+    "description": "Royal, Knight and Samurai costumes on the base worker ant.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-40-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-40-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-40-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-40-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-40-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-40-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-40-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-41",
+    "project": "assets",
+    "title": "Costumes: Pirate, Scientist, Witch",
+    "description": "Pirate, Scientist and Witch costumes.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-41-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-41-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-41-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-41-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-41-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-41-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-41-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-42",
+    "project": "assets",
+    "title": "Costumes: Chef, Explorer, Ninja",
+    "description": "Chef, Explorer and Ninja costumes.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-42-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-42-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-42-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-42-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-42-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-42-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-42-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-43",
+    "project": "assets",
+    "title": "Costumes: Musician, Gardener, Farmer",
+    "description": "Musician, Gardener and Farmer costumes.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-43-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-43-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-43-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-43-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-43-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-43-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-43-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-44",
+    "project": "assets",
+    "title": "Costumes: Mechanic, Winter, Beach",
+    "description": "Mechanic, Winter Warmer and Beach Day costumes.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-44-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-44-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-44-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-44-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-44-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-44-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-44-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-45",
+    "project": "assets",
+    "title": "Costumes: Mage, Gentleant, Punk",
+    "description": "Mage, Gentleant and Punk costumes.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-45-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-45-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-45-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-45-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-45-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-45-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-45-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-50",
+    "project": "assets",
+    "title": "Ant castes",
+    "description": "The ant castes side by side: tank, warrior, ranged, resource and worker.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-50-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-50-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-50-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-50-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-50-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-50-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-50-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-51",
+    "project": "assets",
+    "title": "Tank and warrior",
+    "description": "Close-up of the tank, with its armoured shield back, and the warrior with oversized mandibles.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-51-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-51-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-51-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-51-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-51-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-51-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-51-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-55",
+    "project": "assets",
+    "title": "Creatures: antlion, jumping spider, rhino and stag beetles",
+    "description": "Antlion, plush jumping spider, rhino beetle and stag beetle.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-55-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-55-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-55-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-55-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-55-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-55-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-55-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-56",
+    "project": "assets",
+    "title": "Creatures: ladybug, firefly, bee, wasp",
+    "description": "Ladybug, firefly with its glowing tail, bee and wasp.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-56-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-56-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-56-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-56-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-56-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-56-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-56-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-60",
+    "project": "assets",
+    "title": "House: living room",
+    "description": "Inside the house map: the living room, seen at ant scale.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-60-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-60-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-60-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-60-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-60-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-60-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-60-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-61",
+    "project": "assets",
+    "title": "House: kitchen",
+    "description": "The house kitchen: cabinets, stove, island and dining table.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-61-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-61-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-61-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-61-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-61-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-61-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-61-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-62",
+    "project": "assets",
+    "title": "School cafeteria",
+    "description": "The school cafeteria: lunch tables, serving line and the talent-show stage.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-62-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-62-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-62-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-62-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-62-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-62-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-62-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-63",
+    "project": "assets",
+    "title": "Fast-food restaurant",
+    "description": "The fast-food restaurant dining room, counter and drinks station.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-63-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-63-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-63-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-63-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-63-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-63-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-63-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
+  },
+  {
+    "id": "AS-64",
+    "project": "assets",
+    "title": "Backyard",
+    "description": "The backyard map: pergola, sprinkler, tree, shed and the house deck.",
+    "kind": "image",
+    "status": "verified-capture",
+    "src": "/projects/assets/as-64-960.jpg",
+    "poster": "",
+    "width": 960,
+    "height": 540,
+    "variants": [
+      {
+        "src": "/projects/assets/as-64-640.avif",
+        "width": 640,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-64-640.webp",
+        "width": 640,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-64-640.jpg",
+        "width": 640,
+        "format": "jpg"
+      },
+      {
+        "src": "/projects/assets/as-64-960.avif",
+        "width": 960,
+        "format": "avif"
+      },
+      {
+        "src": "/projects/assets/as-64-960.webp",
+        "width": 960,
+        "format": "webp"
+      },
+      {
+        "src": "/projects/assets/as-64-960.jpg",
+        "width": 960,
+        "format": "jpg"
+      }
+    ]
   }
 ]

@@ -1,0 +1,31 @@
+---
+import Media from './Media.astro';
+import { assetSets } from '../data/assets';
+import { media } from '../lib/media';
+// Homepage slot that AniPal used to fill: the creature reels up front, every other set as a card
+// linking to its full gallery on /assets/. The reserved card holds the place for the next set (ANTS!).
+const [lead, ...rest] = assetSets;
+const cover = (id: string) => media.find(m => m.id === id);
+---
+<section id="assets" class="assets-made" aria-labelledby="assets-title">
+ <div class="content-width">
+  <div class="section-rule"><span class="mono">04 / ASSETS</span><span class="mono">MODELS · RIGGING · ANIMATION</span></div>
+  <div class="assets-heading">
+   <div><p class="eyebrow">Assets made</p><h2 id="assets-title">Creatures, houses<br/>and gear, built to use.</h2></div>
+   <p>Alongside the games I build the assets that go in them: procedural models, R15 rigs with full enemy movesets, village buildings and tiered tool sets.</p>
+  </div>
+  <h3 class="assets-set-title">{lead.title} <span class="mono">{lead.kind}</span></h3>
+  <p class="assets-set-summary">{lead.summary}</p>
+  <div class="assets-reels">{lead.media.map(id => <Media id={id} compact/>)}</div>
+  <div class="assets-cards">
+   {rest.map(set => { const c = cover(set.media[0]); return (
+    <a class="assets-card" href={`/assets/#${set.id}`}>
+     {c && <img src={c.variants?.find(v => v.format === 'jpg' && v.width === 640)?.src ?? c.src} alt="" width="640" height={Math.round(640 * c.height / c.width)} loading="lazy" decoding="async"/>}
+     <span class="mono">{set.kind} · {set.media.length} {set.media.length === 1 ? 'image' : 'images'}</span>
+     <strong>{set.title}</strong>
+     <span class="assets-card-link">See the set</span>
+    </a>); })}
+  </div>
+  <a class="button button-primary assets-all" href="/assets/">See every asset</a>
+ </div>
+</section>

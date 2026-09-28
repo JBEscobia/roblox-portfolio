@@ -6,7 +6,7 @@ const m=manifest.find(item=>item.id===id);
 if(!m) throw new Error(`Unknown capture ${id}`);
 // Staged clips say so in the header instead of contradicting it in the caption.
 const staged=m.description.startsWith('Studio demonstration: ');
-const label=m.status==='placeholder'?(m.kind==='video'?'VIDEO TO BE ADDED':'SCREENSHOT TO BE ADDED'):staged?'STUDIO DEMONSTRATION':m.kind==='image'?'SCREENSHOT FROM THE GAME':'RECORDED IN THE GAME';
+const label=m.status==='placeholder'?(m.kind==='video'?'VIDEO TO BE ADDED':'SCREENSHOT TO BE ADDED'):m.project==='assets'?(m.kind==='video'?'RECORDED IN STUDIO':'CAPTURED IN STUDIO'):staged?'STUDIO DEMONSTRATION':m.kind==='image'?'SCREENSHOT FROM THE GAME':'RECORDED IN THE GAME';
 const caption=staged?m.description.slice(22,23).toUpperCase()+m.description.slice(23):m.description;
 ---
 <figure class:list={['media-frame',{compact}]} data-media-id={id}>

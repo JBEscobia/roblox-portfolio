@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import Media from '../components/Media.astro';
+import { assetSets } from '../data/assets';
+---
+<Base title="Assets made" description="Models, R15 rigs and animation, village houses and tool sets built for Roblox games.">
+ <div class="editorial-page content-width assets-page">
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span aria-current="page">Assets</span></nav>
+  <p class="eyebrow">Assets made</p>
+  <h1>Models, rigs<br/>and animation.</h1>
+  <p class="lead">The assets behind the games: procedural creature models with full enemy movesets, village houses, tiered tool sets and a world map.</p>
+  <nav class="assets-jump" aria-label="Asset sets">{assetSets.map(s => <a href={`#${s.id}`}>{s.title}</a>)}</nav>
+  {assetSets.map(set => (
+   <section class="assets-set" id={set.id}>
+    <div class="assets-set-head"><span class="mono">{set.kind}</span><h2>{set.title}</h2><p>{set.summary}</p><p class="assets-source">{set.source}</p></div>
+    <div class="media-grid">{set.media.map(id => <Media id={id} compact/>)}</div>
+   </section>
+  ))}
+ </div>
+</Base>

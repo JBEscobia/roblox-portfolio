@@ -310,3 +310,30 @@ Validation: build green (0 errors, 0 warnings), `npm run test` 250 checks incl. 
 - About facts panel is now three rows, as JB specified: `01` Developer — builds, UI and code; `02` Years of experience; `03` Games designed and built (`0{projects.length}`).
 
 Validation: build green, `npm run test` 251 checks, intro resilience 6/6, `test:explore` green, About panel checked at 1440 and 390.
+
+## Assets made section (2026-09-28)
+
+JB asked for a new "Assets made" section in the old AniPal slot: the orc, tauren, troll and goblin (models and animation), the villager houses, the Gen 2 tools and his two Eden screenshots, with room for an ANTS! set later.
+
+- Data: `src/data/assets.ts` lists the sets; the next set (ANTS!) is one more entry. Media are `AS-*` records in `media.json` with `project: 'assets'`; headers read "RECORDED IN STUDIO" / "CAPTURED IN STUDIO".
+- Homepage: `AssetsMade.astro` after ANTS! (between two sea-green world transitions), four creature reels, a card per other set linking to `/assets/#set`, and a dashed reserved card for "ANTS! creatures and props". The project shortcut row has a fourth card (04 / ASSETS); ANTS!'s hand-off reads "NEXT: ASSETS MADE". Header nav gains Assets.
+- `/assets/` page: every set with its full gallery; added to `test-site.mjs` routes.
+- Capture method and provenance: `_media-source/AS-capture-note.md`. Only the original clips are used for the Orc and Tauren (no delayed or combo versions, per JB). The Tauren's brute idle (pass 3d, left unpublished when the previous session hit its limit) was exported alone and published as 114883737491499.
+
+Validation: build green (31 media references), `npm run test` 297 checks across 8 routes incl. axe, `test:explore` green, intro resilience 6/6, screenshots at 1440 and 390.
+
+## Intro: loading screen back, no snap (2026-09-28)
+
+JB saw the intro "stop halfway and snap to the full page". Cause: `filmFailure()` removed `data-render-mode` in one frame, so a mid-film decoder stall of over 0.4 s cut straight from the half-built wall to the finished still. Since the film now starts without a scroll, it was decoding while the rest of the page (posters, images, fonts) was still loading, which made stalls more likely.
+
+- The loading gate (tumbling brick, "LOADING") is back on desktop. The headline stays hidden during the gate and fades in (0.6 s) as the film starts. Phones and reduced motion still get the headline from the first paint. The gate now also waits for `window.load` (still capped at 4 s).
+- Stall tolerance: `startWait` 1500 ms and `stallWait` 1200 ms (both were 400). On a real failure the finished still fades in over the stalled frame (550 ms Web Animation) before the film is dropped.
+- Verified by frame capture: a normal run shows the gate for about 1.2 s, then the film with the headline fading in. A forced mid-film pause shows the fade, not a cut. Tests: `npm run test` 297 checks, intro resilience 6/6, `test:explore` green.
+
+## ANTS! asset sets (2026-09-28)
+
+Four sets from the ANTS! place (92769540947878) replace the reserved "next set" card: Ant costumes (AS-40..45, all 18 costumes in threes), Ant castes (AS-50/51, the Opus worker/resource/ranged/warrior/tank only), Garden creatures (AS-55/56, the RecentCreatureProbes), and ANTS! maps (AS-60..64, interiors shot from inside the rooms: living room, kitchen, cafeteria, fast-food dining room, backyard). Stills were shot from clones on a temporary stage (`Workspace.PortfolioStage_ANTS`, deleted); maps with the camera only. Originals in `_media-source/ants-assets/`.
+
+- The procedural-leg video was dropped at JB's request. In the lobby the ant has no Role and ignored both a ControlModule override and `Humanoid:Move`.
+- Cleanup in Studio: the temp LocalScript `PortfolioLegs_TEMP` (it set the camera to Scriptable, which JB noticed in his own playtest) and the stage were deleted. The map route/nest parts hidden with `LocalTransparencyModifier` were restored (6721 parts).
+- Validation: build green (46 media references), `npm run test` 301 checks, `test:explore` green, intro resilience 6/6.

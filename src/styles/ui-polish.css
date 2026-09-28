@@ -34,10 +34,14 @@ body .about-facts li{align-items:center}
  body .about-strip .about-facts{order:2;margin-top:14px}
 }
 
-/* Homepage hero: the headline is up from the first paint and the intro film plays behind it,
-   so the loading brick (which sat on top of the headline) is no longer shown. */
+/* Homepage hero: the loading brick shows while the film, fonts and page load; the headline then
+   fades in as the film starts and stays up. Phones and reduced motion never load the film, so their
+   headline is up from the first paint. */
 html body .descent.motion-enabled .hero-copy,html.intro-boot body .descent .hero-copy{opacity:1;transform:translateX(-50%)}
-html.intro-boot body .intro-gate,html.intro-gating body .intro-gate{display:none}
+body .descent .hero-copy{transition:opacity .6s ease}
+@media(min-width:761px) and (prefers-reduced-motion:no-preference){
+ html.intro-boot body .descent .hero-copy,html.intro-gating body .descent.motion-enabled .hero-copy{opacity:0}
+}
 
 /* Phones: the wall between sections is two rows (first and last colour, so both joins still match)
    instead of four, which took about a third of the screen. */
@@ -54,3 +58,48 @@ body .project-section .project-evidence-footer .play-link{margin-left:auto}
 /* Project page feature list: each title starts level with its description. */
 body .feature-overview .technical-case{align-items:start}
 body .feature-overview .technical-case h3{margin-top:0}
+
+/* "Assets made" (the slot AniPal used to fill): the same sea-green world, then the asset sets. */
+body .assets-made{--ink:#ecf0dc;--muted:#d1e5df;--accent:#e0e9b1;color:var(--ink);padding:70px 0 90px;
+ background:linear-gradient(#145b77a6,#15596da1),url('/textures/water-plates.svg');background-color:#21647b;background-size:auto,260px 156px}
+body .assets-made .section-rule{display:flex;justify-content:space-between;border-bottom:1px solid #d1e5df55;padding-bottom:12px;margin-bottom:40px;color:var(--muted)}
+body .assets-made .eyebrow{color:var(--accent)}
+body .assets-heading{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:end;margin-bottom:46px}
+body .assets-heading h2{font-size:clamp(36px,5vw,58px);color:#fff9e6}
+body .assets-heading p:not(.eyebrow){font-size:15px;line-height:1.7;color:var(--muted)}
+body .assets-set-title{font-size:26px;color:#fff9e6;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-bottom:10px}
+body .assets-set-title .mono{font-size:10px;letter-spacing:.12em;color:var(--accent)}
+body .assets-set-summary{max-width:760px;font-size:14px;line-height:1.7;color:var(--muted);margin-bottom:24px}
+body .assets-reels{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+body .assets-reels>*,body .assets-page .media-grid>*{min-width:0}
+body .assets-made .media-frame{background:#d0dcc0;border-color:#9fb89a;color:#29382f}
+body .assets-made .media-frame figcaption{background:#dfe7d2;color:#34473b}
+body .assets-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+body .assets-card{display:flex;flex-direction:column;gap:6px;padding:10px 10px 16px;border-radius:7px;background:#d8e3c8;color:#23352d;border:1px solid #a9c2a3;box-shadow:0 5px 0 #0f3d4d55;transition:transform .2s,box-shadow .2s}
+body .assets-card img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:4px;margin-bottom:6px;background:#b9c9ad}
+body .assets-card .mono{font-size:9px;letter-spacing:.1em;color:#3f5a4c}
+body .assets-card strong{font-family:var(--display);font-size:19px;line-height:1.15}
+body .assets-card-link{margin-top:auto;padding-top:6px;font-size:12px;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+body a.assets-card:hover{transform:translateY(-4px);box-shadow:0 9px 0 #0f3d4d55}
+body .assets-card-reserved{background:transparent;border:2px dashed #d1e5df88;color:var(--muted);box-shadow:none;justify-content:center;align-items:flex-start;padding:22px 18px;min-height:160px}
+body .assets-card-reserved .mono{color:var(--accent)}
+body .assets-card-reserved strong{color:#fff9e6}
+body .assets-made .assets-all{margin-top:34px}
+@media(max-width:900px){body .assets-cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){
+ body .assets-made{padding:48px 0 60px}
+ body .assets-heading{grid-template-columns:1fr;gap:16px}
+ body .assets-reels{grid-template-columns:1fr}
+}
+@media(max-width:420px){body .assets-cards{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){body a.assets-card:hover{transform:none}}
+
+/* /assets/ page */
+body .assets-jump{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 10px}
+body .assets-jump a{padding:8px 14px;border-radius:5px;background:#e9dcc0;border:1px solid #a58c65;font-size:13px;font-weight:600}
+body .assets-set{padding-top:56px;scroll-margin-top:110px}
+body .assets-set-head{max-width:780px;margin-bottom:22px}
+body .assets-set-head .mono{font-size:10px;letter-spacing:.12em}
+body .assets-set-head h2{font-size:clamp(30px,4vw,42px);margin:8px 0 12px}
+body .assets-set-head p{font-size:15px;line-height:1.7}
+body .assets-set-head .assets-source{font-size:13px;opacity:.8;margin-top:6px}
