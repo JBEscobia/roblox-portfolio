@@ -71,12 +71,13 @@ if(section&&host){
   if(!reduced&&phase==='playing')frame=requestAnimationFrame(update);
  }
  function schedule(){if(!frame&&visible&&!document.hidden)frame=requestAnimationFrame(update);}
- // The intro plays by itself; any move to scroll skips straight to its end rather than holding the page.
- function skip(){if(phase!=='complete')complete();}
- function wheel(event:WheelEvent){if(event.ctrlKey||motion.matches)return;if(event.deltaY>0)skip();}
+ // The intro plays by itself and the page stays put until it ends. Escape and the
+ // "Skip introduction" link still end it early.
+ function holding(){return phase==='playing'||gateOpen;}
+ function wheel(event:WheelEvent){if(event.ctrlKey||motion.matches)return;if(holding())event.preventDefault();}
  function touchStart(event:TouchEvent){touchY=event.touches[0]?.clientY||0;}
- function touchMove(event:TouchEvent){if(motion.matches||event.touches.length!==1)return;if(touchY-(event.touches[0]?.clientY||0)>3)skip();}
- function key(event:KeyboardEvent){if(event.key==='Escape'){if(gateOpen){closeGate();complete();return;}if(phase==='playing'){complete();return;}}if((event.target as HTMLElement).closest('input,textarea,select,button,a'))return;const down=['ArrowDown','PageDown',' ','End'].includes(event.key);const navigation=['ArrowUp','PageUp','Home',...['ArrowDown','PageDown',' ','End']].includes(event.key);if(navigation||down)skip();}
+ function touchMove(event:TouchEvent){if(motion.matches||event.touches.length!==1)return;if(holding())event.preventDefault();}
+ function key(event:KeyboardEvent){if(event.key==='Escape'){if(gateOpen){closeGate();complete();return;}if(phase==='playing'){complete();return;}}if((event.target as HTMLElement).closest('input,textarea,select,button,a'))return;const down=['ArrowDown','PageDown',' ','End'].includes(event.key);const navigation=['ArrowUp','PageUp','Home',...['ArrowDown','PageDown',' ','End']].includes(event.key);if((navigation||down)&&holding())event.preventDefault();}
  function navigation(event:MouseEvent){if((event.target as HTMLElement).closest('a[href]'))complete();}
  function resize(){section!.style.setProperty('--header-height',`${document.querySelector('.site-header')?.getBoundingClientRect().height||98}px`);schedule();}
  function visibility(){lastTime=0;lastMediaAdvance=performance.now();if(document.hidden){clearTimeout(startTimer);film?.pause();}else if(useFilm&&phase==='playing'){startTimer=window.setTimeout(filmFailure,startWait);playFilm();}schedule();}
@@ -92,10 +93,10 @@ if(section&&host){
  function markFilm(){if(filmReady)return;filmReady=true;checkGate();}
  function markStill(){if(stillReady)return;stillReady=true;checkGate();}
  function markFonts(){if(fontsReady)return;fontsReady=true;checkGate();}
- // The gesture listeners only skip the intro. Once it is over they can never fire
- // usefully again, so they are released rather than left on every wheel tick.
+ // The gesture listeners are non-passive so they can hold the page during the intro.
+ // Once it is over they are released rather than left on every wheel tick.
  function releaseInput(){if(!inputBound)return;inputBound=false;window.removeEventListener('wheel',wheel);window.removeEventListener('touchstart',touchStart);window.removeEventListener('touchmove',touchMove);window.removeEventListener('keydown',key);document.removeEventListener('click',navigation);}
- window.addEventListener('wheel',wheel,{passive:true});window.addEventListener('touchstart',touchStart,{passive:true});window.addEventListener('touchmove',touchMove,{passive:true});window.addEventListener('keydown',key);document.addEventListener('click',navigation);inputBound=true;
+ window.addEventListener('wheel',wheel,{passive:false});window.addEventListener('touchstart',touchStart,{passive:true});window.addEventListener('touchmove',touchMove,{passive:false});window.addEventListener('keydown',key);document.addEventListener('click',navigation);inputBound=true;
  window.addEventListener('resize',resize);document.addEventListener('visibilitychange',visibility);motion.addEventListener('change',preference);host.addEventListener('wallfallback',schedule);
  if(useFilm&&film){
   host.dataset.renderMode='film';film.muted=true;

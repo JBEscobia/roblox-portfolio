@@ -303,3 +303,10 @@ JB approved: headline visible from the start, Play on Roblox for Gravity Dash on
 - Feature-list titles on project pages are top-aligned with their descriptions. "Explore X" links lost their ↗ (they are internal).
 
 Validation: build green (0 errors, 0 warnings), `npm run test` 250 checks incl. axe, `test:explore` green, intro resilience 6/6 modes, screenshots of hero at 200 ms / 2.6 s / 4.5 s, phone wall, features list.
+
+## Intro holds the page again; About facts (2026-09-28)
+
+- JB asked that nobody can scroll while the wall animation plays. The headline is still visible from the first paint and the film still plays by itself, but while the loading gate is up or the film is playing, wheel, touch and navigation keys are held (non-passive listeners in `descent.ts` and the early inline script in `Base.astro`). Escape and the "Skip introduction" link still end it early. Phones and reduced motion never load the film, so they are never held. The worst-case hold is about 4 s of gate plus 2.4 s of film. Tests: `test-site.mjs` asserts a wheel during the intro leaves scrollY at 0; intro resilience mode `skip` became `held`.
+- About facts panel is now three rows, as JB specified: `01` Developer — builds, UI and code; `02` Years of experience; `03` Games designed and built (`0{projects.length}`).
+
+Validation: build green, `npm run test` 251 checks, intro resilience 6/6, `test:explore` green, About panel checked at 1440 and 390.

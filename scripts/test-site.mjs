@@ -19,6 +19,8 @@ try{
   if(route==='/'){
    // The headline is up from the first paint and the intro plays by itself behind it.
    await expect.poll(()=>page.locator('.hero-copy').evaluate(e=>getComputedStyle(e).opacity)).toBe('1');assertions++;
+   await page.mouse.wheel(0,650);
+   assert.equal(await page.evaluate(()=>scrollY),0,'Scrolling during the intro must be held');assertions++;
    await expect(page.locator('.descent')).toHaveAttribute('data-animation-state','complete',{timeout:8000});
    assert.equal(await page.evaluate(()=>scrollY),0,'The intro must not advance the page by itself');assertions++;
    await page.screenshot({path:'artifacts/validated-intro.png'});
