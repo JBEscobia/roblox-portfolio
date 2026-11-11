@@ -26,7 +26,7 @@ body .evidence-notes p,body .authority-diagram>figcaption,body .contact-panel p{
 body .project-section{padding-top:28px}
 body .media-placeholder{width:100%;max-width:100%;grid-template-columns:minmax(0,1fr)}
 html{scrollbar-gutter:stable}
-html.intro-playing{overflow:hidden;overscroll-behavior:none;scroll-behavior:auto}
+html.intro-playing{scroll-behavior:auto}
 body .descent.motion-enabled{height:calc(100svh - var(--header-height,98px));overflow-anchor:none}
 body .descent.motion-enabled .hero{height:100%;min-height:0;position:relative}
 html.intro-boot body .descent{height:calc(100svh - 98px);overflow-anchor:none}

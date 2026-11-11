@@ -337,3 +337,33 @@ Four sets from the ANTS! place (92769540947878) replace the reserved "next set" 
 - The procedural-leg video was dropped at JB's request. In the lobby the ant has no Role and ignored both a ControlModule override and `Humanoid:Move`.
 - Cleanup in Studio: the temp LocalScript `PortfolioLegs_TEMP` (it set the camera to Scriptable, which JB noticed in his own playtest) and the stage were deleted. The map route/nest parts hidden with `LocalTransparencyModifier` were restored (6721 parts).
 - Validation: build green (46 media references), `npm run test` 301 checks, `test:explore` green, intro resilience 6/6.
+
+## Homepage cut to hero + previews (2026-11-11)
+
+JB felt the in-between sections were friction and wanted visitors to reach the game previews on the first scroll, with the opening line "contributed to 2 games, 50M+ plays".
+
+- Hero copy: eyebrow "FloppySide · Roblox developer", H1 "2 games. 50M+ plays.", line "I've contributed to two Roblox games with over 50 million plays between them.", button "See the work". The 50M figure is JB's own statement (not in EDITORIAL_EVIDENCE; it is not a project-JSON claim, so check-claims does not cover it). Homepage title/description updated to match.
+- Removed from the homepage: About strip (facts panel), "Selected projects" intro, the project shortcut-card row, the sea-green -> services wall and the Development services grid. /about/ and /services/ still exist and stay in the nav. `#projects` now sits on the projects list. The CSS for the removed blocks is left in place (unused on the homepage).
+- First preview: Gravity Dash's section went from y≈2058 to y≈1170 at 1440x900; the first scroll shows its heading and the top of its gameplay video. Page height 11025 -> 9102.
+- **The intro no longer holds the page** (reverses the 2026-09-28 hold). A wheel, swipe or navigation key during the loading gate or the film skips to the finished wall and the page scrolls normally on the same gesture. Listeners are passive in `descent.ts` and the early script in `Base.astro`; `html.intro-playing` no longer sets `overflow:hidden`. To restore the hold, revert those three spots.
+- Tests: `test-site.mjs` now asserts a wheel during the intro completes it and scrolls the page, and that the first project section starts within 1.6 viewports. `test-intro-resilience.mjs` mode `held` became `skip`.
+
+Validation: build green (0 errors), `npm run test` 296 checks incl. axe, `test:explore` green (on 4322), intro resilience 6/6, screenshots at 1440 and 390.
+
+### Correction, same day: whose games are whose
+
+JB: Gravity Dash and Time Tag are his two independently developed games; the 50M+ plays are from games he **contributed** to, ANTS! (92769540947878) among them. Hero is now "50M+ plays. 2 games of my own." with "I've contributed to Roblox games with over 50 million plays, and built two games independently."
+
+- New optional project fields `role` / `roleNote` (content.config.ts). ANTS! has `role: "Contributor"` plus a note; the homepage footer and project page fall back to `site.responsibility` ("Independently Developed") for the others.
+- ANTS! `playUrl` set to https://www.roblox.com/games/92769540947878/ANTS (Play on Roblox now shows on its homepage section and project page).
+- site.ts introduction/ownership/responsibilityNote, the default meta description and the footer line no longer say all three games were independent.
+
+Validation: build green, `npm run test` 296 checks, screenshots of hero and the ANTS! footer.
+
+### Headline changed again, same day
+
+JB dropped "50M+ plays. 2 games of my own." from the hero. Hero is now "Full-stack Roblox developer." with "Gameplay, systems, UI and builds: everything it takes to ship a game."; homepage title "Full-stack Roblox developer". The 50M / contributor wording stays on About, the meta description and the ANTS! Contributor note. Build green, `npm run test` 296 checks, screenshots at 1440 and 390.
+
+### All projects independent (same day)
+
+JB: everything in the portfolio is independently developed. ANTS! `role`/`roleNote` removed (it shows "Independently Developed" again; the optional schema fields stay, unused). site.ts copy, meta description and footer restored to the independent wording; no 50M / contributor text remains anywhere in src. ANTS! keeps its Play on Roblox link. Build green, `npm run test` 296 checks.

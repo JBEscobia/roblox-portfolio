@@ -22,14 +22,14 @@ const next=all.find(n=>n.id===p.next) ?? all[(all.findIndex(n=>n.id===project.id
         <div class="inner-title-row"><h1>{p.title}</h1>{p.status.evidence!=='status-confirmation-required'&&<span class="mono">{p.status.label}</span>}</div>
         <p class="lede">{p.premise}</p>
         <ul class="tags">{p.capabilities.map(c=><li>{c}</li>)}</ul>
-        <div class="project-meta"><span><i></i>{site.responsibility}</span><span>Implementation reviewed in code</span><span>Recorded in Roblox Studio</span></div>
+        <div class="project-meta"><span><i></i>{p.role??site.responsibility}</span><span>Implementation reviewed in code</span><span>Recorded in Roblox Studio</span></div>
         {p.playUrl&&<a class="button button-primary play-link" href={p.playUrl} target="_blank" rel="noopener">Play on Roblox <span aria-hidden="true">↗</span></a>}
       </div>
     </header>
     <div class="content-width">
       <nav class="case-jump-nav" aria-label="Project sections"><a href="#experience">Gameplay</a><a href="#features">Features</a><a href="#more-gameplay">More gameplay</a><a href="#engineering">Optional technical details</a></nav>
       <div id="experience" class="project-hero-grid">
-        <div><Media id={p.hero}/><p class="responsibility-caption">{site.responsibilityNote}</p></div>
+        <div><Media id={p.hero}/><p class="responsibility-caption">{p.roleNote??site.responsibilityNote}</p></div>
         <PlayExplode project={project} instance="case"/>
       </div>
       <section id="features">

@@ -9,7 +9,7 @@ export const site = {
   introduction: 'I enjoy making games. These three projects started as hobby ideas: I thought the mechanics would be fun, so I built them.',
   ownership: 'I made each game independently, from the builds and UI to the code that brings it all together.',
   responsibility: 'Independently Developed',
-  responsibilityNote: 'I made these hobby projects independently, including the builds, UI, gameplay, and supporting code. Libraries and adapted techniques are credited where relevant.',
+  responsibilityNote: 'I made these projects independently, including the builds, UI, gameplay, and supporting code. Libraries and adapted techniques are credited where relevant.',
 };
 // Projects kept out of the site for now. Remove an id to show that project again.
 export const HIDDEN_PROJECTS: string[] = ['anipal-archipelago'];

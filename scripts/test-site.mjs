@@ -7,6 +7,7 @@ const routes=['/','/projects/gravity-dash/','/projects/time-tag/','/projects/ant
 await mkdir('artifacts',{recursive:true});
 const browser=await chromium.launch({headless:true});
 const context=await browser.newContext({viewport:{width:1440,height:1000}});
+const innerHeightOf=p=>p.viewportSize().height;
 const page=await context.newPage();const errors=[],broken=[],a11y=[];let assertions=0;
 page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400&&new URL(r.url()).origin===new URL(base).origin)broken.push(`${r.status()} ${r.url()}`);});
 try{
@@ -19,11 +20,16 @@ try{
   if(route==='/'){
    // The headline is up from the first paint and the intro plays by itself behind it.
    await expect.poll(()=>page.locator('.hero-copy').evaluate(e=>getComputedStyle(e).opacity)).toBe('1');assertions++;
-   await page.mouse.wheel(0,650);
-   assert.equal(await page.evaluate(()=>scrollY),0,'Scrolling during the intro must be held');assertions++;
    await expect(page.locator('.descent')).toHaveAttribute('data-animation-state','complete',{timeout:8000});
    assert.equal(await page.evaluate(()=>scrollY),0,'The intro must not advance the page by itself');assertions++;
    await page.screenshot({path:'artifacts/validated-intro.png'});
+   // The intro never holds the page: a scroll while it plays skips it and the page moves on to the previews.
+   await page.reload({waitUntil:'domcontentloaded'});await page.mouse.move(700,400);await page.mouse.wheel(0,650);
+   await expect(page.locator('.descent')).toHaveAttribute('data-animation-state','complete',{timeout:3000});assertions++;
+   await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(0);assertions++;
+   await page.evaluate(()=>scrollTo(0,0));
+   // The first game preview starts within about one screen of the top.
+   assert((await page.locator('.project-section').first().evaluate(e=>e.getBoundingClientRect().top+scrollY))<innerHeightOf(page)*1.6,'The first preview must sit right under the hero');assertions++;
   }
   for(const root of await page.locator('[data-assembly]').all()){
    const technical=root.locator('[data-mode-button=explode]');await technical.click();await expect(technical).toHaveAttribute('aria-pressed','true');await expect(root.locator('.explode-copy')).toBeVisible();await expect(root.locator('.play-copy')).toBeHidden();
